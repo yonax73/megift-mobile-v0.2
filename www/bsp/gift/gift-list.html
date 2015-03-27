@@ -1,0 +1,881 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Gift Results Search</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/app.min.css" rel="stylesheet" />
+</head>
+
+<body class="i-ease-in i-1s i-fade-in flow-text">
+    <div class="navbar-fixed">
+        <nav class="deep-orange" role="navigation">
+            <div class="navbar-actions">
+                <div class="row">
+                    <div class="col s12">
+                        <ul>
+                            <li>
+                                <a href="search-gift.html" rel="external">
+                                    <i class="mdi-hardware-keyboard-backspace"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a id="title" href="#" class="truncate">
+                                    Lista de regalos
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="right">
+                            <li>
+                                <a href="#" onclick="openFilter()">
+                                    <i class="mdi-content-filter-list"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="$('#modal-views').openModal();">
+                                    <i class="mdi-navigation-more-vert"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <section class="container">
+        <div id="cover-gift" class="row"></div>
+    </section>
+    <!-- Modal filter -->
+    <div id="modal-filter" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>
+                <i class="mdi-content-filter-list prefix red-text">&nbsp;</i>
+                Filtrar por:
+            </h5>
+            <form id="gift-search-form">
+                <input name="latitude" type="hidden" value="0" />
+                <input name="longitude" type="hidden" value="0" />
+                <input name="id-login" type="hidden" value="0" />
+                <input name="type-view" type="hidden" value="0" />
+                <div class="row separator-gray-300">
+                    <div class="col s12">
+                        <label>Tipo de regalo</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <p>
+
+                            <input name="gift-type-id" value="0" type="radio" id="type-gift-all" checked="checked" />
+                            <label for="type-gift-all">Todos</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="15" type="radio" id="type-gift-food" />
+                            <label for="type-gift-food">Comida</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="16" type="radio" id="type-gift-clothing" />
+                            <label for="type-gift-clothing">Ropa</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="17" type="radio" id="type-gift-beauty" />
+                            <label for="type-gift-beauty">Belleza</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="18" type="radio" id="type-gift-spa" />
+                            <label for="type-gift-spa">SPA</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="19" type="radio" id="type-gift-travel" />
+                            <label for="type-gift-travel">Viajes</label>
+
+                        </p>
+                    </div>
+                    <div class="col s6">
+
+                        <p>
+
+                            <input name="gift-type-id" value="20" type="radio" id="type-gift-courses" />
+                            <label for="type-gift-courses">Cursos</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="21" type="radio" id="type-gift-consumer-bonds" />
+                            <label for="type-gift-consumer-bonds">Bonos</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="22" type="radio" id="type-gift-tickets-events" />
+                            <label for="type-gift-tickets-events">Boletas</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="23" type="radio" id="type-gift-technology" />
+                            <label for="type-gift-technology">Tecnología</label>
+
+                        </p>
+                        <p>
+
+                            <input name="gift-type-id" value="24" type="radio" id="type-gift-other" />
+                            <label for="type-gift-other">Otros</label>
+
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="preloader" class="progress hidden">
+            <div class="indeterminate"></div>
+        </div>
+        <div class="modal-footer">
+            <button id="submit-form" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-search-form')">Buscar</button>
+            <button id="cancel-form" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
+        </div>
+    </div>
+    <!-- Modal filtera action -->
+    <div id="modal-filter-action" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>
+                <i class="mdi-content-filter-list prefix red-text">&nbsp;</i>
+                Filtrar por:
+            </h5>
+            <form id="gift-search-form-action">
+                <input name="latitude" type="hidden" value="0" />
+                <input name="longitude" type="hidden" value="0" />
+                <input name="id-login" type="hidden" value="0" />
+                <input name="type-view" type="hidden" value="0" />
+                <div class="row separator-gray-300">
+                    <div class="col s12">
+                        <label>Tipo de acción</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <p>
+
+                            <input name="action-type-id" value="0" type="radio" id="type-action-all" checked="checked" />
+                            <label for="type-action-all">Todos</label>
+
+                        </p>
+                        <p>
+
+                            <input name="action-type-id" value="10" type="radio" id="type-action-product" />
+                            <label for="type-action-product">Disfrutar de un Producto</label>
+
+                        </p>
+                        <p>
+
+                            <input name="action-type-id" value="11" type="radio" id="type-action-event" />
+                            <label for="type-action-event">Asistir a un evento</label>
+
+                        </p>
+                        <p>
+
+                            <input name="action-type-id" value="12" type="radio" id="type-action-focus" />
+                            <label for="type-action-focus">Asistir a un focus group</label>
+
+                        </p>
+                        <p>
+
+                            <input name="action-type-id" value="13" type="radio" id="type-action-learn" />
+                            <label for="type-action-learn">Aprender</label>
+
+                        </p>
+                        <p>
+
+                            <input name="action-type-id" value="14" type="radio" id="type-action-other" />
+                            <label for="type-action-other">Otra</label>
+
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="preloader-action" class="progress hidden">
+            <div class="indeterminate"></div>
+        </div>
+        <div class="modal-footer">
+            <button id="submit-form-action" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-search-form-action')">Buscar</button>
+            <button id="cancel-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
+        </div>
+    </div>
+    <!-- Modal filter Businesses-->
+    <div id="modal-filter-business" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>
+                <i class="mdi-content-filter-list prefix red-text">&nbsp;</i>
+                Filtrar por:
+            </h5>
+            <form id="gift-search-form-business">
+                <input name="latitude" type="hidden" value="0" />
+                <input name="longitude" type="hidden" value="0" />
+                <input name="id-login" type="hidden" value="0" />
+                <input name="type-view" type="hidden" value="0" />
+                <div class="row separator-gray-300">
+                    <div class="col s12">
+                        <label>Tipo de empresa</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <p>
+
+                            <input name="business-type-id" value="0" type="radio" id="type-business-all" checked="checked" />
+                            <label for="type-business-all">Todas</label>
+
+                        </p>
+                        <p>
+
+                            <input name="business-type-id" value="5" type="radio" id="type-business-clothing" />
+                            <label for="type-business-clothing">Tienda de ropa</label>
+
+                        </p>
+                        <p>
+
+                            <input name="business-type-id" value="6" type="radio" id="type-business-spa" />
+                            <label for="type-business-spa">SPA</label>
+
+                        </p>
+                        <p>
+
+                            <input name="business-type-id" value="7" type="radio" id="type-business-gym" />
+                            <label for="type-business-gym">Gimnasio</label>
+
+                        </p>
+                        <p>
+
+                            <input name="business-type-id" value="8" type="radio" id="type-business-restaurant" />
+                            <label for="type-business-restaurant">Restaurante</label>
+
+                        </p>
+                        <p>
+
+                            <input name="business-type-id" value="9" type="radio" id="type-business-other" />
+                            <label for="type-business-other">Otro</label>
+
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="preloader-business" class="progress hidden">
+            <div class="indeterminate"></div>
+        </div>
+        <div class="modal-footer">
+            <button id="submit-form-business" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-search-form-business')">Buscar</button>
+            <button id="cancel-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
+        </div>
+    </div>
+    <!--modal views-->
+    <div id="modal-views" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>
+                <i class="mdi-action-visibility prefix red-text">&nbsp;</i>
+                Mostrar como:
+            </h5>
+            <div class="row separator-gray-300">
+                <div class="col s12">
+                    <label>Tipos de resultado</label>
+                </div>
+            </div>
+            <form id="gift-views-form">
+                <input name="latitude" type="hidden" value="0" />
+                <input name="longitude" type="hidden" value="0" />
+                <input name="id-login" type="hidden" value="0" />
+                <input name="gift-type-id" type="hidden" value="0" />
+                <input name="action-type-id" type="hidden" value="0" />
+                <input name="business-type-id" type="hidden" value="0" />
+                <div class="row">
+                    <div class="col s12">
+                        <p>
+
+                            <input name="type-view" value="29" type="radio" id="view-gifts" onclick="onchangeTypeView(this)" />
+                            <label for="view-gifts">Lista de regalos.</label>
+
+                        </p>
+                        <p>
+
+                            <input name="type-view" value="30" type="radio" id="view-actions" onclick="onchangeTypeView(this)" />
+                            <label for="view-actions">Acciones que dan regalos.</label>
+
+                        </p>
+                        <p>
+
+                            <input name="type-view" value="31" type="radio" id="view-pos" onclick="onchangeTypeView(this)" />
+                            <label for="view-pos">Empresas que dan regalos.</label>
+
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="preloader-modal-view" class="progress hidden">
+            <div class="indeterminate"></div>
+        </div>
+        <div class="modal-footer">
+            <button id="submit-form-type-view" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-views-form')">Buscar</button>
+            <button id="cancel-form-type-view" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
+        </div>
+    </div>
+    <!-- Modal error -->
+    <div id="modal-error" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Error!</h4>
+            <p><strong id="error-msg"></strong>. intentalo nuevamente!</p>
+            <p>Si el error persiste puedes contactarnos a <span class="red-500-text"><strong>soporte@megift.co</strong></span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+        </div>
+    </div>
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script>
+        var RESULTS_BY_GIFTS = 29;
+        var RESULTS_BY_ACTIONS = 30;
+        var RESULTS_BY_POS = 31;
+        var idLogin = window.localStorage.getItem('id-login');
+        var posList = JSON.parse(window.localStorage.getItem('POS-list'));
+        var host = window.localStorage.getItem('host');
+        var giftTypeId = 0;
+        var actionTypeId = 0;
+        var currentView = window.localStorage.getItem('current-view');
+        /*
+        * device onready
+        */
+        function onDeviceReady() {
+            init();
+        }
+        document.addEventListener('deviceready', onDeviceReady, false);
+        init();
+        //function init
+        function init() {
+            //load gifts
+            loadGifts();
+        }
+        /*
+        *load gifts
+        */
+        function loadGifts() {
+            var element = document.getElementById('cover-gift');
+            //clear element
+            element.innerHTML = '';
+            var n = posList.length;
+            var title = document.getElementById('title');
+            switch (parseInt(currentView)) {
+                case RESULTS_BY_GIFTS:
+                    //load setting
+                    document.getElementById('view-gifts').checked = true;
+                    title.textContent = 'Lista de regalos';
+                    //fill
+                    for (var i = 0; i < n; i++) {
+                        var pos = posList[i];
+                        createCardfGift(element, pos.giftList, pos.name, pos.distanceFormatted, pos.id);
+                    }
+                    break;
+                case RESULTS_BY_ACTIONS:
+                    //load settings
+                    document.getElementById('view-actions').checked = true;
+                    title.textContent = 'Lista de acciones';
+                    //fill
+                    for (var i = 0; i < n; i++) {
+                        var pos = posList[i];
+                        createCardAction(element, pos.giftList, pos.name, pos.distanceFormatted, pos.id);
+                    }
+                    break;
+                case RESULTS_BY_POS:
+                    //load settings
+                    document.getElementById('view-pos').checked = true;
+                    title.textContent = 'Lista de Empresas';
+                    //la lista de puntos de venta en esta caso es una lista de empresas
+                    var b = posList[i];
+                    createCardBusiness(element, posList);
+                    break;
+            }
+        }
+        /*
+        * open filter
+        */
+        function openFilter() {
+            switch (parseInt(currentView)) {
+                case RESULTS_BY_GIFTS:
+                    $('#modal-filter').openModal();
+                    break;
+                case RESULTS_BY_ACTIONS:
+                    $('#modal-filter-action').openModal();
+                    break;
+                case RESULTS_BY_POS:
+                    $('#modal-filter-business').openModal();
+                    break;
+            }
+        }
+        function onchangeTypeView(element) {
+            currentView = parseInt(element.value);
+            window.localStorage.setItem('current-view', currentView);
+        }
+        /*
+        *search gift
+        */
+        function giftSearch(form) {
+            $(form + ' input[name=latitude]').val(window.localStorage.getItem('latitude'));
+            $(form + ' input[name=longitude]').val(window.localStorage.getItem('longitude'));
+            $(form + ' input[name=id-login]').val(idLogin);
+            if (form !== '#gift-views-form') {
+                $(form + ' input[name=type-view]').val(currentView);
+            }
+            $.ajax({
+                type: 'POST',
+                url: host + '/searchGift',
+                data: $(form).serialize(),
+                beforeSend: function () {
+                    showPreloader();
+                    disabledFormControls();
+                },
+                success: function (response) {
+                    enabledFormControls();
+                    hiddenPreloader();
+                    try {
+                        posList = null;
+                        posList = JSON.parse(response);
+                        if (posList.length < 1) {
+                            toast('No hay regalos cerca a tu ubicación con este filtro', 8000, 'toast-danger');
+                        } else {
+                            window.localStorage.removeItem('POS-list');
+                            window.localStorage.setItem('POS-list', response);
+                            loadGifts();
+                        }
+                        $('#modal-filter').closeModal();
+                        $('#modal-views').closeModal();
+                        $('#modal-filter-action').closeModal();
+                        $('#modal-filter-business').closeModal();
+                    } catch (ex) {
+                        $('#modal-filter').closeModal();
+                        $('#modal-views').closeModal();
+                        $('#modal-filter-action').closeModal();
+                        $('#modal-filter-business').closeModal();
+                        toast(response, 8000, 'toast-danger');
+                    }
+                },
+                error: function (xhr) {
+                    $('#modal-filter').closeModal();
+                    $('#modal-views').closeModal();
+                    $('#modal-filter-action').closeModal();
+                    $('#modal-filter-business').closeModal();
+                    hiddenPreloader();
+                    enabledFormControls();
+                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    $('#modal-error').openModal();
+                }
+            });
+        }
+        /*
+        * Create Card gift
+        */
+        function createCardfGift(element, gift, pos_name, pos_distance, pos_id) {
+            //fill
+            var n = gift.length;
+            for (var i = 0; i < n; i++) {
+                var g = gift[i];
+                //col
+                var col = document.createElement('div');
+                col.classList.add('col');
+                col.classList.add('s12');
+                col.classList.add('m6');
+                //card small
+                var card_small = document.createElement('div');
+                card_small.classList.add('card');
+                card_small.classList.add('small');
+                //card img
+                var card_img = document.createElement('div');
+                card_img.classList.add('card-image');
+                card_img.dataset.posId = pos_id;
+                card_img.dataset.giftId = g.id;
+                //img gift
+                var img = document.createElement('img');
+                img.src = g.mainPicture ? g.mainPicture.dataURI : '../../public/images/gift132x150.png';
+                //card title
+                var card_title = document.createElement('span');
+                card_title.classList.add('card-title');
+                //card title text
+                var card_title_text = document.createTextNode(g.name);
+                //empty line
+                var br = document.createElement('br');
+                //sub title
+                var card_sub_title = document.createElement('small');
+                card_sub_title.classList.add('card-sibtitle');
+                //icon place
+                var icon_place = document.createElement('i');
+                icon_place.classList.add('mdi-maps-place');
+                //sub title text
+                var card_sub_title_text = document.createTextNode(pos_name);
+                //card content
+                var card_content = document.createElement('div');
+                card_content.classList.add('card-content');
+                //ul card content
+                var ul_card_content = document.createElement('ul');
+                //fil list ul
+                for (var j = 0; j < 3; j++) {
+                    var li = document.createElement('li');
+                    var icon = document.createElement('i');
+                    switch (j) {
+                        case 0:
+                            icon.classList.add('mdi-maps-local-atm');
+                            var del = document.createElement('del');
+                            var del_text = document.createTextNode(g.priceFormatted)
+                            var strong = document.createElement('strong');
+                            strong.classList.add('red-text');
+                            var strong_text = document.createTextNode('$ 0');
+                            strong.appendChild(strong_text);
+                            del.appendChild(del_text);
+                            li.appendChild(icon);
+                            li.appendChild(del);
+                            li.appendChild(strong);
+                            break;
+                        case 1:
+                            icon.classList.add('mdi-device-access-time');
+                            var span = document.createElement('span');
+                            span.appendChild(document.createTextNode(g.elapseTime));
+                            li.appendChild(icon);
+                            li.appendChild(span);
+                            break;
+                        case 2:
+                            icon.classList.add('mdi-maps-directions-car');
+                            var span = document.createElement('span');
+                            span.appendChild(document.createTextNode(pos_distance));
+                            li.appendChild(icon);
+                            li.appendChild(span);
+                            break;
+                    }
+                    ul_card_content.appendChild(li);
+                }
+                /*
+                *append elements
+                */
+                //sub title
+                card_sub_title.appendChild(icon_place);
+                card_sub_title.appendChild(card_sub_title_text);
+                //card title
+                card_title.appendChild(card_title_text);
+                card_title.appendChild(br);
+                card_title.appendChild(card_sub_title);
+                //card img
+                card_img.appendChild(img);
+                card_img.appendChild(card_title);
+                //card content
+                card_content.appendChild(ul_card_content);
+                //card small
+                card_small.appendChild(card_img);
+                card_small.appendChild(card_content);
+                //col
+                col.appendChild(card_small);
+                /*
+                * events
+                */
+                //card image
+                card_img.onclick = function () {
+                    window.localStorage.setItem('pos-id', this.dataset.posId);
+                    window.localStorage.setItem('gift-id', this.dataset.giftId);
+                    window.location = 'gift.html';
+                }
+                //element
+                element.appendChild(col);
+            }
+        }
+        /*
+        * Create Card action
+        */
+        function createCardAction(element, gift, pos_name, pos_distance, pos_id) {
+            //fill
+            var n = gift.length;
+            for (var i = 0; i < n; i++) {
+                var g = gift[i];
+                //col
+                var col = document.createElement('div');
+                col.classList.add('col');
+                col.classList.add('s12');
+                col.classList.add('m6');
+                //card small
+                var card_small = document.createElement('div');
+                card_small.classList.add('card');
+                card_small.classList.add('small');
+                //card img
+                var card_img = document.createElement('div');
+                card_img.classList.add('card-image');
+                card_img.dataset.posId = pos_id;
+                card_img.dataset.giftId = g.id;
+                //img gift
+                var img = document.createElement('img');
+                img.src = g.action.mainPicture ? g.action.mainPicture.dataURI : '../../public/images/action149x150.png';
+                //card title
+                var card_title = document.createElement('span');
+                card_title.classList.add('card-title');
+                //card title text
+                var card_title_text = document.createTextNode(g.action.name);
+                //empty line
+                var br = document.createElement('br');
+                //sub title
+                var card_sub_title = document.createElement('small');
+                card_sub_title.classList.add('card-sibtitle');
+                //icon place
+                var icon_place = document.createElement('i');
+                icon_place.classList.add('mdi-maps-place');
+                //sub title text
+                var card_sub_title_text = document.createTextNode(pos_name);
+                //card content
+                var card_content = document.createElement('div');
+                card_content.classList.add('card-content');
+                //ul card content
+                var ul_card_content = document.createElement('ul');
+                //fil list ul
+                for (var j = 0; j < 3; j++) {
+                    var li = document.createElement('li');
+                    var icon = document.createElement('i');
+                    switch (j) {
+                        case 0:
+                            icon.classList.add('mdi-maps-local-atm');
+                            var span = document.createElement('span');
+                            span.appendChild(document.createTextNode(g.action.priceFormatted));
+                            li.appendChild(icon);
+                            li.appendChild(span);
+                            break;
+                        case 1:
+                            icon.classList.add('mdi-device-access-time');
+                            var span = document.createElement('span');
+                            span.appendChild(document.createTextNode(g.elapseTime));
+                            li.appendChild(icon);
+                            li.appendChild(span);
+                            break;
+                        case 2:
+                            icon.classList.add('mdi-maps-directions-car');
+                            var span = document.createElement('span');
+                            span.appendChild(document.createTextNode(pos_distance));
+                            li.appendChild(icon);
+                            li.appendChild(span);
+                            break;
+                    }
+                    ul_card_content.appendChild(li);
+                }
+                /*
+                *append elements
+                */
+                //sub title
+                card_sub_title.appendChild(icon_place);
+                card_sub_title.appendChild(card_sub_title_text);
+                //card title
+                card_title.appendChild(card_title_text);
+                card_title.appendChild(br);
+                card_title.appendChild(card_sub_title);
+                //card img
+                card_img.appendChild(img);
+                card_img.appendChild(card_title);
+                //card content
+                card_content.appendChild(ul_card_content);
+                //card small
+                card_small.appendChild(card_img);
+                card_small.appendChild(card_content);
+                //col
+                col.appendChild(card_small);
+                /*
+                * events
+                */
+                //card image
+                card_img.onclick = function () {
+                    window.localStorage.setItem('pos-id', this.dataset.posId);
+                    window.localStorage.setItem('gift-id', this.dataset.giftId);
+                    window.location = 'gift.html';
+                }
+                //element
+                element.appendChild(col);
+            }
+        }
+        /*
+         * Create Card buiness
+         */
+        function createCardBusiness(element, businesses) {
+            //fill
+            var n = businesses.length;
+            for (var i = 0; i < n; i++) {
+                var b = businesses[i];
+                //col
+                var col = document.createElement('div');
+                col.classList.add('col');
+                col.classList.add('s12');
+                col.classList.add('m6');
+                //card small
+                var card_small = document.createElement('div');
+                card_small.classList.add('card');
+                card_small.classList.add('small');
+                //card img
+                var card_img = document.createElement('div');
+                card_img.classList.add('card-image');
+                card_img.dataset.businessId = b.id;
+                //img gift
+                var img = document.createElement('img');
+                img.src = b.mainPicture ? b.mainPicture.dataURI : '../../public/images/business280x280.png';
+                //card title
+                var card_title = document.createElement('span');
+                card_title.classList.add('card-title');
+                //card title text
+                var card_title_text = document.createTextNode(b.tradeName);
+                var card_content = document.createElement('div');
+                card_content.classList.add('card-content');
+                //ul card content
+                var ul_card_content = document.createElement('ul');
+                //fil list ul
+                for (var j = 0; j < 1; j++) {
+                    var li = document.createElement('li');
+                    var icon = document.createElement('i');
+                    switch (j) {
+                        case 0:
+                            icon.classList.add('mdi-action-wallet-giftcard');
+                            var span = document.createElement('span');
+                            span.appendChild(document.createTextNode(b.giftCount));
+                            li.appendChild(icon);
+                            li.appendChild(span);
+                            break;
+                    }
+                    ul_card_content.appendChild(li);
+                }
+                /*
+                *append elements
+                */
+                //card title
+                card_title.appendChild(card_title_text);
+                //card img
+                card_img.appendChild(img);
+                card_img.appendChild(card_title);
+                //card content
+                card_content.appendChild(ul_card_content);
+                //card small
+                card_small.appendChild(card_img);
+                card_small.appendChild(card_content);
+                //col
+                col.appendChild(card_small);
+                /*
+                * events
+                */
+                //card image
+                card_img.onclick = function () {
+                    window.localStorage.setItem('business-id', this.dataset.businessId);
+                    window.location = 'business.html';
+                }
+                //element
+                element.appendChild(col);
+            }
+        }
+        /*
+        * Mostrar preloader
+        */
+        function showPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (preloader.classList.contains('hidden')) {
+                preloader.classList.remove('hidden');
+            }
+            //preloader modal view
+            var preloader2 = document.getElementById('preloader-modal-view');
+            if (preloader2.classList.contains('hidden')) {
+                preloader2.classList.remove('hidden');
+            }
+            //preloader modal action
+            var preloader3 = document.getElementById('preloader-action');
+            if (preloader3.classList.contains('hidden')) {
+                preloader3.classList.remove('hidden');
+            }
+            //preloader modal business
+            var preloader4 = document.getElementById('preloader-business');
+            if (preloader4.classList.contains('hidden')) {
+                preloader4.classList.remove('hidden');
+            }
+        }
+        /*
+        * Esconder preloader
+        */
+        function hiddenPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (!preloader.classList.contains('hidden')) {
+                preloader.classList.add('hidden');
+            }
+            //preloader modal view
+            var preloader2 = document.getElementById('preloader-modal-view');
+            if (!preloader2.classList.contains('hidden')) {
+                preloader2.classList.add('hidden');
+            }
+            //preloader modal action
+            var preloader3 = document.getElementById('preloader-action');
+            if (!preloader3.classList.contains('hidden')) {
+                preloader3.classList.add('hidden');
+            }
+            //preloader modal business
+            var preloader4 = document.getElementById('preloader-business');
+            if (!preloader4.classList.contains('hidden')) {
+                preloader4.classList.add('hidden');
+            }
+        }
+        /*
+        * disbled Form Controls
+        */
+        function disabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            var cancelFormBtn = document.getElementById('cancel-form');
+            var submitFormBtn2 = document.getElementById('submit-form-type-view');
+            var cancelFormBtn2 = document.getElementById('cancel-form-type-view');
+            var submitFormBtn3 = document.getElementById('submit-form-action');
+            var cancelFormBtn3 = document.getElementById('cancel-form-action');
+            var submitFormBtn4 = document.getElementById('submit-form-business');
+            var cancelFormBtn4 = document.getElementById('cancel-form-business');
+            submitFormBtn.disabled = true;
+            cancelFormBtn.disabled = true;
+            submitFormBtn2.disabled = true;
+            cancelFormBtn2.disabled = true;
+            submitFormBtn3.disabled = true;
+            cancelFormBtn3.disabled = true;
+            submitFormBtn4.disabled = true;
+            cancelFormBtn4.disabled = true;
+        }
+        /*
+        * Enabled Form Controls
+        */
+        function enabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            var cancelFormBtn = document.getElementById('cancel-form');
+            var submitFormBtn2 = document.getElementById('submit-form-type-view');
+            var cancelFormBtn2 = document.getElementById('cancel-form-type-view');
+            var submitFormBtn3 = document.getElementById('submit-form-action');
+            var cancelFormBtn3 = document.getElementById('cancel-form-action');
+            var submitFormBtn4 = document.getElementById('submit-form-business');
+            var cancelFormBtn4 = document.getElementById('cancel-form-business');
+            submitFormBtn.disabled = false;
+            cancelFormBtn.disabled = false;
+            submitFormBtn2.disabled = false;
+            cancelFormBtn2.disabled = false;
+            submitFormBtn3.disabled = false;
+            cancelFormBtn3.disabled = false;
+            submitFormBtn4.disabled = false;
+            cancelFormBtn4.disabled = false;
+        }
+        /*
+        * Sign out
+        */
+        function singOut() {
+            window.localStorage.clear();
+            window.localStorage.setItem("user-is-register", 1);
+            window.location = '../../index.html';
+        }
+    </script>
+</body>
+</html>

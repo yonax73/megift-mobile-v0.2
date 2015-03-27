@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Gift Search</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/app.min.css" rel="stylesheet" />
+    <link href="../../public/pace/pace-theme-center-radar.min.css" rel="stylesheet" />
+</head>
+
+<body class="i-ease-in i-1s i-fade-in flow-text">
+    <nav class="deep-orange" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo brand-logo-s truncate">
+                Buscar Regalos
+            </a>
+            <ul id="nav-mobile" class="side-nav">
+                <li class="logo-nav-open deep-orange">
+                    <img src="../../public/images/logo-full-216x96.png" />
+                </li>
+                <li>
+                    <a href="../partner/partner.html" rel="external">
+                        <i class="mdi-social-person deep-orange-500-text left"></i>
+                        Mi Perfil
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="mdi-action-wallet-giftcard deep-orange-500-text left"></i>
+                        Buscar Regalos
+                    </a>
+                </li>
+                <li>
+                    <a href="../../social/inviteFriends.html">
+                        <i class="mdi-social-share deep-orange-500-text left"></i>
+                        Invitar amigos
+                    </a>
+                </li>
+                <li>
+                    <a href="../../sec/settings/settings.html" rel="external">
+                        <i class="mdi-action-settings deep-orange-500-text left"></i>
+                        Ajustes
+                    </a>
+                </li>
+                <li>
+                    <a href="../../sec/login/help.html" rel="external">
+                        <i class="mdi-communication-live-help deep-orange-500-text left"></i>
+                        Ayuda
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="singOut()">
+                        <i class="mdi-action-exit-to-app deep-orange-500-text left"></i>
+                        Cerrar Sesión
+                    </a>
+                </li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse">
+                <i class="mdi-navigation-menu"></i>
+            </a>
+        </div>
+    </nav>
+    <div id="preloader" class="progress-deep-orange progress hidden">
+        <div class="progress-deep-orange indeterminate"></div>
+    </div>
+    <div class="container m-top-1rem">
+        <div class="row">
+            <div class="col s12 content-gift-search center">
+                <form id="gift-search-form">
+                    <input name="latitude" type="hidden" value="0" />
+                    <input name="longitude" type="hidden" value="0" />
+                    <input name="id-login" type="hidden" value="0" />
+                    <input name="gift-type-id" type="hidden" value="0" />
+                    <input name="action-type-id" type="hidden" value="0" />
+                    <input name="business-type-id" type="hidden" value="0" />
+                    <input id="type-view" name="type-view" type="hidden" value="0" />
+                    <div class="col s12">
+                        <button id="gift-search-btn" type="submit" class="btn btn-gift-search waves-effect waves-circle z-depth-5 red i-ease-in i-2s i-bounce-in">
+                            <img src="../../public/images/gift128x145.png" alt="buscar regalo">
+                        </button>
+                    </div>
+                </form>
+                <strong id="git-search-msg" class="deep-orange-500-text">
+                    Tocame para buscar los regalos que tenemos para ti.
+                </strong>
+            </div>
+        </div>
+    </div>
+    <!-- Modal error -->
+    <div id="modal-error" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Error!</h4>
+            <p><strong id="error-msg"></strong>. intentalo nuevamente!</p>
+            <p>Si el error persiste puedes contactarnos a <span class="red-500-text"><strong>soporte@megift.co</strong></span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+        </div>
+    </div>
+    <!-- Modal BLOCK -->
+    <div id="modal-block" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>Hola!</h5>
+            <p>
+                Para poderte dar los mejores regalos y brindarte una mejor experiencia,
+                necesitamos que completes tú perfil de usuario.
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a href="../partner/partner-update.html" rel="external" class="btn waves-effect waves-green btn-flat modal-action">Aceptar</a>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="pace pace-active deep-orange">
+        <div class="pace-progress" data-progress="50" data-progress-text="50%">
+            <div class="pace-progress-inner">
+                <h1>50</h1>
+            </div>
+        </div>
+        <div class="pace-activity"></div>
+    </div>
+
+
+
+
+
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script src="../../public/pace/pace.min.js"></script>
+    <script>
+        var host = window.localStorage.getItem('host');
+        var idLogin = window.localStorage.getItem('id-login');
+        var successResponse = 'OK';
+        var giftSearchMsg = document.getElementById('git-search-msg');
+        var giftSearchBtn = document.getElementById('gift-search-btn');
+        /*
+        * device onready
+        */
+        function onDeviceReady() {
+            init();
+        }
+        document.addEventListener("deviceready", onDeviceReady, false);
+        init();
+        //function init
+        function init() {
+            // Initialize collapse button
+            $(".button-collapse").sideNav();
+            //load setting user
+            loadSearchSettings();
+        }
+        /*
+        * Search Gift
+        */
+        function giftSearch() {
+            giftSearchMsg.textContent = 'Buscando regalos...';
+            giftSearchBtn.disabled = true;
+            giftSearchBtn.classList.add('btn-gift-search-disabled');
+            giftSearchBtn.classList.remove('i-bounce-in');
+            giftSearchBtn.classList.remove('i-2s');
+            giftSearchBtn.classList.add('i-2s');
+            giftSearchBtn.classList.add('i-infinite');
+            giftSearchBtn.classList.add('i-pulse');
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        }
+        /*
+        /* onSuccess Geolocation
+        */
+        function onSuccess(position) {
+            var longitude = position.coords.longitude;
+            var latitude = position.coords.latitude;
+            document.getElementsByName('latitude')[0].value = latitude;
+            document.getElementsByName('longitude')[0].value = longitude;
+            document.getElementsByName('id-login')[0].value = idLogin;
+            document.getElementById('type-view').value = window.localStorage.getItem('current-view');
+            //clean local storage
+            window.localStorage.removeItem('POS-list');
+            window.localStorage.removeItem('latitude');
+            window.localStorage.removeItem('longitude');
+            $.ajax({
+                type: 'POST',
+                url: host + '/searchGift',
+                data: $('#gift-search-form').serialize(),
+                success: function (response) {
+                    giftSearchMsg.textContent = 'Tocame para buscar los regalos que tenemos para ti.';
+                    giftSearchBtn.disabled = false;
+                    giftSearchBtn.classList.remove('btn-gift-search-disabled');
+                    giftSearchBtn.classList.remove('i-2s');
+                    giftSearchBtn.classList.remove('i-infinite');
+                    giftSearchBtn.classList.remove('i-pulse');
+                    try {
+                        var posList = JSON.parse(response);
+                        if (posList.length < 1) {
+                            toast('No hay regalos cerca a tu ubicación', 8000, 'toast-danger');
+                        } else {
+                            window.localStorage.setItem('POS-list', response);
+                            window.localStorage.setItem('latitude', latitude);
+                            window.localStorage.setItem('longitude', longitude);
+                            window.location = 'gift-list.html';
+                        }
+                    } catch (ex) {
+                        toast(response, 8000, 'toast-danger');
+                    }
+                },
+                error: function (xhr) {
+                    hiddenPreloader();
+                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    $('#modal-error').openModal();
+                }
+            });
+        }
+        /*
+        /* onError Callback receives a PositionError object
+        */
+        function onError(error) {
+            giftSearchMsg.textContent = 'Tocame para buscar los regalos que tenemos para ti.';
+            giftSearchBtn.disabled = false;
+            toast('code: ' + error.code + '\n' + 'message: ' + error.message + '\n', 8000, 'toast-danger');
+        }
+        /*
+        * Submit form
+        */
+        $('#gift-search-form').submit(function (e) {
+            e.preventDefault();
+            //validar si el usuario tiene el search bloqueado
+            var isBlocked = window.localStorage.getItem('block-search');
+            if ((isBlocked !== 'undefined' || isBlocked !== undefined) && isBlocked < 1) {
+                giftSearch();
+            } else {
+                $('#modal-block').openModal();
+            }
+        });
+        /*
+         * load search settings
+         */
+        function loadSearchSettings() {
+            if (window.localStorage.getItem('current-view') == 'undefined' || !window.localStorage.getItem('current-view')) {
+                $.ajax({
+                    type: 'GET',
+                    url: host + '/loadSettings?id=' + idLogin,
+                    beforeSend: function () {
+                        showPreloader();
+                        giftSearchBtn.disabled = true;
+                    },
+                    success: function (response) {
+                        hiddenPreloader();
+                        giftSearchBtn.disabled = false;
+                        try {
+                            search_setting = JSON.parse(response);
+                            window.localStorage.setItem('current-view', search_setting.settings.searchSetting.id);
+                        } catch (ex) {
+                            toast(response, 8000, 'toast-danger');
+                        }
+                    },
+                    error: function (xhr) {
+                        hiddenPreloader();
+                        giftSearchBtn.disabled = false;
+                        document.getElementById('error-msg').textContent = xhr.responseText;
+                        $('#modal-error').openModal();
+                    }
+                });
+            }
+        }
+        /*
+        * Mostrar preloader
+        */
+        function showPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (preloader.classList.contains('hidden')) {
+                preloader.classList.remove('hidden');
+            }
+        }
+        /*
+        * Esconder preloader
+        */
+        function hiddenPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (!preloader.classList.contains('hidden')) {
+                preloader.classList.add('hidden');
+            }
+        }
+        /*
+        * Sign out
+        */
+        function singOut() {
+            window.localStorage.clear();
+            window.localStorage.setItem("user-is-register", 1);
+            window.location = '../../index.html';
+        }
+    </script>
+</body>
+
+</html>

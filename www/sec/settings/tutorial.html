@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Tutorial</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/app.min.css" rel="stylesheet" />
+</head>
+
+<body class="i-ease-in i-1s i-fade-in flow-text">
+    <div class="slider" id="tutorial">
+        <ul class="slides">
+            <li>
+                <img src="../../public/images/tutorial/step-1.png" alt="step-1" />
+            </li>
+            <li>
+                <img src="../../public/images/tutorial/step-2.png" alt="step-2" />
+            </li>
+            <li>
+                <img src="../../public/images/tutorial/step-3.png" alt="step-3" />
+
+            </li>
+        </ul>
+        <ul class="indicators tutorial">
+            <li>
+                <a href="../../bsp/gift/search-gift.html" rel="external">
+                    Omitir tutorial
+                </a>
+            </li>
+        </ul>
+    </div>
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script>
+        function onDeviceReady() {
+            init();
+        }
+        document.addEventListener("deviceready", onDeviceReady, false);
+        init();
+        //function init
+        function init() {
+            // Initialize collapse button
+            $('.slider').slider({ full_width: true });
+        }
+
+    </script>
+</body>
+
+</html>

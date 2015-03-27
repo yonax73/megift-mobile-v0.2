@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Login</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/app.min.css" rel="stylesheet" />
+</head>
+<body class="bg i-ease-in i-1s i-fade-in flow-text">
+    <div id="login-header" class="container container-fluid ">
+        <img class="image-center" src="../../public/images/logo-full-216x96.png" />
+    </div>
+    <div id="preloader" class="progress-deep-orange progress hidden">
+        <div class="progress-deep-orange indeterminate"></div>
+    </div>
+    <div class="container content-relative m-top-3rem">
+        <form id="login-form">
+            <div class="row">
+                <div class="col s11">
+                    <input id="email-login" type="text" class="input-flat validate" name="email-login" placeholder="Correo Electrónico">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s11">
+                    <input id="password-login" type="password" class="input-flat validate" name="password-login" placeholder="Contraseña">
+                </div>
+            </div>
+            <input type="hidden" name="business-type" value="3">
+            <div class="row">
+                <div class="col s11">
+                    <small>
+                        <input type="checkbox" id="save-user-data" checked="checked" />
+                        <label class="white-text" for="save-user-data">Recordar mis datos</label>
+                    </small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <button id="submit-form" class="btn btn-flat btn-fluid btn-large green darken-3 white-text">
+                        Iniciar sesión
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="m-top-1rem">
+        <div class="row">
+            <div class="col s12 m6">
+                <a href="signup.html" rel="external" class="btn btn-flat btn-fluid btn-large ">
+                    <strong class="white-text">Registrarse</strong>
+                </a>
+            </div>
+            <div class="col s12 m6">
+                <a href="recoverpassword.html" class="btn btn-flat btn-fluid btn-large">
+                    <small class="white-text">¿Olvidastes tu contraseña?</small>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Structure -->
+    <div id="modal-error" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Error!</h4>
+            <p><strong id="error-msg"></strong>. intentalo nuevamente!</p>
+            <p>Si el error persiste puedes contactarnos a <span class="red-500-text"><strong>soporte@megift.co</strong></span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+        </div>
+    </div>
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script src="../../public/js/inventor/BaseForm.min.js"></script>
+
+    <script>
+        var host = window.localStorage.getItem('host');
+        /*
+        * submit form
+        */
+        $("#login-form").submit(function (e) {
+            e.preventDefault();
+            var valid = new Array();
+            var result = false;
+            //valid email
+            var email = document.getElementById('email-login');
+            if (BaseForm.isEmail(email.value)) {
+                if (email.classList.contains('invalid')) {
+                    email.classList.remove('invalid');
+                    email.classList.add('valid');
+                }
+                result = true;
+            } else {
+                if (!email.classList.contains('invalid')) {
+                    email.classList.remove('valid');
+                    email.classList.add('invalid');
+                }
+                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                result = false;
+            }
+            valid.push(result ? 1 : 0);
+            //valid password
+            var password = document.getElementById('password-login');
+            if (!BaseForm.isEmpty(password.value)) {
+                if (password.classList.contains('invalid')) {
+                    password.classList.remove('invalid');
+                    password.classList.add('valid');
+                }
+                result = true;
+            } else {
+                if (!password.classList.contains('invalid')) {
+                    password.classList.remove('valid');
+                    password.classList.add('invalid');
+                }
+                toast('Ingrese su contraseña!', 8000, 'toast-danger');
+                result = false;
+            }
+            valid.push(result ? 1 : 0);
+            //check validations
+            var n = valid.length;
+            var isvalid = true;
+            var i = 0;
+            if (n > 0) {
+                do {
+                    isvalid = valid[i++] > 0;
+                } while (isvalid && i < n)
+            }
+            if (isvalid) {
+                //send form
+                $.ajax({
+                    type: 'POST',
+                    url: host + '/signIn',
+                    data: $("#login-form").serialize(),
+                    beforeSend: function () {
+                        showPreloader();
+                        disabledFormControls();
+                    },
+                    success: function (response) {
+                        hiddenPreloader();
+                        enabledFormControls();
+                        if (response > 0) {
+                            window.localStorage.setItem('id-login', response);
+                            window.location = '../../bsp/gift/search-gift.html';
+                        } else {
+                            toast(response, 8000, 'toast-danger');
+                        }
+                    },
+                    error: function (xhr) {
+                        hiddenPreloader();
+                        enabledFormControls();
+                        document.getElementById('error-msg').textContent = xhr.responseText;
+                        $('#modal-error').openModal();
+                    }
+                });
+            }
+        });
+
+        /*
+        * Mostrar preloader
+        */
+        function showPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (preloader.classList.contains('hidden')) {
+                preloader.classList.remove('hidden');
+            }
+        }
+        /*
+        * Esconder preloader
+        */
+        function hiddenPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (!preloader.classList.contains('hidden')) {
+                preloader.classList.add('hidden');
+            }
+        }
+        /*
+        * disbled Form Controls
+        */
+        function disabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            submitFormBtn.disabled = true;
+        }
+        /*
+        * Enabled Form Controls
+        */
+        function enabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            submitFormBtn.disabled = false;
+        }
+    </script>
+</body>
+</html>

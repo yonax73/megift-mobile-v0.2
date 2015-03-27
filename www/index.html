@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="public/css/app.min.css" rel="stylesheet" />
+</head>
+<body class="i-ease-in i-1s i-fade-in bg">
+    <section class="container">
+        <div class="row">
+            <div class="col s12">
+                <img class="logo-center z-depth-5" src="../www/public/images/logo-full-216x96.png">
+            </div>
+        </div>
+    </section>
+    <script src="intelxdk.js"></script>
+    <script src="cordova.js"></script>
+    <script src="xhr.js"></script>
+    <script>
+        var localHost = 'http://localhost:9000';
+        var productionHost = 'http://megift.co';
+        var sliHost = 'http://192.168.1.112:9000';
+        var homeHost = 'http://192.168.0.13:9000';
+        var host = productionHost;
+        function onDeviceReady() {
+            startApp();
+        }
+        startApp();
+        function startApp() {
+            window.localStorage.setItem('host', host);
+            var userId = window.localStorage.getItem('id-login');
+            var userIsRegister = window.localStorage.getItem("user-is-register");
+            if (userId != null && userId > 0) {
+                window.location = 'bsp/gift/search-gift.html';
+            } else if (userIsRegister != null && userIsRegister > 0) {
+                window.location = "sec/login/login.html";
+            } else {
+                window.location = "sec/login/signup.html";
+            }
+        }
+        document.addEventListener("deviceready", onDeviceReady, false);
+    </script>
+</body>
+</html>

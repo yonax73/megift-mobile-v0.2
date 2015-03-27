@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Sign up</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/app.min.css" rel="stylesheet" />
+</head>
+<body class="i-ease-in i-1s i-fade-in flow-text">
+
+    <nav class="deep-orange" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo brand-logo-s truncate">
+                Crea tú perfil de regalo
+            </a>
+            <ul id="nav-mobile" class="side-nav">
+                <li class="logo-nav-open deep-orange">
+                    <img src="../../public/images/logo-full-216x96.png" />
+                </li>
+                <li>
+                    <a href="login.html" rel="external">
+                        <i class="mdi-action-assignment-return deep-orange-500-text left"></i>
+                        Ingresar
+                    </a>
+                </li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse">
+                <i class="mdi-navigation-menu"></i>
+            </a>
+        </div>
+    </nav>
+    <div id="preloader" class="progress-deep-orange progress hidden">
+        <div class="progress-deep-orange indeterminate"></div>
+    </div>
+    <section class="container m-top-1rem">
+        <div class="row">
+            <div class="col s12">
+                <h5>¡Bienvenido!</h5>
+                <p>Por favor completa la siguiente información para crear tu perfil.</p>
+            </div>
+        </div>
+        <div class="row">
+            <form id="signup-form" class="col s11 m11">
+                <div class="row">
+                    <div class="col s12">                       
+                        <input id="name-partner" name="name-partner" type="text" class="input-flat validate" placeholder="Nombre Completo">                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">                        
+                        <input id="email-partner" name="email-partner" type="text" class="input-flat validate" placeholder="Correo Electrónico">                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">                       
+                        <input id="password-partner" name="password-partner" type="password" class="input-flat validate" placeholder="Contraseña">                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">                        
+                        <input id="password-partner-2" type="password" class="input-flat validate" placeholder="Confirmar Contraseña">                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <small>
+                            Al hacer clic en continuar aceptas las
+                            <a href="termsAndConditions.html" rel="external">condiciones</a>
+                            y que has le&iacute;do las
+                            <a href="privacyPolicy.html" rel="external">pol&iacute;ticas de privacidad</a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <button id="submit-form" class="btn btn-flat btn-fluid btn-large green darken-3 white-text" type="submit">
+                            Continuar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- Modal error -->
+    <div id="modal-error" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Error!</h4>
+            <p><strong id="error-msg"></strong>. intentalo nuevamente!</p>
+            <p>Si el error persiste puedes contactarnos a <span class="red-500-text"><strong>soporte@megift.co</strong></span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+        </div>
+    </div>
+    <!-- Modal success -->
+    <div id="modal-success" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h3>Bienvenido</h3>
+            <h4>Tu cuenta ha sido creada con éxito</h4>
+        </div>
+        <div class="modal-footer">
+            <a href="../../social/sendInvitationsControl.html" rel="external" class="btn waves-effect waves-green btn-flat modal-action">Aceptar</a>
+        </div>
+    </div>
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script src="../../public/js/inventor/BaseForm.min.js"></script>
+
+    <script>
+        var host = window.localStorage.getItem('host');
+        function onDeviceReady() {
+            init();
+        }
+        document.addEventListener("deviceready", onDeviceReady, false);
+        init();
+        //function init
+        function init() {
+            // Initialize collapse button
+            $(".button-collapse").sideNav();
+        }
+        /*
+        * submit form
+        */
+        $("#signup-form").submit(function (e) {
+            e.preventDefault();
+            var valid = new Array();
+            var result = false;
+            //valid name
+            var name = document.getElementById('name-partner');
+            if (BaseForm.isFullName(name.value)) {
+                if (name.classList.contains('invalid')) {
+                    name.classList.remove('invalid');
+                    name.classList.add('valid');
+                }
+                result = true;
+            } else {
+                if (!name.classList.contains('invalid')) {
+                    name.classList.remove('valid');
+                    name.classList.add('invalid');
+                }
+                toast('Ingrese un nombre válido!', 8000, 'toast-danger');
+                result = false;
+            }
+            valid.push(result ? 1 : 0);
+            //valid email
+            var email = document.getElementById('email-partner');
+            if (BaseForm.isEmail(email.value)) {
+                if (email.classList.contains('invalid')) {
+                    email.classList.remove('invalid');
+                }
+                result = true;
+            } else {
+                if (!email.classList.contains('invalid')) {
+                    email.classList.remove('valid');
+                    email.classList.add('invalid');
+                }
+                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                result = false;
+            }
+            valid.push(result ? 1 : 0);
+            //valid password
+            var password = document.getElementById('password-partner');
+            if (!BaseForm.isEmpty(password.value)) {
+                if (password.classList.contains('invalid')) {
+                    password.classList.remove('invalid');
+                    password.classList.add('valid');
+                }
+                result = true;
+            } else {
+                if (!password.classList.contains('invalid')) {
+                    password.classList.remove('valid');
+                    password.classList.add('invalid');
+                }
+                toast('Ingrese contraseña!', 8000, 'toast-danger');
+                result = false;
+            }
+            valid.push(result ? 1 : 0);
+            //valid password confirm required
+            var password2 = document.getElementById('password-partner-2');
+            if (!BaseForm.isEmpty(password2.value)) {
+                if (password2.classList.contains('invalid')) {
+                    password2.classList.remove('invalid');
+                    password2.classList.add('valid');
+                }
+                result = true;
+            } else {
+                if (!password2.classList.contains('invalid')) {
+                    password2.classList.remove('valid');
+                    password2.classList.add('invalid');
+                }
+                toast('Confirme contraseña!', 8000, 'toast-danger');
+                result = false;
+            }
+            //valid password equals
+            if (!BaseForm.isEmpty(password2.value)) {
+                if (password2.classList.contains('invalid')) {
+                    password2.classList.remove('invalid');
+                    password2.classList.add('valid');
+                }
+                result = true;
+            } else {
+                if (!password2.classList.contains('invalid')) {
+                    password2.classList.remove('valid');
+                    password2.classList.add('invalid');
+                }
+                toast('Confirme contraseña!', 8000, 'toast-danger');
+                result = false;
+            }
+            //validar que las dos contraseñas sean iguales
+            if (BaseForm.isEqualsTo(password.value, password2.value)) {
+                if (password2.classList.contains('invalid')) {
+                    password2.classList.remove('invalid');
+                    password2.classList.add('valid');
+                }
+                result = true;
+            } else {
+                if (!password2.classList.contains('invalid')) {
+                    password2.classList.remove('valid');
+                    password2.classList.add('invalid');
+                }
+                toast('La contraseña no coincide!', 8000, 'toast-danger');
+                result = false;
+            }
+            valid.push(result ? 1 : 0);
+            //check validations
+            var n = valid.length;
+            var isvalid = true;
+            var i = 0;
+            if (n > 0) {
+                do {
+                    isvalid = valid[i++] > 0;
+                } while (isvalid && i < n)
+            }
+            if (isvalid) {
+                //send form
+                $.ajax({
+                    type: 'POST',
+                    url: host + '/createAccount',
+                    data: $('#signup-form').serialize(),
+                    beforeSend: function () {
+                        showPreloader();
+                        disabledFormControls();
+                    },
+                    success: function (response) {
+                        hiddenPreloader();
+                        enabledFormControls();
+                        if (response > 0) {
+                            window.localStorage.setItem('id-login', response);                           
+                            window.localStorage.setItem('show-menu', false);
+                            window.localStorage.setItem('block-search', 1);
+                            window.localStorage.setItem('block-gift', 1);
+                            $('#modal-success').openModal();
+                        } else {
+                            toast(response, 8000, 'toast-danger');
+                        }
+                    },
+                    error: function (xhr) {
+                        hiddenPreloader();
+                        enabledFormControls();
+                        document.getElementById('error-msg').textContent = xhr.responseText;
+                        $('#modal-error').openModal();
+                    }
+                });
+            }
+        });
+
+        /*
+        * Mostrar preloader
+        */
+        function showPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (preloader.classList.contains('hidden')) {
+                preloader.classList.remove('hidden');
+            }
+        }
+        /*
+        * Esconder preloader
+        */
+        function hiddenPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (!preloader.classList.contains('hidden')) {
+                preloader.classList.add('hidden');
+            }
+        }
+        /*
+        * disbled Form Controls
+        */
+        function disabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            submitFormBtn.disabled = true;
+        }
+        /*
+        * Enabled Form Controls
+        */
+        function enabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            submitFormBtn.disabled = false;
+        }
+    </script>
+</body>
+</html>

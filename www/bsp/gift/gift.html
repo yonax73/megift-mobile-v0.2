@@ -1,0 +1,600 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Detail Gift</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/app.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+</head>
+
+<body class="i-ease-in i-1s i-fade-in flow-text">
+    <div class="navbar-fixed">
+        <nav class="deep-orange" role="navigation">
+            <div class="nav-wrapper container">
+                <a href="#" class="brand-logo brand-logo-s truncate">
+                    Detalles del Regalo
+                </a>
+                <a href="gift-list.html" rel="external" data-activates="nav-mobile" class="button-collapse">
+                    <i class="mdi-hardware-keyboard-backspace"></i>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <div class="container container-fluid m-top-1rem">
+        <img class="image-fluid" id="gift-picture" src="../../public/images/preloader.gif" />
+        <div class="front-content transparent-bg">
+            <p id="gift-name">
+                <span class="progress">
+                    <span class="indeterminate"></span>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="content-description">
+        <div class="row">
+            <div class="col s2">
+                <i class="mdi-action-wallet-giftcard">&nbsp;</i>
+            </div>
+            <div class="text-description col s10">
+                <p id="type-gift">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+                <label class="grey-text ">
+                    Tipo de regalo
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2">
+                <i class="mdi-maps-local-atm">&nbsp;</i>
+            </div>
+
+            <div class="text-description col s10">
+                <s id="gift-price">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </s>
+                <span class="red-text">&nbsp;$0</span>
+                <label class="grey-text">
+                    Precio del regalo
+                </label>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col s2">
+                <i class="mdi-device-access-time">&nbsp;</i>
+            </div>
+            <div class="text-description col s10">
+                <p id="gift-time">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+                <label class="grey-text">
+                    Vigencia del regalo
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2">
+                <i class="mdi-action-description">&nbsp;</i>
+            </div>
+            <div class="text-description col s10">
+                <p id="gift-description" class="text-justify">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+                <label class="grey-text">
+                    Descripción del regalo
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="content-description deep-orange">
+        <h5 class="white-text">
+            ¿Que debes hacer para
+            disfrutar tu regalo?
+        </h5>
+    </div>
+    <div id="invite-friend-content-2" class="hidden">
+        <div id="preloader" class="progress-deep-orange progress hidden">
+            <div class="progress-deep-orange indeterminate"></div>
+        </div>
+        <div class="content-description">
+            <h5 class="separator-gray-300">
+              Cuentale a dos amigos
+            </h5>
+        </div>
+        <div class="row">
+            <form id="invite-friends-form" class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="mdi-communication-email prefix"></i>
+                        <input id="email-friend-1" name="email-friend-1" type="text" class="validate">
+                        <label for="email-friend-1">Correo Electrónico</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="mdi-communication-email prefix"></i>
+                        <input id="email-friend-2" name="email-friend-2" type="text" class="validate">
+                        <label for="email-friend-2">Correo Electrónico</label>
+                    </div>
+                </div>
+                <input type="hidden" name="name-partner" id="name-partner" />
+                <input type="hidden" name="email-partner" id="email-partner" />
+                <div class="row">
+                    <div class="col s12">
+                        <button id="submit-form" class="btn waves-effect waves-light btn-large btn-fluid" type="submit">
+                            Invitar<i class="mdi-content-send right"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="data-gift-content">
+        <div class="content-description">
+            <p id="action-name" class="separator-gray-300">
+                <span class="progress">
+                    <span class="indeterminate"></span>
+                </span>
+            </p>
+        </div>
+        <div class="container container-fluid" style="top:-1px">
+            <img class="image-fluid" id="action-picture" src="../../public/images/preloader.gif" />
+        </div>
+        <div class="content-description">
+            <div class="row">
+                <div class="col s2">
+                    <i class="mdi-action-loyalty">&nbsp;</i>
+                </div>
+                <div class="text-description col s10">
+                    <p id="action-price">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="grey-text">
+                        precio
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s2">
+                    <i class="mdi-action-description">&nbsp;</i>
+                </div>
+                <div class="text-description col s10">
+                    <p id="action-description" class="text-justify">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="grey-text">
+                        descripción
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2">
+                    <i class="mdi-action-assignment-turned-in">&nbsp;</i>
+                </div>
+                <div class="text-description col s10">
+                    <p id="terms-conditions-gift" class="text-justify">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="gray-text">
+                        terminos y condiciones
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="content-description deep-orange">
+            <p class="white-text">
+                datos de contacto
+            </p>
+        </div>
+        <div class="content-description">
+            <div class="row">
+                <div class="col s2">
+                    <i class="mdi-action-shopping-cart">&nbsp;</i>
+                </div>
+                <div class="text-description col s10">
+                    <p id="business-name">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="grey-text">
+                        empresa
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2">
+                    <i class="mdi-communication-phone">&nbsp;</i>
+                </div>
+                <div class="text-description col s10">
+                    <p id="pos-mb-phone">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="grey-text">
+                        teléfono móvil
+                    </label>
+                    <p id="pos-phone" class="span">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="grey-text">
+                        teléfono fijo
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2">
+                    <i class="mdi-communication-email">&nbsp;</i>
+                </div>
+                <div class="text-description col s10">
+                    <p id="pos-email-contact">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="grey-text">
+                        correo electrónico
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2">
+                    <i class="mdi-maps-directions-car">&nbsp;</i>
+                </div>
+                <div class="text-description col s10">
+                    <p id="pos-distance">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="grey-text">
+                        distancia al punto de venta
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2">
+                    <i class="mdi-maps-place">&nbsp;</i>
+                </div>
+                <div class="text-description col s10">
+                    <p id="pos-address">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </p>
+                    <label class="grey-text">
+                        dirección
+                    </label>
+                </div>
+            </div>
+            <div id="map" class="map">
+                <span class="progress">
+                    <span class="indeterminate"></span>
+                </span>
+            </div>
+            <a href="business.html" rel="external">
+                <i class="mdi-action-wallet-giftcard">&nbsp;</i>
+                <span>
+                    otros regalos de
+                    <span id="business-name-2">
+                        <span class="progress">
+                            <span class="indeterminate"></span>
+                        </span>
+                    </span>
+                </span>
+            </a>
+        </div>
+        <div class="content-description deep-orange">
+            <h6 class="white-text">
+                comparte este regalo con tus amigos
+            </h6>
+        </div>
+        <div class="content-description">
+            <div class="row">
+                <div class="col s6">
+                    <button class="btn waves-effect waves-teal  btn-large  fb-bg">
+                        facebook
+                        <i class="mdi-social-share"></i>
+                    </button>
+                </div>
+                <div class="col s6">
+                    <button class="btn waves-effect waves-teal  btn-large  tw-bg">
+                        twitter
+                        <i class="mdi-social-share"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal error -->
+    <div id="modal-error" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Error!</h4>
+            <p><strong id="error-msg"></strong>. intentalo nuevamente!</p>
+            <p>Si el error persiste puedes contactarnos a <span class="red-500-text"><strong>soporte@megift.co</strong></span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+        </div>
+    </div>
+    <!-- Modal success -->
+    <div id="modal-success" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <p>
+                El mensaje ha sido enviado.<br /><br />
+                Gracias por darnos la oportunidad de hacer a tus amigos felices.
+            </p>
+            <h5>¡En hora buena! ¡ya puedes ver como recibir el regalo.!</h5>
+        </div>
+        <div class="modal-footer">
+            <a href="gift.html" class="btn waves-effect waves-green btn-flat modal-action">Recibir regalo</a>
+        </div>
+    </div>
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script src="../../public/js/inventor/BaseForm.min.js"></script>
+    <script>
+        var idLogin = window.localStorage.getItem('id-login');
+        var host = window.localStorage.getItem('host');
+        var posId = window.localStorage.getItem('pos-id');
+        var giftId = window.localStorage.getItem('gift-id');
+        var userLat = window.localStorage.getItem('latitude');
+        var userLng = window.localStorage.getItem('longitude');
+        var successResponse = 'OK';
+        var latitude = null;
+        var longitude = null;
+        var tradeName = null;
+        /*
+        * device onready
+        */
+        function onDeviceReady() {
+            init();
+        }
+        document.addEventListener('deviceready', onDeviceReady, false);
+        init();
+        //function init
+        function init() {
+            //validar si el regalo esta bloquead
+            giftBlock();
+            //loas gift
+            loadGift();
+        }
+        /*
+        * load gift
+        */
+        function loadGift() {
+            $.ajax({
+                type: 'GET',
+                url: host + '/loadGiftForMobile?idPOS=' + posId + '&idGift=' + giftId + '&lat=' + userLat + '&lng=' + userLng,
+                success: function (response) {
+                    try {
+                        var business = JSON.parse(response);
+                        var pos = business.pos;
+                        var gift = pos.gift;
+                        var action = gift.action;
+                        latitude = pos.location.address.geolocation.latitude;
+                        longitude = pos.location.address.geolocation.longitude;
+                        tradeName = business.tradeName;
+                        window.localStorage.setItem('business-id', business.id);
+                        document.getElementById('gift-name').textContent = gift.name;
+                        var n = gift.pictures.length;
+                        var i = 0;
+                        var found = false;
+                        var src = null;
+                        if (n > 0) {
+                            do {
+                                var pic = gift.pictures[i];
+                                found = pic.main;
+                                if (found) {
+                                    src = pic.dataURI;
+                                }
+                                i++;
+                            } while (!found && i < n);
+                        }
+                        if (found) {
+                            document.getElementById('gift-picture').src = src;
+                        }
+                        if (gift.type.id === 24) {//other type
+                            document.getElementById('type-gift').textContent = gift.otheType;
+                        } else {
+                            document.getElementById('type-gift').textContent = gift.type.value1;
+                        }
+                        document.getElementById('gift-price').textContent = gift.priceFormatted;
+                        document.getElementById('gift-time').textContent = gift.elapseTime;
+                        document.getElementById('gift-description').textContent = gift.description;
+                        document.getElementById('action-name').textContent = action.name;
+                        n = action.pictures.length;
+                        i = 0;
+                        found = false;
+                        src = '../../public/images/action149x150.png';
+                        if (n > 0) {
+                            do {
+                                var pic = action.pictures[i];
+                                found = pic.main;
+                                if (found) {
+                                    src = pic.dataURI;
+                                }
+                                i++;
+                            } while (!found && i < n);
+                        }
+                        document.getElementById('action-picture').src = src;
+                        document.getElementById('action-price').textContent = action.priceFormatted;
+                        document.getElementById('action-description').textContent = action.description;
+                        document.getElementById('terms-conditions-gift').textContent = gift.termsConditions;
+                        document.getElementById('business-name').textContent = tradeName;
+                        document.getElementById('pos-mb-phone').textContent = pos.location.phone.mobile;
+                        document.getElementById('pos-phone').textContent = pos.location.phone.number;
+                        document.getElementById('pos-email-contact').textContent = business.contact.login.email;
+                        document.getElementById('pos-distance').textContent = pos.distanceFormatted;
+                        document.getElementById('pos-address').textContent = pos.location.address.address;
+                        document.getElementById('business-name-2').textContent = tradeName;
+                        initializeMap();
+                    } catch (ex) {
+                        toast(response, 8000, 'toast-danger');
+                    }
+                },
+                error: function (xhr) {
+                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    $('#modal-error').openModal();
+                }
+            });
+        }
+
+        //init map
+        function initializeMap() {
+            var latlng = new google.maps.LatLng(latitude, longitude);
+            var myOptions = {
+                zoom: 16,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true
+            };
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+            // To add the marker to the map, use the 'map' property
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: tradeName,
+                icon: '../../public/images/gift-shop64.png'
+            });
+        }
+        /*
+        * gift block
+        */
+        function giftBlock() {           
+            var isBlocked = window.localStorage.getItem('block-gift');
+            if ((isBlocked !== 'undefined' || isBlocked !== undefined) && isBlocked > 0) {
+                document.getElementById('invite-friend-content-2').classList.remove('hidden');
+                document.getElementById('data-gift-content').classList.add('hidden');
+            }
+        }
+        /*
+          * submit form invite friends
+          */
+        $('#invite-friends-form').submit(function (e) {
+            e.preventDefault();
+            var result1 = false;
+            //valid email friend 1
+            var friend1 = document.getElementById('email-friend-1');
+            if (BaseForm.isEmail(friend1.value)) {
+                if (friend1.classList.contains('invalid')) {
+                    friend1.classList.remove('invalid');
+                    friend1.classList.add('valid');
+                }
+                result1 = true;
+            } else {
+                if (!friend1.classList.contains('invalid')) {
+                    friend1.classList.remove('valid');
+                    friend1.classList.add('invalid');
+                }
+                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                result1 = false;
+            }
+            //valid email friend 2
+            var result2 = false;
+            var friend2 = document.getElementById('email-friend-2');
+            if (BaseForm.isEmail(friend1.value)) {
+                if (friend2.classList.contains('invalid')) {
+                    friend2.classList.remove('invalid');
+                    friend2.classList.add('valid');
+                }
+                result2 = true;
+            } else {
+                if (!friend2.classList.contains('invalid')) {
+                    friend2.classList.remove('valid');
+                    friend2.classList.add('invalid');
+                }
+                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                result2 = false;
+            }
+            if (result1 || result2) {
+                //send form
+                $.ajax({
+                    type: 'POST',
+                    url: host + '/inviteFriends',
+                    data: $('#invite-friends-form').serialize(),
+                    beforeSend: function () {
+                        showPreloader();
+                        disabledFormControls();
+                    },
+                    success: function (response) {
+                        enabledFormControls();
+                        hiddenPreloader();
+                        enabledFormControls();
+                        if (response === successResponse) {
+                            //desbloquear regalo
+                            window.localStorage.setItem('block-gift',0);
+                            $('#modal-success').openModal();
+                        } else {
+                            toast(response, 8000, 'toast-danger');
+                        }
+                    },
+                    error: function (xhr) {
+                        hiddenPreloader();
+                        enabledFormControls();
+                        document.getElementById('error-msg').textContent = xhr.responseText;
+                        $('#modal-error').openModal();
+                    }
+                });
+            }
+        });
+        /*
+      * Mostrar preloader
+      */
+        function showPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (preloader.classList.contains('hidden')) {
+                preloader.classList.remove('hidden');
+            }
+        }
+        /*
+        * Esconder preloader
+        */
+        function hiddenPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (!preloader.classList.contains('hidden')) {
+                preloader.classList.add('hidden');
+            }
+        }
+        /*
+        * disbled Form Controls
+        */
+        function disabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            submitFormBtn.disabled = true;
+        }
+        /*
+        * Enabled Form Controls
+        */
+        function enabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            submitFormBtn.disabled = false;
+        }
+    </script>
+</body>
+
+</html>
+

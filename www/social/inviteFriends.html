@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Invite friends</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../public/css/app.min.css" rel="stylesheet" />
+
+</head>
+<body class="i-ease-in i-1s i-fade-in flow-text">
+    <nav class="deep-orange" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo brand-logo-s">
+                Invitar amigos
+            </a>
+            <ul id="nav-mobile" class="side-nav">
+                <li class="logo-nav-open deep-orange">
+                    <img src="../public/images/logo-full-216x96.png" />
+                </li>
+                <li>
+                    <a href="../bsp/partner/partner.html" rel="external">
+                        <i class="mdi-social-person deep-orange-500-text left"></i>
+                        Mi Perfil
+                    </a>
+                </li>
+                <li>
+                    <a href="../bsp/gift/search-gift.html" rel="external">
+                        <i class="mdi-action-wallet-giftcard deep-orange-500-text left"></i>
+                        Buscar Regalos
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="mdi-social-share deep-orange-500-text left"></i>
+                        Invitar amigos
+                    </a>
+                </li>
+                <li>
+                    <a href="../sec/settings/settings.html" rel="external">
+                        <i class="mdi-action-settings deep-orange-500-text left"></i>
+                        Ajustes
+                    </a>
+                </li>
+                <li>
+                    <a href="../sec/login/help.html" rel="external">
+                        <i class="mdi-communication-live-help deep-orange-500-text left"></i>
+                        Ayuda
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="singOut()">
+                        <i class="mdi-action-exit-to-app deep-orange-500-text left"></i>
+                        Cerrar Sesión
+                    </a>
+                </li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse">
+                <i class="mdi-navigation-menu"></i>
+            </a>
+        </div>
+    </nav>
+
+    <div id="preloader" class="progress-deep-orange progress hidden">
+        <div class="progress-deep-orange indeterminate"></div>
+    </div>
+    <section class="container">
+        <div class="row m-top-1rem">
+            <div class="col s12 m12">
+                <p>
+                    <strong>Cuentale a dos amigos</strong>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <form id="invite-friends-form" class="col s12">
+                <div class="row">
+                    <div class="col s12">
+                        <input id="email-friend-1" name="email-friend-1" type="text" class="input-flat validate" placeholder="Correo Electrónico">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <input id="email-friend-2" name="email-friend-2" type="text" class="input-flat validate" placeholder="Correo Electrónico">
+                    </div>
+                </div>
+                <input type="hidden" name="name-partner" id="name-partner" />
+                <input type="hidden" name="email-partner" id="email-partner" />
+                <div class="row">
+                    <div class="col s12">
+                        <button id="submit-form" class="btn btn-flat btn-fluid btn-large green darken-3 white-text" type="submit">
+                            Enviar mensaje
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col s12 m12">
+                <p>
+                    <strong>Ó cuentale a tus amigos de:</strong>
+                </p>
+            </div>
+        </div>
+        <div class="row social-media-content">
+            <div class="col s4">
+                <a href="#" class="btn btn-flat btn-fluid btn-large gmail-bg white-text">
+                    <small>Gmail</small>
+                </a>
+            </div>
+            <div class="col s4">
+                <a href="#" class="btn btn-flat btn-fluid btn-large outlook-bg white-text">
+                    <small>Hotmail</small>
+                </a>
+            </div>
+            <div class="col s4">
+                <a href="#" class="btn btn-flat btn-fluid btn-large  yahoo-bg white-text">
+                    <small>Yahoo</small>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Modal error -->
+    <div id="modal-error" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Error!</h4>
+            <p><strong id="error-msg"></strong>. intentalo nuevamente!</p>
+            <p>Si el error persiste puedes contactarnos a <span class="red-500-text"><strong>soporte@megift.co</strong></span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+        </div>
+    </div>
+    <!-- Modal success -->
+    <div id="modal-success" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>
+                El mensaje ha sido enviado.<br /><br />
+                Gracias por darnos la oportunidad de hacer a tus amigos felices.
+            </h5>
+        </div>
+        <div class="modal-footer">
+            <a href="../sec/settings/tutorial.html" rel="external" class="btn waves-effect waves-green btn-flat modal-action">Buscar Regalos</a>
+        </div>
+    </div>
+    <script src="../public/js/jquery.min.js"></script>
+    <script src="../public/materialize/js/materialize.min.js"></script>
+    <script src="../public/js/inventor/BaseForm.min.js"></script>
+    <script>
+        var host = window.localStorage.getItem('host');
+        var successResponse = "OK";
+        function onDeviceReady() {
+            init();
+        }
+        document.addEventListener('deviceready', onDeviceReady, false);
+        init();
+        //function init
+        function init() {
+            // Initialize collapse button
+            $('.button-collapse').sideNav();
+        }
+        /*
+        * submit form
+        */
+        $('#invite-friends-form').submit(function (e) {
+            e.preventDefault();
+            var result1 = false;
+            //valid email friend 1
+            var friend1 = document.getElementById('email-friend-1');
+            if (BaseForm.isEmail(friend1.value)) {
+                if (friend1.classList.contains('invalid')) {
+                    friend1.classList.remove('invalid');
+                    friend1.classList.add('valid');
+                }
+                result1 = true;
+            } else {
+                if (!friend1.classList.contains('invalid')) {
+                    friend1.classList.remove('valid');
+                    friend1.classList.add('invalid');
+                }
+                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                result1 = false;
+            }
+            //valid email friend 2
+            var result2 = false;
+            var friend2 = document.getElementById('email-friend-2');
+            if (BaseForm.isEmail(friend1.value)) {
+                if (friend2.classList.contains('invalid')) {
+                    friend2.classList.remove('invalid');
+                    friend2.classList.add('valid');
+                }
+                result2 = true;
+            } else {
+                if (!friend2.classList.contains('invalid')) {
+                    friend2.classList.remove('valid');
+                    friend2.classList.add('invalid');
+                }
+                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                result2 = false;
+            }
+            if (result1 || result2) {
+                //send form
+                $.ajax({
+                    type: 'POST',
+                    url: host + '/inviteFriends',
+                    data: $('#invite-friends-form').serialize(),
+                    beforeSend: function () {
+                        showPreloader();
+                        disabledFormControls();
+                    },
+                    success: function (response) {
+                        enabledFormControls();
+                        hiddenPreloader();
+                        enabledFormControls();
+                        if (response === successResponse) {
+                            //desbloquear regalo
+                            window.localStorage.setItem('block-gift', 0);
+                            $('#modal-success').openModal();
+                        } else {
+                            toast(response, 8000, 'toast-danger');
+                        }
+                    },
+                    error: function (xhr) {
+                        hiddenPreloader();
+                        enabledFormControls();
+                        document.getElementById('error-msg').textContent = xhr.responseText;
+                        $('#modal-error').openModal();
+                    }
+                });
+            }
+        });
+
+        /*
+        * Mostrar preloader
+        */
+        function showPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (preloader.classList.contains('hidden')) {
+                preloader.classList.remove('hidden');
+            }
+        }
+        /*
+        * Esconder preloader
+        */
+        function hiddenPreloader() {
+            var preloader = document.getElementById('preloader');
+            if (!preloader.classList.contains('hidden')) {
+                preloader.classList.add('hidden');
+            }
+        }
+        /*
+        * disbled Form Controls
+        */
+        function disabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            submitFormBtn.disabled = true;
+        }
+        /*
+        * Enabled Form Controls
+        */
+        function enabledFormControls() {
+            var submitFormBtn = document.getElementById('submit-form');
+            submitFormBtn.disabled = false;
+        }
+        /*
+        * Sign out
+        */
+        function singOut() {
+            window.localStorage.clear();
+            window.localStorage.setItem("user-is-register", 1);
+            window.location = '../index.html';
+        }
+    </script>
+</body>
+
+</html>

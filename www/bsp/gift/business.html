@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Detail Business</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/app.min.css" rel="stylesheet" />
+</head>
+
+<body class="i-ease-in i-1s i-fade-in flow-text">
+    <div class="navbar-fixed">
+        <nav class="deep-orange" role="navigation">
+            <div class="nav-wrapper container">
+                <a href="#" class="brand-logo brand-logo-s truncate">
+                    Información de empresa
+                </a>
+                <a href="gift-list.html" rel="external" data-activates="nav-mobile" class="button-collapse">
+                    <i class="mdi-hardware-keyboard-backspace"></i>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <div class="container container-fluid m-top-1rem">
+        <img class="image-fluid" id="business-picture" src="../../public/images/preloader.gif" />
+        <div class="front-content transparent-bg">
+            <p id="business-name">
+                <span class="progress">
+                    <span class="indeterminate"></span>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="content-description">
+        <div class="row">
+            <div class="col s2">
+                <i class="mdi-communication-phone">&nbsp;</i>
+            </div>
+            <div class="text-description col s10">
+                <p id="business-mb-phone">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+                <label class="grey-text">
+                    Teléfono Móvil
+                </label>
+                <p id="business-phone" class="span">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+                <label class="grey-text">
+                    Teléfono Fijo
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2">
+                <i class="mdi-communication-email">&nbsp;</i>
+            </div>
+            <div class="text-description col s10">
+                <p id="business-email-contact">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+                <label class="grey-text">
+                    Correo electrónico
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="content-description deep-orange">
+        <h5 class="white-text">
+            Lista de regalos para ti
+        </h5>
+    </div>
+    <section class="container">
+        <div id="cover-gift" class="row">
+            <span class="progress">
+                <span class="indeterminate"></span>
+            </span>
+        </div>
+    </section>
+    <!-- Modal error -->
+    <div id="modal-error" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Error!</h4>
+            <p><strong id="error-msg"></strong>. intentalo nuevamente!</p>
+            <p>Si el error persiste puedes contactarnos a <span class="red-500-text"><strong>soporte@megift.co</strong></span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+        </div>
+    </div>
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script>
+        var host = window.localStorage.getItem('host');
+        var businessId = window.localStorage.getItem('business-id');
+        /*
+        * device onready
+        */
+        function onDeviceReady() {
+            init();
+        }
+        document.addEventListener('deviceready', onDeviceReady, false);
+        init();
+        //function init
+        function init() {
+            loadBusiness();
+        }
+        /*
+        * load gift
+        */
+        function loadBusiness() {
+
+            $.ajax({
+                type: 'GET',
+                url: host + '/loadBusinessForMobile?id=' + businessId + '&lat=' + window.localStorage.getItem('latitude') + '&lng=' + window.localStorage.getItem('longitude'),
+                success: function (response) {
+                    try {
+                        var business = JSON.parse(response);
+                        var posList = business.posList;
+                        var element = document.getElementById('cover-gift');
+                        element.innerHTML = '';
+                        document.getElementById('business-name').textContent = business.tradeName;;
+                        document.getElementById('business-picture').src = '../../public/images/business280x280.png';
+                        document.getElementById('business-mb-phone').textContent = business.contact.location.phone.mobile;
+                        document.getElementById('business-phone').textContent = business.contact.location.phone.number;
+                        document.getElementById('business-email-contact').textContent = business.contact.login.email;
+                        //fill
+                        var n = posList.length;
+                        for (var i = 0; i < n; i++) {
+                            var pos = posList[i];
+                            createCardfGift(element, pos.giftList, pos.name, pos.distanceFormatted, pos.id);
+                        }
+                    } catch (ex) {console.log(ex)
+                        toast(response, 8000, 'toast-danger');
+                    }
+                },
+                error: function (xhr) {
+                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    $('#modal-error').openModal();
+                }
+            });
+        }
+
+        /*
+        * Create Card gift
+        */
+        function createCardfGift(element, gift, pos_name, pos_distance, pos_id) {
+            //fill
+            var n = gift.length;
+            for (var i = 0; i < n; i++) {
+                var g = gift[i];
+                //col
+                var col = document.createElement('div');
+                col.classList.add('col');
+                col.classList.add('s12');
+                col.classList.add('m6');
+                //card small
+                var card_small = document.createElement('div');
+                card_small.classList.add('card');
+                card_small.classList.add('small');
+                //card img
+                var card_img = document.createElement('div');
+                card_img.classList.add('card-image');
+                card_img.dataset.posId = pos_id;
+                card_img.dataset.giftId = g.id;
+                //img gift
+                var img = document.createElement('img');
+                img.src = g.mainPicture ? g.mainPicture.dataURI : '../../public/images/gift132x150.png';
+                //card title
+                var card_title = document.createElement('span');
+                card_title.classList.add('card-title');
+                //card title text
+                var card_title_text = document.createTextNode(g.name);
+                //empty line
+                var br = document.createElement('br');
+                //sub title
+                var card_sub_title = document.createElement('small');
+                card_sub_title.classList.add('card-sibtitle');
+                //icon place
+                var icon_place = document.createElement('i');
+                icon_place.classList.add('mdi-maps-place');
+                //sub title text
+                var card_sub_title_text = document.createTextNode(pos_name);
+                //card content
+                var card_content = document.createElement('div');
+                card_content.classList.add('card-content');
+                //ul card content
+                var ul_card_content = document.createElement('ul');
+                //fil list ul
+                for (var j = 0; j < 3; j++) {
+                    var li = document.createElement('li');
+                    var icon = document.createElement('i');
+                    switch (j) {
+                        case 0:
+                            icon.classList.add('mdi-maps-local-atm');
+                            var del = document.createElement('del');
+                            var del_text = document.createTextNode(g.priceFormatted)
+                            var strong = document.createElement('strong');
+                            strong.classList.add('red-text');
+                            var strong_text = document.createTextNode('$ 0');
+                            strong.appendChild(strong_text);
+                            del.appendChild(del_text);
+                            li.appendChild(icon);
+                            li.appendChild(del);
+                            li.appendChild(strong);
+                            break;
+                        case 1:
+                            icon.classList.add('mdi-device-access-time');
+                            var span = document.createElement('span');
+                            span.appendChild(document.createTextNode(g.elapseTime));
+                            li.appendChild(icon);
+                            li.appendChild(span);
+                            break;
+                        case 2:
+                            icon.classList.add('mdi-maps-directions-car');
+                            var span = document.createElement('span');
+                            span.appendChild(document.createTextNode(pos_distance));
+                            li.appendChild(icon);
+                            li.appendChild(span);
+                            break;
+                    }
+                    ul_card_content.appendChild(li);
+                }
+                /*
+                *append elements
+                */
+                //sub title
+                card_sub_title.appendChild(icon_place);
+                card_sub_title.appendChild(card_sub_title_text);
+                //card title
+                card_title.appendChild(card_title_text);
+                card_title.appendChild(br);
+                card_title.appendChild(card_sub_title);
+                //card img
+                card_img.appendChild(img);
+                card_img.appendChild(card_title);
+                //card content
+                card_content.appendChild(ul_card_content);
+                //card small
+                card_small.appendChild(card_img);
+                card_small.appendChild(card_content);
+                //col
+                col.appendChild(card_small);
+                /*
+                * events
+                */
+                //card image
+                card_img.onclick = function () {
+                    window.localStorage.setItem('pos-id', this.dataset.posId);
+                    window.localStorage.setItem('gift-id', this.dataset.giftId);
+                    window.location = 'gift.html';
+                }
+                //element
+                element.appendChild(col);
+            }
+        }
+    </script>
+</body>
+
+</html>
+

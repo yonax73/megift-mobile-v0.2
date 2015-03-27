@@ -1,0 +1,653 @@
+.bg {
+    margin: 0;
+    padding: 0;
+    background-color: #FF5722;
+    border: none;
+    overflow-x: hidden;
+}
+
+.logo-full-header {
+    margin-top: 9%;
+    max-width: 35%;
+}
+
+/*COVER BLOCK*/
+.cover-content {
+    border: 1px solid rgba(210, 210, 210,0.80);
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(210, 210, 210, 0.75);
+    -moz-box-shadow: 0px 1px 2px 0px rgba(210, 210, 210, 0.75);
+    box-shadow: 0px 1px 2px 0px rgba(210, 210, 210, 0.75);
+    font-size: 12px;
+    margin: 0 auto;
+    max-width: 100%;
+    min-width: 100%;
+    text-align: left;
+    width: 100%;
+}
+
+@import "app.min.css";
+
+.cover-content i {
+    padding-right: 0.5em;
+}
+
+.cover-col {
+    padding: 0.3em;
+}
+
+.cover-header {
+    background-color: #fff;
+    border-bottom: 1px dashed rgb(210, 210, 210);
+    font-weight: bold;
+    height: 130px;
+    max-height: 130px;
+    max-width: 100%;
+    min-height: 130px;
+    min-width: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.cover-title {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    color: #e4e4e4;
+    margin: 0;
+    padding: 1em 0.5em;
+    position: absolute;
+    width: 100%;
+}
+
+    .cover-title > span {
+        font-size: 10px;
+    }
+
+    .cover-title > p {
+        margin: 0;
+    }
+
+.cover-header img {
+    height: 100%;
+    width: 100%;
+}
+
+.cover-body {
+    padding: 0.5em;
+    background-color: rgb(255, 255, 255);
+}
+
+    .cover-body ul {
+        list-style: outside none none;
+        margin: 0;
+        padding: 0.2em;
+    }
+
+        .cover-body ul li {
+            color: #333;
+            display: inline;
+            padding-right: 1em;
+        }
+
+.cover-footer {
+    border-top: 1px solid rgb(210, 210, 210);
+    background-color: #f6f6f6;
+    padding: 0.5em;
+}
+
+/*detail gift*/
+.detail-gift .content-img {
+    height: 130px;
+    max-height: 130px;
+    max-width: 100%;
+    min-height: 130px;
+    min-width: 100%;
+    padding: 0;
+    width: 100%;
+}
+
+.detail-gift img {
+    height: 100%;
+    width: 100%;
+}
+
+.fb-color {
+    color: #3b5998;
+}
+
+.tw-color {
+    color: #00aced;
+}
+
+.fb-bg {
+    background-color: #3b5998;
+    color: #fff;
+}
+
+.tw-bg {
+    background-color: #00aced;
+    color: #fff;
+}
+
+.map {
+    height: 235px;
+    margin-bottom: 1em;
+}
+/*nav app*/
+.content-main {
+    display: inline-flex;
+}
+
+.nav-app {
+    background-color: #de5619;
+    display: inline-table;
+    max-width: 80vw;
+    width: 80vw;
+}
+
+.content-app {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+/*gift search*/
+.btn-gift-search {
+    border: none;
+    border-radius: 90px;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.5);
+    height: 180px;
+    width: 180px;
+    -webkit-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+    .btn-gift-search img {
+        width: 65%;
+    }
+
+    .btn-gift-search:active, .btn-gift-search-disabled {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+
+.content-gift-search {
+    padding-bottom: 5%;
+    padding-top: 7%;
+}
+/*nav*/
+.nav-out-margin {
+    margin: 0;
+}
+
+.image-partner {
+    display: table;
+    margin: 0 auto;
+    max-height: 128px;
+    max-width: 128px;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff;
+    cursor: text;
+}
+
+#picture-upload {
+    list-style: none;
+}
+/*circle*/
+.circle {
+    text-align: center;
+}
+
+    .circle a {
+        border-radius: 60px;
+        color: #fff;
+        display: inline-block;
+        font-size: 16px;
+        height: 65px;
+        margin-right: 10%;
+        margin-top: 5px;
+        padding-top: 20px;
+        text-align: center;
+        width: 65px;
+    }
+
+        .circle a:hover {
+            color: #fff;
+        }
+
+        .circle a.gmail {
+            background-color: #eb4646;
+        }
+
+        .circle a.outlook {
+            background-color: #0072c6;
+        }
+
+        .circle a.yahoo {
+            background-color: #500095;
+        }
+/*start app*/
+.welcome {
+    color: #fff;
+}
+
+.start-session {
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+    .start-session a {
+        margin-top: 5px;
+    }
+
+/*Helper class for materialize*/
+
+.simple-nav {
+    background-color: transparent;
+    box-shadow: none;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+.btn-fluid {
+    margin: 0;
+    width: 100%;
+}
+
+.card .card-action-s {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.toast.toast-danger {
+    background-color: #F44336;
+}
+
+
+a.brand-logo-s {
+    font-size: 1.1rem;
+}
+
+.logo-nav-open {
+    text-align: center;
+}
+
+    .logo-nav-open img {
+        width: 60%;
+        margin-top: 2rem;
+        padding-bottom: 1rem;
+    }
+
+ul.side-nav li {
+    float: none;
+    padding: 0 3px;
+}
+
+i.left {
+    float: left;
+    margin-right: 25px;
+}
+
+ul.side-nav a {
+    color: #000;
+}
+
+.navbar-actions i {
+    font-size: 1.8rem;
+}
+
+.card-title {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px 10px;
+    width: 100%;
+}
+
+.card-subtitle {
+    font-size: 50%;
+}
+
+.card.small .card-image {
+    height: 220px;
+}
+
+.card .card-content {
+    padding: 10px;
+}
+
+.card-content li {
+    display: inline;
+    margin-right: 4%;
+    font-size: 75%;
+}
+
+    .card-content li i {
+        color: #FF5722;
+        margin-right: 3px;
+    }
+
+    .card-content li del {
+        margin-right: 3px;
+    }
+/*
+* palete color text inspired by
+* http://www.google.com/design/spec/style/color.html#color-color-palette
+*/
+/*gray*/
+a.gray-800-text,
+.gray-800-text {
+    color: #424242;
+}
+
+.separator-gray-300 {
+    border-bottom: 1px solid #E0E0E0;
+}
+/*red*/
+a.red-500-text {
+    color: #F44336;
+}
+/*deep orange*/
+a.deep-orange-500-text,
+.deep-orange-500-text {
+    color: #FF5722;
+}
+
+.separator-deep-orange-500 {
+    border-bottom: 1px solid #FF5722;
+}
+/*********************************
+ ***** SOCIAL COLORS *************
+**********************************/
+/*OUTLOOK*/
+.outlook-bg {
+    background-color: #094ab1;
+}
+/*GMAIL COLOR*/
+.gmail-bg {
+    background-color: #ff002b;
+}
+/*YAHOO COLOR*/
+.yahoo-bg {
+    background-color: #7B0099;
+}
+/*progress deep orange*/
+.progress.progress-deep-orange {
+    background-color: #FFCCBC;
+}
+
+    .progress .progress-deep-orange.indeterminate {
+        background-color: #FF5722;
+    }
+/* invalid color */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid #FF5722;
+    box-shadow: 0 1px 0 0 #FF5722;
+}
+/************************************/
+/******** HELPERS *******************/
+/************************************/
+.row.social-media-content div {
+    padding: 1px;
+}
+
+.hidden {
+    display: none;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.content-relative {
+    position: relative;
+}
+
+/*margin-top*/
+.m-top-1rem {
+    margin-top: 1rem;
+}
+
+.m-top-2rem {
+    margin-top: 2rem;
+}
+
+.m-top-3rem {
+    margin-top: 3rem;
+}
+
+.image-fluid {
+    display: table;
+    margin-bottom: 1rem;
+    max-height: 220px;
+    width: 100%;
+}
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: relative;
+}
+
+.front-content {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    padding-left: 10px;
+    font-size: 20px;
+    width: 100%;
+    background-color: rgba(0,0,0,.4);
+}
+
+    .front-content.transparent-bg {
+        background-color: transparent;
+        bottom: 14px;
+        text-align: center;
+    }
+
+        .front-content.transparent-bg p {
+            font-size: 130%;
+            font-weight: bolder;
+            text-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
+        }
+
+.content-description {
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    top: -1px;
+}
+
+    .content-description i {
+        color: #ff5722;
+        position: relative;
+        top: 3px;
+    }
+
+.text-description p {
+    margin: 0;
+}
+
+.text-description label {
+    border-bottom: 1px solid #e0e0e0;
+    display: block;
+    /*margin-left: 45px;*/
+    padding-bottom: 8px;
+}
+/*ID FOR sendInvitationsControl*/
+#invite-friend-content,
+#update-partner-content,
+#picture-partner-content,
+#submit-form-content {
+    position: absolute;
+    bottom: -35px;
+}
+/************************************/
+/** OVERWRITE SLIDER MATERIALIZE ****/
+/************************************/
+.slider {
+    height: auto;
+}
+
+    .slider ul.indicators {
+        height: 30px;
+        z-index: 9999;
+    }
+
+    .slider ul.slides {
+        height: 640px;
+        overflow: auto;
+    }
+
+        .slider ul.slides li img {
+            display: table;
+            height: 100%;
+            margin: 0 auto;
+            max-height: 640px;
+            max-width: 430px;
+            width: 100%;
+        }
+
+.indicators {
+    top: 85%;
+}
+
+    .indicators.tutorial {
+        color: #fff;
+        font-weight: bold;
+        top: 90%;
+    }
+/************************************/
+/** OVERWRITE MODAL MATERIALIZE ****/
+/************************************/
+.modal {
+    max-height: 90%;
+    position: absolute;
+}
+
+    .modal.modal-fixed-footer .modal-footer {
+        bottom: 0;
+        position: absolute;
+    }
+
+    .modal.modal-fixed-footer .modal-content {
+        position: relative;
+    }
+
+    .modal.modal-fixed-footer {
+        height: auto;
+    }
+/************************************/
+/** OVERWRITE NAVBAR-FIXED MATERIALIZE ****/
+/************************************/
+.navbar-fixed nav {
+    position: absolute;
+    top: 0;
+}
+/**************************************************************/
+/** OVERWRITE LABEL -CHECKBOX -RADIO BUTTONS  ****************/
+/*************************************************************/
+[type="radio"] + label::before, [type="radio"] + label::after {
+    padding: 12px;
+}
+
+label {
+    padding: 5px;
+    width: 100%;
+}
+
+[type="checkbox"]:checked + label::before {
+    border-color: transparent #fff #fff transparent;
+}
+
+[type="checkbox"]:not(:checked) + label::before {
+    border: 2px solid #fff;
+}
+/************************************/
+/** OVERWRITE SLIDE NAV**************/
+/************************************/
+nav ul li {
+    line-height: 40px;
+}
+
+#nav-mobile i {
+    height: 40px;
+    line-height: 40px;
+}
+
+ul.side-nav {
+    overflow: auto;
+    width: 240px;
+    z-index: 9999;
+}
+
+.drag-target {
+    z-index: 9998;
+}
+
+#sidenav-overlay {
+    background-color: rgba(0,0,0,0.5);
+    bottom: 0;
+    display: none;
+    height: 115%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    will-change: opacity;
+    z-index: 9997;
+    display: block;
+}
+
+#partner-form {
+    margin-top: 3rem;
+}
+/************************************/
+/** LOGIN STYLES ********************/
+/************************************/
+.image-center {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 90px;
+}
+
+#login-header {
+    height: 100px;
+}
+/************************************/
+/** FLAT UI ********************/
+/************************************/
+input.input-flat {
+    background-color: #fff;
+    border: 1px solid #666;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+    input.input-flat:focus {
+        box-shadow: none;
+        border: 1px solid #666;
+    }
+
+.btn,
+.btn-flat,
+.btn-large {
+    border-radius: 4px;
+}
+
+    .btn:hover,
+    .btn-flat:hover,
+    .btn-large:hover {
+        box-shadow: none;
+        background-color: inherit;
+    }
+
+    .btn:focus,
+    .btn-flat:focus,
+    .btn-large:focus {
+        box-shadow: none;
+        background-color: inherit;
+    }
