@@ -7,7 +7,7 @@
     <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
-    <link href="../../public/pace/pace-theme-center-radar.min.css" rel="stylesheet" />
+
 </head>
 
 <body class="i-ease-in i-1s i-fade-in flow-text">
@@ -65,28 +65,27 @@
     <div id="preloader" class="progress-deep-orange progress hidden">
         <div class="progress-deep-orange indeterminate"></div>
     </div>
-    <div class="container m-top-1rem">
-        <div class="row">
-            <div class="col s12 content-gift-search center">
-                <form id="gift-search-form">
-                    <input name="latitude" type="hidden" value="0" />
-                    <input name="longitude" type="hidden" value="0" />
-                    <input name="id-login" type="hidden" value="0" />
-                    <input name="gift-type-id" type="hidden" value="0" />
-                    <input name="action-type-id" type="hidden" value="0" />
-                    <input name="business-type-id" type="hidden" value="0" />
-                    <input id="type-view" name="type-view" type="hidden" value="0" />
-                    <div class="col s12">
-                        <button id="gift-search-btn" type="submit" class="btn btn-gift-search waves-effect waves-circle z-depth-5 red i-ease-in i-2s i-bounce-in">
-                            <img src="../../public/images/gift128x145.png" alt="buscar regalo">
-                        </button>
-                    </div>
-                </form>
+    <div id="search-gift-content">
+        <form id="gift-search-form">
+            <input name="latitude" type="hidden" value="0" />
+            <input name="longitude" type="hidden" value="0" />
+            <input name="id-login" type="hidden" value="0" />
+            <input name="gift-type-id" type="hidden" value="0" />
+            <input name="action-type-id" type="hidden" value="0" />
+            <input name="business-type-id" type="hidden" value="0" />
+            <input id="type-view" name="type-view" type="hidden" value="0" />
+            <button id="gift-search-btn" type="submit" class="row i-ease-in i-2s i-bounce-in">
+                <p class="center-align">
+                    <img src="../../public/images/present.png" class="col s12  m6" alt="buscar regalo">
+                </p>
+            </button>
+            <p class="center-align">
                 <strong id="git-search-msg" class="deep-orange-500-text">
                     Tocame para buscar los regalos que tenemos para ti.
                 </strong>
-            </div>
-        </div>
+            </p>
+        </form>
+
     </div>
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
@@ -117,14 +116,7 @@
 
 
 
-    <div class="pace pace-active deep-orange">
-        <div class="pace-progress" data-progress="50" data-progress-text="50%">
-            <div class="pace-progress-inner">
-                <h1>50</h1>
-            </div>
-        </div>
-        <div class="pace-activity"></div>
-    </div>
+
 
 
 
@@ -132,7 +124,7 @@
 
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
-    <script src="../../public/pace/pace.min.js"></script>
+
     <script>
         var host = window.localStorage.getItem('host');
         var idLogin = window.localStorage.getItem('id-login');

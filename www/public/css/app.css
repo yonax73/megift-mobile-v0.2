@@ -651,3 +651,29 @@ input.input-flat {
         box-shadow: none;
         background-color: inherit;
     }
+/************************************/
+/** SEARCH  GIFT ********************/
+/************************************/
+#search-gift-content {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+#gift-search-btn {
+    background-color: transparent;
+    border: medium none;
+    margin: auto;
+    padding-top: 5rem;
+    width: 100%;
+}
+
+
+
+#git-search-msg {
+    padding: 0 1rem 0 1rem;
+}
