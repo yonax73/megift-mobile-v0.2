@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "94cb4b8b-f8c9-485a-a11d-a59a8f89b9de",
-      "lastModifiedDate": 1427312119020,
+      "lastModifiedDate": 1427749209255,
       "creationDate": 1423754314070
     },
     "XDK-app-designer": "false",
@@ -21,23 +21,131 @@
       {
         "id": "org.apache.cordova.camera",
         "version": "0.3.4",
+        "selectedState": "Excluded",
+        "data": {},
+        "paramvals": {},
+        "checksum": "af698adcc73a104fcaabf4ed1c3e3256785e0f27f7932252186c4b0f7f455947",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.file",
+        "version": "1.3.2",
         "selectedState": "Included",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "checksum": "ae85da67aca33474ca304ca1b41f756bff87bd687882dbd65a081a1128c62f85",
+        "dependsOn": [],
+        "dependedBy": [
+          "org.apache.cordova.file-transfer",
+          "org.apache.cordova.media",
+          "org.apache.cordova.media-capture"
+        ]
       },
       {
         "id": "org.apache.cordova.geolocation",
         "version": "0.3.11",
-        "selectedState": "Included",
+        "selectedState": "Excluded",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "checksum": "81354857e2538e64df1209d08ef4c800b632d2f07b0b2256526413fb36846f61",
+        "dependsOn": [],
+        "dependedBy": []
       },
       {
         "id": "org.apache.cordova.splashscreen",
         "version": "0.3.5",
+        "selectedState": "Excluded",
+        "data": {},
+        "paramvals": {},
+        "checksum": "d99a3c0717d8b44b39c4a7c580caacf16569b02e8cb9a31e1ee778a97e9435d3",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.file-transfer",
+        "version": "0.4.8",
         "selectedState": "Included",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "checksum": "9dd8faa82b5c7e6e2b6d4693088b32374e9b363e4877b6618698b3f3fa43f6e4",
+        "dependsOn": [
+          "org.apache.cordova.file"
+        ],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.media-capture",
+        "version": "0.3.5",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "dependsOn": [
+          "org.apache.cordova.file"
+        ],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.dialogs",
+        "version": "0.2.11",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "ed79cbff13fd2d46fc8c81536fa9e4968668c1d157e4c31ae9df6814ca0c0687",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.globalization",
+        "version": "0.3.3",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "016a770b9b2f8904ebcc37ed138c8a540861a042de917395cb0cbc865dfb9e60",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.inappbrowser",
+        "version": "0.5.4",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "9fe92e833d87812b64af5e92399e298f33927f969497cd330daf0904ba032b2c",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.media",
+        "version": "0.2.15",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "fa07bb9e32a8a9dc047b7c7f179c2b9c93b74c58e580acee4eb3a1bc0d8a292b",
+        "dependsOn": [
+          "org.apache.cordova.file"
+        ],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.statusbar",
+        "version": "0.1.9",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "ec8b15d8dd5acf7bb7ae9b002ea70bd6e14918cd2af734c2c251216e6b36da6b",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.vibration",
+        "version": "0.3.12",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "4044d91ca88263469682d915329fbd6fd9a74f7adc7160bb05e01c504f051dcd",
+        "dependsOn": [],
+        "dependedBy": []
       }
     ],
     "buildConfigurations": {
@@ -49,7 +157,7 @@
           "android-minSdkVersion": "10",
           "android-targetSdkVersion": "19",
           "android-installLocation": "auto",
-          "Fullscreen": true
+          "Fullscreen": false
         },
         "isActive_": true,
         "appName_": "megift",
@@ -62,28 +170,28 @@
         ],
         "icons_": [
           {
-            "relPath": "icons/icon36x36.png",
-            "density": "ldpi",
-            "height": 36,
-            "width": 36
-          },
-          {
-            "relPath": "icons/icon48x48.png",
+            "relPath": "icons/icon-48x48.png",
             "density": "mdpi",
             "height": 48,
             "width": 48
           },
           {
-            "relPath": "icons/icon72x72.png",
+            "relPath": "icons/icon-72x72.png",
             "density": "hdpi",
             "height": 72,
             "width": 72
           },
           {
-            "relPath": "icons/icon96x96.png",
+            "relPath": "icons/icon-96x96.png",
             "density": "xhdpi",
             "height": 96,
             "width": 96
+          },
+          {
+            "relPath": "icons/icon-36x36.png",
+            "density": "ldpi",
+            "height": 36,
+            "width": 36
           }
         ],
         "splashes_": [
@@ -116,28 +224,28 @@
             "orientation": "portrait"
           },
           {
-            "relPath": "screen/splashscreen426x320.png",
+            "relPath": "screen/splash-screen-426x320.png",
             "density": "ldpi",
             "height": 320,
             "width": 426,
             "orientation": "landscape"
           },
           {
-            "relPath": "screen/splashscreen470x320.png",
+            "relPath": "screen/splash-screen-470x320.png",
             "density": "mdpi",
             "height": 320,
             "width": 470,
             "orientation": "landscape"
           },
           {
-            "relPath": "screen/splashscreen640x480.png",
+            "relPath": "screen/splash-screen-640x480.png",
             "density": "hdpi",
             "height": 480,
             "width": 640,
             "orientation": "landscape"
           },
           {
-            "relPath": "screen/splashscreen960x720.png",
+            "relPath": "screen/splash-screen-960x720.png",
             "density": "xhdpi",
             "height": 720,
             "width": 960,
@@ -149,7 +257,7 @@
         "iosProvs_": [],
         "cordovaCLIVersion_": "3.5",
         "crosswalkVersion_": "stable",
-        "appVersion_": "0.0.1",
+        "appVersion_": "0.2",
         "appDescription_": "Use this template to start with a simple index.html file for creating mobile apps.",
         "appAuthor_": "Yonatan A Quintero R",
         "appVersionCode_": "1"
@@ -234,6 +342,82 @@
         "crosswalkVersion_": "stable",
         "appVersion_": "0.0.0.1",
         "appDescription_": "Use this template to start with a simple index.html file for creating mobile apps."
+      },
+      "WebApp": {
+        "platform_": "webapp",
+        "runtime_": "W3C",
+        "name_": "WebApp",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "megift",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Firefox": {
+        "platform_": "firefoxos",
+        "runtime_": "W3C on Firefox OS",
+        "name_": "Firefox",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "megift",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Chrome": {
+        "platform_": "chromeos",
+        "runtime_": "W3C on Chrome OS",
+        "name_": "Chrome",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "megift",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Facebook": {
+        "platform_": "facebook",
+        "runtime_": "W3C on Facebook",
+        "name_": "Facebook",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "megift",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
       }
     },
     "gameAssetDirectory": "asset",

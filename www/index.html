@@ -8,11 +8,11 @@
     <link href="public/materialize/css/materialize.min.css" rel="stylesheet" />
     <link href="public/css/app.min.css" rel="stylesheet" />
 </head>
-<body class="i-ease-in i-1s i-fade-in bg">
+<body class="i-ease-in i-1s i-fade-in megift-bg">
     <section class="container">
         <div class="row">
             <div class="col s12">
-                <img class="logo-center z-depth-5" src="../www/public/images/logo-full-216x96.png">
+                <img class="logo-center" src="../www/public/images/logo.png">
             </div>
         </div>
     </section>
@@ -24,7 +24,7 @@
         var productionHost = 'http://megift.co';
         var sliHost = 'http://192.168.1.112:9000';
         var homeHost = 'http://192.168.0.13:9000';
-        var host = productionHost;
+        var host = sliHost;
         function onDeviceReady() {
             startApp();
         }
@@ -33,6 +33,7 @@
             window.localStorage.setItem('host', host);
             var userId = window.localStorage.getItem('id-login');
             var userIsRegister = window.localStorage.getItem("user-is-register");
+            //window.location = "sec/login/camara.html";
             if (userId != null && userId > 0) {
                 window.location = 'bsp/gift/search-gift.html';
             } else if (userIsRegister != null && userIsRegister > 0) {

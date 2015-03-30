@@ -11,10 +11,10 @@
 </head>
 <body class="i-ease-in i-1s i-fade-in flow-text">
     <div class="navbar-fixed">
-        <nav class="deep-orange" role="navigation">
+        <nav class="megift-bg" role="navigation">
             <div class="nav-wrapper container">
-                <a id="title" href="#" class="brand-logo brand-logo-s truncate">
-                    Yonatan A Quintero R.
+                <a href="#" class="brand-logo brand-logo-s truncate">
+                    Mi Perfil
                 </a>
                 <a href="partner.html" rel="external" data-activates="nav-mobile" class="button-collapse">
                     <i class="mdi-hardware-keyboard-backspace"></i>
@@ -22,80 +22,72 @@
             </div>
         </nav>
     </div>
-    <div class="container container-fluid  m-top-1rem">
-        <form id="photo-form">
-            <img class="image-fluid" id="image-partner" src="../../public/images/avatar.png" />
-            <div id="picture-partner-content" class="fixed-action-btn">
-                <a href="#" id="picture-upload" rel="external" class="btn btn-floating btn-large waves-effect waves-light deep-orange">
-                    <i class="mdi-image-camera-alt"></i>
-                </a>
-            </div>
-            <input type="file" accept="image/*" id="picture-select" name="picture" class="hidden" />
-        </form>
-    </div>
-    <div id="preloader" class="progress-deep-orange progress hidden">
-        <div class="progress-deep-orange indeterminate"></div>
-    </div>
     <section class="container m-top-1rem">
+        <div id="preloader" class="progress-deep-orange progress hidden">
+            <div class="progress-deep-orange indeterminate"></div>
+        </div>
         <div class="row">
-            <form id="partner-form" class="col s11 m11">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="mdi-social-person prefix"></i>
-                        <input id="name-partner" name="name-partner" type="text" class="validate">
-                        <label for="name-partner">Nombre Completo</label>
+            <div class="col s12 m7">
+                <form id="photo-form">
+                    <div class="profile-user">
+                        <i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full"></i>
+                        <img id="image-partner" src="../../public/images/avatar.png">
+                        <input type="file" accept="image/*" id="picture-select" name="picture" class="hidden" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="mdi-communication-email prefix"></i>
-                        <input id="email-partner" name="email-partner" type="text" class="validate">
-                        <label for="email-partner">Correo Electrónico</label>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m7">
+                <form id="partner-form">
+                    <div class="row">
+                        <div class="col s12">
+                            <input id="name-partner" name="name-partner" type="text" class="input-flat validate" placeholder="Nombre Completo">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fa fa-globe prefix"></i>
-                        <input id="city-partner" name="city-partner" type="text" class="validate">
-                        <label for="city-partner">Ciudad</label>
+                    <div class="row">
+                        <div class="col s12">
+                            <input id="email-partner" name="email-partner" type="text" class="input-flat validate" placeholder="Correo Electrónico">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fa fa-birthday-cake prefix"></i>
-                        <input id="birthday-partner" name="birthday-partner" type="text" class="datepicker validate">
-                        <label for="birthday-partner">Fecha de Nacimiento</label>
+                    <div class="row">
+                        <div class="col s12">
+                            <input id="city-partner" name="city-partner" type="text" class="input-flat validate" placeholder="Ciudad">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s4">
-                        <i class="fa fa-transgender prefix red-text"></i>
-                        <label>Soy:</label>
+                    <div class="row">
+                        <div class="col s12">
+                            <input id="birthday-partner" name="birthday-partner" type="text" class="datepicker validate input-flat" placeholder="Fecha de Nacimiento">
+                        </div>
                     </div>
-                    <div class="col s8">
-                        <p>
-                            <input name="gender-partner" value="1" type="radio" id="female-gender-partner" checked="checked" />
-                            <label for="female-gender-partner">Mujer</label>
-                        </p>
-                        <p>
-                            <input name="gender-partner" value="2" type="radio" id="male-gender-partner" />
-                            <label for="male-gender-partner">Hombre</label>
-                        </p>
+                    <div class="row">
+                        <div class="col s12">
+                            <p>Sexo:</p>
+                            <p>
+                                <input name="gender-partner" value="1" type="radio" id="female-gender-partner" checked="checked" />
+                                <label for="female-gender-partner">Femenino</label>
+                            </p>
+                            <p>
+                                <input name="gender-partner" value="2" type="radio" id="male-gender-partner" />
+                                <label for="male-gender-partner">Masculino</label>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <input type="hidden" id="id-partner" name="id-partner" value="0" />
-                <input type="hidden" id="id-location" name="id-location" value="0" />
-                <input type="hidden" id="id-city" name="id-city" value="0" />
-                <div class="row">
-                    <div class="col s12">
-                        <button id="submit-form" class="btn waves-effect waves-light btn-large btn-fluid" type="submit">
-                            Guardar<i class="mdi-content-send right"></i>
-                        </button>
+                    <div class="row">
+                        <div class="col s12">
+                            <button id="submit-form" type="submit" class="btn btn-flat btn-fluid btn-large btn-megift-green">
+                                Guardar
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                    <input type="hidden" id="id-partner" name="id-partner" value="0" />
+                    <input type="hidden" id="id-location" name="id-location" value="0" />
+                    <input type="hidden" id="id-city" name="id-city" value="0" />
+                </form>
+            </div>
         </div>
     </section>
+
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
         <div class="modal-content">
@@ -146,8 +138,7 @@
         /*
         * init partner
         */
-        function initPartner() {
-            console.log(partner);
+        function initPartner() {            
             if ((partner !== 'undefined' || partner !== undefined) && partner !== null) {
                 fillPartner();
             } else {
@@ -159,7 +150,6 @@
         */
         function fillPartner() {
             //atributes
-            var title = document.getElementById('title');
             var imagePartner = document.getElementById('image-partner');
             var namePartner = document.getElementById('name-partner');
             var emailPartner = document.getElementById('email-partner');
@@ -172,7 +162,6 @@
             var idLocation = document.getElementById('id-location');
             var idCity = document.getElementById('id-city');
             //set
-            title.textContent = partner.fullName;
             idPartner.value = partner.id;
             idLocation.value = partner.location.id;
             idCity.value = partner.location.address === null ? 0 : partner.location.address.city.id;

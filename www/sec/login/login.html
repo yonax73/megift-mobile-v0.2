@@ -8,9 +8,9 @@
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
-<body class="bg i-ease-in i-1s i-fade-in flow-text">
+<body class="megift-bg i-ease-in i-1s i-fade-in flow-text">
     <div id="login-header" class="container container-fluid ">
-        <img class="image-center" src="../../public/images/logo-full-216x96.png" />
+        <img class="image-center" src="../../public/images/logo.png" />
     </div>
     <div id="preloader" class="progress-deep-orange progress hidden">
         <div class="progress-deep-orange indeterminate"></div>
@@ -18,27 +18,19 @@
     <div class="container content-relative m-top-3rem">
         <form id="login-form">
             <div class="row">
-                <div class="col s11">
+                <div class="col s12">
                     <input id="email-login" type="text" class="input-flat validate" name="email-login" placeholder="Correo Electrónico">
                 </div>
             </div>
             <div class="row">
-                <div class="col s11">
+                <div class="col s12">
                     <input id="password-login" type="password" class="input-flat validate" name="password-login" placeholder="Contraseña">
                 </div>
             </div>
             <input type="hidden" name="business-type" value="3">
             <div class="row">
-                <div class="col s11">
-                    <small>
-                        <input type="checkbox" id="save-user-data" checked="checked" />
-                        <label class="white-text" for="save-user-data">Recordar mis datos</label>
-                    </small>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col s12">
-                    <button id="submit-form" class="btn btn-flat btn-fluid btn-large green darken-3 white-text">
+                    <button id="submit-form" class="btn btn-flat btn-fluid btn-large btn-megift-green">
                         Iniciar sesión
                     </button>
                 </div>
@@ -48,12 +40,7 @@
     <div class="m-top-1rem">
         <div class="row">
             <div class="col s12 m6">
-                <a href="signup.html" rel="external" class="btn btn-flat btn-fluid btn-large ">
-                    <strong class="white-text">Registrarse</strong>
-                </a>
-            </div>
-            <div class="col s12 m6">
-                <a href="recoverpassword.html" class="btn btn-flat btn-fluid btn-large">
+                <a href="recoverpassword.html" onclick="window.localStorage.setItem('recovery-password-back','login.html')" class="btn btn-flat btn-fluid btn-large btn-link">
                     <small class="white-text">¿Olvidastes tu contraseña?</small>
                 </a>
             </div>

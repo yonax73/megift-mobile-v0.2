@@ -8,6 +8,7 @@
 
 .logo-full-header {
     margin-top: 9%;
+    width: 100%;
     max-width: 35%;
 }
 
@@ -368,6 +369,14 @@ a.deep-orange-500-text,
 .yahoo-bg {
     background-color: #7B0099;
 }
+/*MEGIFT COLOR*/
+.megift-bg {
+    background-color: #FFB253;
+}
+
+.megift-color {
+    color: #ffb253;
+}
 /*progress deep orange*/
 .progress.progress-deep-orange {
     background-color: #FFCCBC;
@@ -515,6 +524,18 @@ a.deep-orange-500-text,
         font-weight: bold;
         top: 90%;
     }
+
+ul.side-nav li:hover {
+    background-color: #ef8b0f;
+}
+
+.container-nav-buttons li {
+    padding-top: 3%;
+}
+
+    .container-nav-buttons li:hover {
+        background-color: #FFB253;
+    }
 /************************************/
 /** OVERWRITE MODAL MATERIALIZE ****/
 /************************************/
@@ -571,6 +592,7 @@ nav ul li {
 #nav-mobile i {
     height: 40px;
     line-height: 40px;
+    color: #FFB253;
 }
 
 ul.side-nav {
@@ -620,18 +642,21 @@ ul.side-nav {
 /************************************/
 /** FLAT UI ********************/
 /************************************/
+/**INPUTS*/
 input.input-flat {
     background-color: #fff;
     border: 1px solid #666;
     font-size: 1.5rem;
-    padding: 0.5rem;
+    height: 54px;
+    line-height: 56px;
+    text-indent: 1rem;
 }
 
     input.input-flat:focus {
         box-shadow: none;
         border: 1px solid #666;
     }
-
+/*BUTTONS*/
 .btn,
 .btn-flat,
 .btn-large {
@@ -642,15 +667,68 @@ input.input-flat {
     .btn-flat:hover,
     .btn-large:hover {
         box-shadow: none;
-        background-color: inherit;
     }
 
     .btn:focus,
     .btn-flat:focus,
     .btn-large:focus {
         box-shadow: none;
-        background-color: inherit;
     }
+
+.btn-megift-green {
+    border-radius: 4px;
+    background-color: #629C44;
+    color: #fff;
+}
+
+    .btn-megift-green:hover {
+        box-shadow: none;
+        background-color: #629C44;
+    }
+
+    .btn-megift-green:focus {
+        box-shadow: none;
+        background-color: #629C44;
+    }
+
+.btn-megift-red {
+    border-radius: 4px;
+    background-color: #FF3823;
+    color: #fff;
+}
+
+    .btn-megift-red:hover {
+        box-shadow: none;
+        background-color: #FF3823;
+    }
+
+    .btn-megift-red:focus {
+        box-shadow: none;
+        background-color: #FF3823;
+    }
+
+.btn-nav {
+    margin-top: 2%;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0 1rem;
+}
+
+.btn-link, .btn-nav {
+    background-color: transparent;
+}
+
+    .btn-link:hover,
+    .btn-nav:hover {
+        background-color: transparent;
+    }
+
+    .btn-link:focus,
+    btn-nav:focus {
+        background-color: transparent;
+    }
+
+}
 /************************************/
 /** SEARCH  GIFT ********************/
 /************************************/
@@ -676,4 +754,50 @@ input.input-flat {
 
 #git-search-msg {
     padding: 0 1rem 0 1rem;
+}
+/**********************/
+/*PROFILE USER ********/
+/**********************/
+.profile-user {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+    .profile-user > img {
+        max-height: 200px;
+        width: 100%;
+    }
+
+.profile-user-title {
+    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 7px;
+    color: #fff;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+    .profile-user-title > p {
+        margin: 0;
+        padding: 0;
+    }
+
+.ico-camerea {
+    font-size: 3rem;
+    padding-right: 0.5rem;
+    position: absolute;
+    text-align: right;
+    top: 1rem;
+    width: 100%;
+}
+
+.ico-camerea-full {
+    bottom: 4rem;
+    font-size: 8rem;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 100%;
 }

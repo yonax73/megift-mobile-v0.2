@@ -9,25 +9,10 @@
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
 <body class="i-ease-in i-1s i-fade-in flow-text">
-
-    <nav class="deep-orange" role="navigation">
-        <div class="nav-wrapper container">
+    <nav class="megift-bg">
+        <div class="nav-wrapper">
             <a href="#" class="brand-logo brand-logo-s truncate">
                 Crea tú perfil de regalo
-            </a>
-            <ul id="nav-mobile" class="side-nav">
-                <li class="logo-nav-open deep-orange">
-                    <img src="../../public/images/logo-full-216x96.png" />
-                </li>
-                <li>
-                    <a href="login.html" rel="external">
-                        <i class="mdi-action-assignment-return deep-orange-500-text left"></i>
-                        Ingresar
-                    </a>
-                </li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse">
-                <i class="mdi-navigation-menu"></i>
             </a>
         </div>
     </nav>
@@ -44,23 +29,23 @@
         <div class="row">
             <form id="signup-form" class="col s11 m11">
                 <div class="row">
-                    <div class="col s12">                       
-                        <input id="name-partner" name="name-partner" type="text" class="input-flat validate" placeholder="Nombre Completo">                        
+                    <div class="col s12">
+                        <input id="name-partner" name="name-partner" type="text" class="input-flat validate" placeholder="Nombre Completo">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12">                        
-                        <input id="email-partner" name="email-partner" type="text" class="input-flat validate" placeholder="Correo Electrónico">                        
+                    <div class="col s12">
+                        <input id="email-partner" name="email-partner" type="text" class="input-flat validate" placeholder="Correo Electrónico">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12">                       
-                        <input id="password-partner" name="password-partner" type="password" class="input-flat validate" placeholder="Contraseña">                        
+                    <div class="col s12">
+                        <input id="password-partner" name="password-partner" type="password" class="input-flat validate" placeholder="Contraseña">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12">                        
-                        <input id="password-partner-2" type="password" class="input-flat validate" placeholder="Confirmar Contraseña">                        
+                    <div class="col s12">
+                        <input id="password-partner-2" type="password" class="input-flat validate" placeholder="Confirmar Contraseña">
                     </div>
                 </div>
                 <div class="row">
@@ -75,7 +60,7 @@
                 </div>
                 <div class="row">
                     <div class="col s12">
-                        <button id="submit-form" class="btn btn-flat btn-fluid btn-large green darken-3 white-text" type="submit">
+                        <button id="submit-form" class="btn btn-flat btn-fluid btn-large btn-megift-green" type="submit">
                             Continuar
                         </button>
                     </div>
@@ -92,16 +77,6 @@
         </div>
         <div class="modal-footer">
             <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
-        </div>
-    </div>
-    <!-- Modal success -->
-    <div id="modal-success" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h3>Bienvenido</h3>
-            <h4>Tu cuenta ha sido creada con éxito</h4>
-        </div>
-        <div class="modal-footer">
-            <a href="../../social/sendInvitationsControl.html" rel="external" class="btn waves-effect waves-green btn-flat modal-action">Aceptar</a>
         </div>
     </div>
     <script src="../../public/js/jquery.min.js"></script>
@@ -247,11 +222,11 @@
                         hiddenPreloader();
                         enabledFormControls();
                         if (response > 0) {
-                            window.localStorage.setItem('id-login', response);                           
+                            window.localStorage.setItem('id-login', response);
                             window.localStorage.setItem('show-menu', false);
                             window.localStorage.setItem('block-search', 1);
                             window.localStorage.setItem('block-gift', 1);
-                            $('#modal-success').openModal();
+                            window.location = '../../social/sendInvitationsControl.html';
                         } else {
                             toast(response, 8000, 'toast-danger');
                         }

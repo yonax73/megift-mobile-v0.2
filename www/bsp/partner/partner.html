@@ -6,52 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
-    <link href="../../public/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
 <body class="i-ease-in i-1s i-fade-in flow-text">
-    <nav class="deep-orange" role="navigation">
+    <nav class="megift-bg" role="navigation">
         <div class="nav-wrapper container">
             <a href="#" class="brand-logo brand-logo-s truncate">
-                Perfil
+                Mi Perfil
             </a>
             <ul id="nav-mobile" class="side-nav">
-                <li class="logo-nav-open deep-orange">
-                    <img src="../../public/images/logo-full-216x96.png" />
+                <li class="logo-nav-open megift-bg">
+                    <img src="../../public/images/logo.png" />
                 </li>
                 <li>
                     <a href="#">
-                        <i class="mdi-social-person deep-orange-500-text left"></i>
+                        <i class="mdi-social-person  left"></i>
                         Mi Perfil
                     </a>
                 </li>
                 <li>
                     <a href="../../bsp/gift/search-gift.html" rel="external">
-                        <i class="mdi-action-wallet-giftcard deep-orange-500-text left"></i>
+                        <i class="mdi-action-wallet-giftcard  left"></i>
                         Buscar Regalos
                     </a>
                 </li>
                 <li>
                     <a href="../../social/inviteFriends.html">
-                        <i class="mdi-social-share deep-orange-500-text left"></i>
+                        <i class="mdi-social-share  left"></i>
                         Invitar amigos
                     </a>
                 </li>
                 <li>
                     <a href="../../sec/settings/settings.html" rel="external">
-                        <i class="mdi-action-settings deep-orange-500-text left"></i>
+                        <i class="mdi-action-settings  left"></i>
                         Ajustes
                     </a>
                 </li>
                 <li>
                     <a href="../../sec/login/help.html" rel="external">
-                        <i class="mdi-communication-live-help deep-orange-500-text left"></i>
+                        <i class="mdi-communication-live-help  left"></i>
                         Ayuda
                     </a>
                 </li>
                 <li>
                     <a href="#" onclick="singOut()">
-                        <i class="mdi-action-exit-to-app deep-orange-500-text left"></i>
+                        <i class="mdi-action-exit-to-app  left"></i>
                         Cerrar Sesión
                     </a>
                 </li>
@@ -61,101 +60,58 @@
             </a>
         </div>
     </nav>
-
-    <div class="container container-fluid  m-top-1rem">
-        <img class="image-fluid" id="image-partner" src="../../public/images/preloader.gif" />
-        <div class="front-content transparent-bg">
-            <p  id="name-partner">
-                <span class="progress">
-                    <span class="indeterminate"></span>
-                </span>
-            </p>
-        </div>
-        <div id="update-partner-content" class="fixed-action-btn">
-            <a href="partner-update.html" rel="external" class="btn btn-floating btn-large waves-effect waves-light deep-orange">
-                <i class="mdi-editor-mode-edit"></i>
-            </a>
-        </div>
-    </div>
-    <div class="container m-top-1rem">
+    <section class="container m-top-1rem">
         <div class="row">
-            <div class="col s12 ">
-                <div class="row">
-                    <div class="col s2">
-                        <i class="fa fa-envelope-o deep-orange-500-text">
-                            &nbsp;
-                        </i>
-                    </div>
-                    <div class="col s10 text-description">
-                        <p id="email-partner">
+            <div class="col s12 m7">
+                <div class="profile-user">
+                    <i class="mdi-image-camera-alt ico-camerea"></i>
+                    <img id="image-partner"  src="../../public/images/preloader.gif">
+                    <div class="profile-user-title">
+                        <p id="name-partner">
                             <span class="progress">
                                 <span class="indeterminate"></span>
                             </span>
                         </p>
-                        <label class="grey-text">
-                            Correo Electrónico
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s2">
-                        <i class="fa fa-transgender deep-orange-500-text">
-                            &nbsp;
-                        </i>
-                    </div>
-                    <div class="col s10 text-description">
                         <p id="gender-partner">
                             <span class="progress">
                                 <span class="indeterminate"></span>
                             </span>
                         </p>
-                        <label class="grey-text">
-                            Sexo
-                        </label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s2">
-                        <i class="fa fa-birthday-cake deep-orange-500-text">
-                            &nbsp;
-                        </i>
-                    </div>
-                    <div class="col s10 text-description">
-                        <p id="birthday-partner">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </p>
-                        <label class="grey-text">
-                            Fecha de nacimiento
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s2">
-                        <i class="fa fa-globe deep-orange-500-text">
-                            &nbsp;
-                        </i>
-                    </div>
-                    <div class="col s10 text-description">
-                        <p id="city-partner">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </p>
-                        <p class="hidden">,</p>
-                        <p id="couuntry-partner" class="hidden">
-                            Colombia
-                        </p>
-                        <label class="grey-text">
-                            Ubicación
-                        </label>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </div>
+        <div class="row center-align">
+            <div class="col s12 m7">
+                <p id="birthday-partner">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+                <p id="city-partner">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+                <p class="hidden">,</p>
+                <p id="couuntry-partner" class="hidden">
+                    Colombia
+                </p>
+                <p id="email-partner">
+                    <span class="progress">
+                        <span class="indeterminate"></span>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <a href="partner-update.html" rel="external" class="btn btn-flat btn-fluid btn-large btn-megift-green">
+                    Editar
+                </a>
+            </div>
+        </div>
+    </section>
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
         <div class="modal-content">
@@ -215,6 +171,7 @@
                             imagePartner.src = '../../public/images/avatar.png';
                         }
                     } catch (ex) {
+                        console.error(ex);
                         toast(response, 8000, 'toast-danger');
                     }
                 },
