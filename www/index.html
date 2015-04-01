@@ -32,8 +32,7 @@
         function startApp() {
             window.localStorage.setItem('host', host);
             var userId = window.localStorage.getItem('id-login');
-            var userIsRegister = window.localStorage.getItem("user-is-register");
-            //window.location = "sec/login/camara.html";
+            var userIsRegister = window.localStorage.getItem("user-is-register");           
             if (userId != null && userId > 0) {
                 window.location = 'bsp/gift/search-gift.html';
             } else if (userIsRegister != null && userIsRegister > 0) {

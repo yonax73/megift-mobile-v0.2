@@ -315,13 +315,14 @@ ul.side-nav a {
 }
 
 .card-content li {
-    display: inline;
+    display: inline-flex;
     margin-right: 4%;
-    font-size: 75%;
+    font-size: 95%;
+    color:#999;
 }
 
     .card-content li i {
-        color: #FF5722;
+        color: #000;
         margin-right: 3px;
     }
 
@@ -420,6 +421,9 @@ a.deep-orange-500-text,
 
 .m-top-3rem {
     margin-top: 3rem;
+}
+.m-top-4rem {
+    margin-top: 4rem;
 }
 
 .image-fluid {
@@ -800,4 +804,30 @@ input.input-flat {
     right: 0;
     text-align: center;
     width: 100%;
+}
+/**********************/
+/*OVERWRITE CARD PANEL*/
+/**********************/
+.card {
+    border: 1px solid #ddd;
+    box-shadow: none;
+}
+
+    .card .card-image .card-title {
+        background-color: rgba(0, 0, 0, 0.65);
+        font-size: 95%;
+        padding: 0 0 0 0.5rem;
+    }
+
+.card-sibtitle i {
+    padding-right: 0.3rem;
+}
+
+.card .card-image img {
+    height: 100%;
+}
+
+.select-filter{
+    display:block;
+    color:#000;
 }

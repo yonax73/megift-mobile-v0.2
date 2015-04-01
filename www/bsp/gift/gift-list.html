@@ -9,9 +9,9 @@
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
 
-<body class="i-ease-in i-1s i-fade-in flow-text">
+<body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
     <div class="navbar-fixed">
-        <nav class="deep-orange" role="navigation">
+        <nav class="megift-bg" style="height: 110px;" role="navigation">
             <div class="navbar-actions">
                 <div class="row">
                     <div class="col s12">
@@ -33,18 +33,25 @@
                                     <i class="mdi-content-filter-list"></i>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" onclick="$('#modal-views').openModal();">
-                                    <i class="mdi-navigation-more-vert"></i>
-                                </a>
-                            </li>
+
                         </ul>
+                        <div class="row">
+                            <div class="col s12">
+                                <select class="select-filter" id="type-view-select" onchange="onSelectChangeTypeView(this)">
+                                    <option value="view-gifts">Lista de regalos</option>
+                                    <option value="view-actions">Acciones que dan regalos</option>
+                                    <option value="view-pos">Empresas que dan regalos</option>                                    
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </nav>
+
     </div>
-    <section class="container">
+    <section class="m-top-4rem">
         <div id="cover-gift" class="row"></div>
     </section>
     <!-- Modal filter -->
@@ -380,7 +387,8 @@
             switch (parseInt(currentView)) {
                 case RESULTS_BY_GIFTS:
                     //load setting
-                    document.getElementById('view-gifts').checked = true;
+                    document.getElementById('view-gifts').checked = true;                    
+                    $('#type-view-select').val('view-gifts');
                     title.textContent = 'Lista de regalos';
                     //fill
                     for (var i = 0; i < n; i++) {
@@ -391,6 +399,7 @@
                 case RESULTS_BY_ACTIONS:
                     //load settings
                     document.getElementById('view-actions').checked = true;
+                    $('#type-view-select').val('view-actions');
                     title.textContent = 'Lista de acciones';
                     //fill
                     for (var i = 0; i < n; i++) {
@@ -401,6 +410,7 @@
                 case RESULTS_BY_POS:
                     //load settings
                     document.getElementById('view-pos').checked = true;
+                    $('#type-view-select').val('view-pos');
                     title.textContent = 'Lista de Empresas';
                     //la lista de puntos de venta en esta caso es una lista de empresas
                     var b = posList[i];
@@ -427,6 +437,12 @@
         function onchangeTypeView(element) {
             currentView = parseInt(element.value);
             window.localStorage.setItem('current-view', currentView);
+        }
+        function onSelectChangeTypeView(select) {            
+            var element = document.getElementById(select.options[select.selectedIndex].value);
+            element.checked =true;
+            onchangeTypeView(element);
+            giftSearch('#gift-views-form');
         }
         /*
         *search gift
@@ -538,7 +554,7 @@
                             var del = document.createElement('del');
                             var del_text = document.createTextNode(g.priceFormatted)
                             var strong = document.createElement('strong');
-                            strong.classList.add('red-text');
+                            strong.classList.add('green-text');
                             var strong_text = document.createTextNode('$ 0');
                             strong.appendChild(strong_text);
                             del.appendChild(del_text);
@@ -552,6 +568,7 @@
                             span.appendChild(document.createTextNode(g.elapseTime));
                             li.appendChild(icon);
                             li.appendChild(span);
+                            countDown(span);
                             break;
                         case 2:
                             icon.classList.add('mdi-maps-directions-car');
@@ -659,6 +676,7 @@
                             span.appendChild(document.createTextNode(g.elapseTime));
                             li.appendChild(icon);
                             li.appendChild(span);
+                            countDown(span);
                             break;
                         case 2:
                             icon.classList.add('mdi-maps-directions-car');
@@ -875,6 +893,36 @@
             window.localStorage.clear();
             window.localStorage.setItem("user-is-register", 1);
             window.location = '../../index.html';
+        }
+        /*
+        * Count down
+        */
+        function countDown(element) {
+            window.setInterval(function () {
+                var str = element.innerHTML;
+                var token = str.split(':');
+                var h = parseInt(token[0]);
+                var m = parseInt(token[1]);
+                var s = parseInt(token[2]);
+                if (s < 1) {
+                    s = 60;
+                    m--;
+                    if (m < 1) {
+                        h--;
+                    }
+                }
+                s--;
+                element.innerHTML = formatTime(h) + ':' + formatTime(m) + ':' + formatTime(s);
+            }, 1000);
+        }
+        /*
+        * format time
+        */
+        function formatTime(time) {
+            if (time < 10) {
+                return '0' + time;
+            }
+            return time;                
         }
     </script>
 </body>

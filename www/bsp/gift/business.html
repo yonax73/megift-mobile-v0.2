@@ -9,9 +9,9 @@
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
 
-<body class="i-ease-in i-1s i-fade-in flow-text">
+<body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
     <div class="navbar-fixed">
-        <nav class="deep-orange" role="navigation">
+        <nav class="megift-bg" role="navigation">
             <div class="nav-wrapper container">
                 <a href="#" class="brand-logo brand-logo-s truncate">
                     Información de empresa
@@ -22,7 +22,7 @@
             </div>
         </nav>
     </div>
-    <div class="container container-fluid m-top-1rem">
+    <!--<div class="container container-fluid m-top-1rem">
         <img class="image-fluid" id="business-picture" src="../../public/images/preloader.gif" />
         <div class="front-content transparent-bg">
             <p id="business-name">
@@ -31,53 +31,65 @@
                 </span>
             </p>
         </div>
-    </div>
-    <div class="content-description">
-        <div class="row">
-            <div class="col s2">
-                <i class="mdi-communication-phone">&nbsp;</i>
-            </div>
-            <div class="text-description col s10">
-                <p id="business-mb-phone">
-                    <span class="progress">
-                        <span class="indeterminate"></span>
-                    </span>
-                </p>
-                <label class="grey-text">
-                    Teléfono Móvil
-                </label>
-                <p id="business-phone" class="span">
-                    <span class="progress">
-                        <span class="indeterminate"></span>
-                    </span>
-                </p>
-                <label class="grey-text">
-                    Teléfono Fijo
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s2">
-                <i class="mdi-communication-email">&nbsp;</i>
-            </div>
-            <div class="text-description col s10">
-                <p id="business-email-contact">
-                    <span class="progress">
-                        <span class="indeterminate"></span>
-                    </span>
-                </p>
-                <label class="grey-text">
-                    Correo electrónico
-                </label>
+    </div>-->
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-image" data-pos-id="1" data-gift-id="35">
+                    <img id="business-picture" src="../../public/images/preloader.gif" />
+                </div>
             </div>
         </div>
     </div>
-    <div class="content-description deep-orange">
-        <h5 class="white-text">
-            Lista de regalos para ti
-        </h5>
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <p>
+                        <i class="mdi-action-shopping-cart">&nbsp;</i>
+                        <span id="business-name">
+                            <span class="progress">
+                                <span class="indeterminate"></span>
+                            </span>
+                        </span>
+                    </p>
+                    <p>
+                        <i class="mdi-communication-phone">&nbsp;</i>
+                        <span id="business-mb-phone">
+                            <span class="progress">
+                                <span class="indeterminate"></span>
+                            </span>
+                        </span>
+                        <span id="business-phone" class="hidden span">
+                            <span class="progress">
+                                <span class="indeterminate"></span>
+                            </span>
+                        </span>
+                    </p>
+                    <p>
+                        <i class="mdi-communication-email">&nbsp;</i>
+                        <span id="business-email-contact">
+                            <span class="progress">
+                                <span class="indeterminate"></span>
+                            </span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <section class="container">
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <h5>
+                        Lista de regalos para ti
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section>
         <div id="cover-gift" class="row">
             <span class="progress">
                 <span class="indeterminate"></span>
@@ -137,7 +149,8 @@
                             var pos = posList[i];
                             createCardfGift(element, pos.giftList, pos.name, pos.distanceFormatted, pos.id);
                         }
-                    } catch (ex) {console.log(ex)
+                    } catch (ex) {
+                        console.log(ex)
                         toast(response, 8000, 'toast-danger');
                     }
                 },
@@ -203,7 +216,7 @@
                             var del = document.createElement('del');
                             var del_text = document.createTextNode(g.priceFormatted)
                             var strong = document.createElement('strong');
-                            strong.classList.add('red-text');
+                            strong.classList.add('green-text');
                             var strong_text = document.createTextNode('$ 0');
                             strong.appendChild(strong_text);
                             del.appendChild(del_text);
@@ -217,6 +230,7 @@
                             span.appendChild(document.createTextNode(g.elapseTime));
                             li.appendChild(icon);
                             li.appendChild(span);
+                            countDown(span);
                             break;
                         case 2:
                             icon.classList.add('mdi-maps-directions-car');
@@ -260,6 +274,36 @@
                 //element
                 element.appendChild(col);
             }
+        }
+        /*
+        * Count down
+        */
+        function countDown(element) {
+            window.setInterval(function () {
+                var str = element.innerHTML;
+                var token = str.split(':');
+                var h = parseInt(token[0]);
+                var m = parseInt(token[1]);
+                var s = parseInt(token[2]);
+                if (s < 1) {
+                    s = 60;
+                    m--;
+                    if (m < 1) {
+                        h--;
+                    }
+                }
+                s--;
+                element.innerHTML = formatTime(h) + ':' + formatTime(m) + ':' + formatTime(s);
+            }, 1000);
+        }
+        /*
+        * format time
+        */
+        function formatTime(time) {
+            if (time < 10) {
+                return '0' + time;
+            }
+            return time;
         }
     </script>
 </body>
