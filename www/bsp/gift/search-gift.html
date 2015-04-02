@@ -76,7 +76,7 @@
             <input id="type-view" name="type-view" type="hidden" value="0" />
             <button id="gift-search-btn" type="submit" class="row i-ease-in i-2s i-bounce-in">
                 <p class="center-align">
-                    <img src="../../public/images/present.png" class="col s12  m6" alt="buscar regalo">
+                    <img src="../../public/images/present.png" class="col s12  m6" style="float:none" alt="buscar regalo">
                 </p>
             </button>
             <p id="git-search-msg"  class="center-align">               
@@ -177,16 +177,11 @@
                 url: host + '/searchGift',
                 data: $('#gift-search-form').serialize(),
                 success: function (response) {
-                    giftSearchMsg.textContent = 'Tocame para buscar los regalos que tenemos para ti.';
-                    giftSearchBtn.disabled = false;
-                    giftSearchBtn.classList.remove('btn-gift-search-disabled');
-                    giftSearchBtn.classList.remove('i-2s');
-                    giftSearchBtn.classList.remove('i-infinite');
-                    giftSearchBtn.classList.remove('i-pulse');
+                    enabledSearch();
                     try {
                         var posList = JSON.parse(response);
                         if (posList.length < 1) {
-                            toast('No hay regalos cerca a tu ubicación', 8000, 'toast-danger');
+                            toast('No hay regalos cerca a tu ubicación', 2000, 'toast-danger');
                         } else {
                             window.localStorage.setItem('POS-list', response);
                             window.localStorage.setItem('latitude', latitude);
@@ -194,7 +189,7 @@
                             window.location = 'gift-list.html';
                         }
                     } catch (ex) {
-                        toast(response, 8000, 'toast-danger');
+                        toast(response, 2000, 'toast-danger');
                     }
                 },
                 error: function (xhr) {
@@ -207,10 +202,9 @@
         /*
         /* onError Callback receives a PositionError object
         */
-        function onError(error) {
-            giftSearchMsg.textContent = 'Tocame para buscar los regalos que tenemos para ti.';
-            giftSearchBtn.disabled = false;
-            toast('code: ' + error.code + '\n' + 'message: ' + error.message + '\n', 8000, 'toast-danger');
+        function onError(error) {            
+            enabledSearch();
+            toast('code: ' + error.code + '\n' + 'message: ' + error.message + '\n', 2000, 'toast-danger');
         }
         /*
         * Submit form
@@ -244,7 +238,7 @@
                             search_setting = JSON.parse(response);
                             window.localStorage.setItem('current-view', search_setting.settings.searchSetting.id);
                         } catch (ex) {
-                            toast(response, 8000, 'toast-danger');
+                            toast(response, 2000, 'toast-danger');
                         }
                     },
                     error: function (xhr) {
@@ -281,6 +275,17 @@
             window.localStorage.clear();
             window.localStorage.setItem("user-is-register", 1);
             window.location = '../../index.html';
+        }
+        /*
+        * enabled search
+        */
+        function enabledSearch() {
+            giftSearchMsg.textContent = 'Tocame para buscar los regalos que tenemos para ti.';
+            giftSearchBtn.disabled = false;
+            giftSearchBtn.classList.remove('btn-gift-search-disabled');
+            giftSearchBtn.classList.remove('i-2s');
+            giftSearchBtn.classList.remove('i-infinite');
+            giftSearchBtn.classList.remove('i-pulse');
         }
     </script>
 </body>

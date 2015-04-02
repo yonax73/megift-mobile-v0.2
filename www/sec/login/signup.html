@@ -14,6 +14,9 @@
             <a href="#" class="brand-logo brand-logo-s truncate">
                 Crea tú perfil de regalo
             </a>
+            <a href="login.html" rel="external" class="btn btn-nav">
+                <i class="mdi-hardware-keyboard-backspace"></i>
+            </a>
         </div>
     </nav>
     <div id="preloader" class="progress-deep-orange progress hidden">
@@ -52,9 +55,13 @@
                     <div class="col s12">
                         <small>
                             Al hacer clic en continuar aceptas las
-                            <a href="termsAndConditions.html" rel="external">condiciones</a>
+                            <a href="termsAndConditions.html" rel="external" onclick="window.localStorage.setItem('terms-conditions-back', 'signup.html')">
+                                condiciones
+                            </a>
                             y que has le&iacute;do las
-                            <a href="privacyPolicy.html" rel="external">pol&iacute;ticas de privacidad</a>
+                            <a href="privacyPolicy.html" rel="external" onclick="window.localStorage.setItem('privacy-policy-back', 'signup.html')">
+                                pol&iacute;ticas de privacidad
+                            </a>
                         </small>
                     </div>
                 </div>
@@ -115,7 +122,7 @@
                     name.classList.remove('valid');
                     name.classList.add('invalid');
                 }
-                toast('Ingrese un nombre válido!', 8000, 'toast-danger');
+                toast('Ingrese un nombre válido!', 2000, 'toast-danger');
                 result = false;
             }
             valid.push(result ? 1 : 0);
@@ -131,7 +138,7 @@
                     email.classList.remove('valid');
                     email.classList.add('invalid');
                 }
-                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                toast('Ingrese un correo válido!', 2000, 'toast-danger');
                 result = false;
             }
             valid.push(result ? 1 : 0);
@@ -148,7 +155,7 @@
                     password.classList.remove('valid');
                     password.classList.add('invalid');
                 }
-                toast('Ingrese contraseña!', 8000, 'toast-danger');
+                toast('Ingrese contraseña!', 2000, 'toast-danger');
                 result = false;
             }
             valid.push(result ? 1 : 0);
@@ -165,7 +172,7 @@
                     password2.classList.remove('valid');
                     password2.classList.add('invalid');
                 }
-                toast('Confirme contraseña!', 8000, 'toast-danger');
+                toast('Confirme contraseña!', 2000, 'toast-danger');
                 result = false;
             }
             //valid password equals
@@ -180,7 +187,7 @@
                     password2.classList.remove('valid');
                     password2.classList.add('invalid');
                 }
-                toast('Confirme contraseña!', 8000, 'toast-danger');
+                toast('Confirme contraseña!', 2000, 'toast-danger');
                 result = false;
             }
             //validar que las dos contraseñas sean iguales
@@ -195,7 +202,7 @@
                     password2.classList.remove('valid');
                     password2.classList.add('invalid');
                 }
-                toast('La contraseña no coincide!', 8000, 'toast-danger');
+                toast('La contraseña no coincide!', 2000, 'toast-danger');
                 result = false;
             }
             valid.push(result ? 1 : 0);
@@ -228,7 +235,7 @@
                             window.localStorage.setItem('block-gift', 1);
                             window.location = '../../social/sendInvitationsControl.html';
                         } else {
-                            toast(response, 8000, 'toast-danger');
+                            toast(response, 2000, 'toast-danger');
                         }
                     },
                     error: function (xhr) {

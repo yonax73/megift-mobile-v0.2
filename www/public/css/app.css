@@ -318,7 +318,7 @@ ul.side-nav a {
     display: inline-flex;
     margin-right: 4%;
     font-size: 95%;
-    color:#999;
+    color: #999;
 }
 
     .card-content li i {
@@ -422,6 +422,7 @@ a.deep-orange-500-text,
 .m-top-3rem {
     margin-top: 3rem;
 }
+
 .m-top-4rem {
     margin-top: 4rem;
 }
@@ -825,9 +826,19 @@ input.input-flat {
 
 .card .card-image img {
     height: 100%;
+    display: table;
 }
 
-.select-filter{
-    display:block;
-    color:#000;
+.select-filter {
+    display: block;
+    color: #000;
+}
+
+.col.center-col {
+    float: none;
+}
+
+.center-col.col.s6,
+.center-col.col.m6 {
+    margin: auto;
 }

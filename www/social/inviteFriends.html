@@ -166,7 +166,7 @@
                     friend1.classList.remove('valid');
                     friend1.classList.add('invalid');
                 }
-                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                toast('Ingrese un correo válido!', 2000, 'toast-danger');
                 result1 = false;
             }
             //valid email friend 2
@@ -183,7 +183,7 @@
                     friend2.classList.remove('valid');
                     friend2.classList.add('invalid');
                 }
-                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                toast('Ingrese un correo válido!', 2000, 'toast-danger');
                 result2 = false;
             }
             if (result1 || result2) {
@@ -207,7 +207,7 @@
                             window.localStorage.setItem('block-gift', 0);
                             window.location = 'invite-friends-success.html';
                         } else {
-                            toast(response, 8000, 'toast-danger');
+                            toast(response, 2000, 'toast-danger');
                         }
                     },
                     error: function (xhr) {

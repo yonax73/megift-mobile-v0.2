@@ -39,8 +39,15 @@
     </div>
     <div class="m-top-1rem">
         <div class="row">
-            <div class="col s12 m6">
-                <a href="recoverpassword.html" onclick="window.localStorage.setItem('recovery-password-back','login.html')" class="btn btn-flat btn-fluid btn-large btn-link">
+            <div class="col s12 m12">
+                <a href="signup.html" rel="external" class="btn btn-flat btn-fluid btn-large btn-link">
+                    <small class="white-text">Registrarse</small>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m12">
+                <a href="recoverpassword.html" rel="external" onclick="window.localStorage.setItem('recovery-password-back','login.html')" class="btn btn-flat btn-fluid btn-large btn-link">
                     <small class="white-text">¿Olvidastes tu contraseña?</small>
                 </a>
             </div>
@@ -83,7 +90,7 @@
                     email.classList.remove('valid');
                     email.classList.add('invalid');
                 }
-                toast('Ingrese un correo válido!', 8000, 'toast-danger');
+                toast('Ingrese un correo válido!', 2000, 'toast-danger');
                 result = false;
             }
             valid.push(result ? 1 : 0);
@@ -100,7 +107,7 @@
                     password.classList.remove('valid');
                     password.classList.add('invalid');
                 }
-                toast('Ingrese su contraseña!', 8000, 'toast-danger');
+                toast('Ingrese su contraseña!', 2000, 'toast-danger');
                 result = false;
             }
             valid.push(result ? 1 : 0);
@@ -130,7 +137,7 @@
                             window.localStorage.setItem('id-login', response);
                             window.location = '../../bsp/gift/search-gift.html';
                         } else {
-                            toast(response, 8000, 'toast-danger');
+                            toast(response, 2000, 'toast-danger');
                         }
                     },
                     error: function (xhr) {
