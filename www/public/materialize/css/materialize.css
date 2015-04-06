@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Materialize v0.95.3 (http://materializecss.com)
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
@@ -6274,10 +6274,13 @@ textarea.materialize-textarea {
   border: 2px solid transparent; }
 
 [type="radio"]:checked + label:after {
-  border-radius: 50%;
-  border: 2px solid #F44336;
-  background-color: #F44336;
+  color: #F44336;
+  content: "\e8e4";
+  font-family:"Material-Design-Icons";
+  font-size:2.5rem;
   z-index: 0;
+  margin:0;
+  padding:0;
   -webkit-transform: scale(1.02);
   -moz-transform: scale(1.02);
   -ms-transform: scale(1.02);

@@ -37,10 +37,10 @@
                         </ul>
                         <div class="row">
                             <div class="col s12">
-                                <select class="select-filter" id="type-view-select" onchange="onSelectChangeTypeView(this)">
+                                <select id="type-view-select" onchange="onSelectChangeTypeView(this)">
                                     <option value="view-gifts">Lista de regalos</option>
                                     <option value="view-actions">Acciones que dan regalos</option>
-                                    <option value="view-pos">Empresas que dan regalos</option>                                    
+                                    <option value="view-pos">Empresas que dan regalos</option>
                                 </select>
                             </div>
                         </div>
@@ -357,7 +357,7 @@
         var RESULTS_BY_ACTIONS = 30;
         var RESULTS_BY_POS = 31;
         var idLogin = window.localStorage.getItem('id-login');
-        var posList = JSON.parse(window.localStorage.getItem('POS-list'));
+        var posList = JSON.parse(window.localStorage.getItem('POS-list'));        
         var host = window.localStorage.getItem('host');
         var giftTypeId = 0;
         var actionTypeId = 0;
@@ -366,14 +366,19 @@
         * device onready
         */
         function onDeviceReady() {
-            init();
+            $(document).ready(function () {
+                init();
+            });
         }
         document.addEventListener('deviceready', onDeviceReady, false);
-        init();
+        $(document).ready(function () {
+            init();
+        });
         //function init
-        function init() {
+        function init() {          
             //load gifts
             loadGifts();
+            $('select').material_select();
         }
         /*
         *load gifts
@@ -387,7 +392,7 @@
             switch (parseInt(currentView)) {
                 case RESULTS_BY_GIFTS:
                     //load setting
-                    document.getElementById('view-gifts').checked = true;                    
+                    document.getElementById('view-gifts').checked = true;
                     $('#type-view-select').val('view-gifts');
                     title.textContent = 'Lista de regalos';
                     //fill
@@ -438,9 +443,9 @@
             currentView = parseInt(element.value);
             window.localStorage.setItem('current-view', currentView);
         }
-        function onSelectChangeTypeView(select) {            
+        function onSelectChangeTypeView(select) {
             var element = document.getElementById(select.options[select.selectedIndex].value);
-            element.checked =true;
+            element.checked = true;
             onchangeTypeView(element);
             giftSearch('#gift-views-form');
         }
@@ -461,14 +466,19 @@
                 beforeSend: function () {
                     showPreloader();
                     disabledFormControls();
+                    preloaderGift(true);
                 },
                 success: function (response) {
                     enabledFormControls();
                     hiddenPreloader();
+                    preloaderGift(false);
                     try {
                         posList = null;
                         posList = JSON.parse(response);
                         if (posList.length < 1) {
+                            var element = document.getElementById('cover-gift');
+                            //clear element
+                            element.innerHTML = '';
                             toast('No hay regalos cerca a tu ubicación con este filtro', 2000, 'toast-danger');
                         } else {
                             window.localStorage.removeItem('POS-list');
@@ -484,6 +494,9 @@
                         $('#modal-views').closeModal();
                         $('#modal-filter-action').closeModal();
                         $('#modal-filter-business').closeModal();
+                        var element = document.getElementById('cover-gift');
+                        //clear element
+                        element.innerHTML = '';
                         toast(response, 2000, 'toast-danger');
                     }
                 },
@@ -496,8 +509,17 @@
                     enabledFormControls();
                     document.getElementById('error-msg').textContent = xhr.responseText;
                     $('#modal-error').openModal();
+
                 }
             });
+        }
+        /*
+        * Preloader gift
+        */
+        function preloaderGift(active) {
+            var element = document.getElementById('cover-gift');            
+            //clear element
+            element.innerHTML = 'Cargando regalos..';
         }
         /*
         * Create Card gift
@@ -543,42 +565,50 @@
                 var card_content = document.createElement('div');
                 card_content.classList.add('card-content');
                 //ul card content
-                var ul_card_content = document.createElement('ul');
+                var div_card_content = document.createElement('div');
+                div_card_content.classList.add('row');
+                div_card_content.classList.add('center');
                 //fil list ul
                 for (var j = 0; j < 3; j++) {
-                    var li = document.createElement('li');
-                    var icon = document.createElement('i');
+                    var div = document.createElement('div');
+                    div.classList.add('col');
+                    div.classList.add('s4');
+                    var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
                             icon.classList.add('mdi-maps-local-atm');
+                            var p = document.createElement('p');
                             var del = document.createElement('del');
-                            var del_text = document.createTextNode(g.priceFormatted)
+                            var del_text = document.createTextNode(g.priceFormatted);
+                            var p2 = document.createElement('p');
                             var strong = document.createElement('strong');
                             strong.classList.add('green-text');
                             var strong_text = document.createTextNode('$ 0');
                             strong.appendChild(strong_text);
                             del.appendChild(del_text);
-                            li.appendChild(icon);
-                            li.appendChild(del);
-                            li.appendChild(strong);
+                            p.appendChild(del);
+                            p2.appendChild(strong);
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            div.appendChild(p2);
                             break;
                         case 1:
                             icon.classList.add('mdi-device-access-time');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(g.elapseTime));
-                            li.appendChild(icon);
-                            li.appendChild(span);
-                            countDown(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(g.elapseTime));
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            countDown(p);
                             break;
                         case 2:
                             icon.classList.add('mdi-maps-directions-car');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(pos_distance));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(pos_distance));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                     }
-                    ul_card_content.appendChild(li);
+                    div_card_content.appendChild(div);
                 }
                 /*
                 *append elements
@@ -594,7 +624,7 @@
                 card_img.appendChild(img);
                 card_img.appendChild(card_title);
                 //card content
-                card_content.appendChild(ul_card_content);
+                card_content.appendChild(div_card_content);
                 //card small
                 card_small.appendChild(card_img);
                 card_small.appendChild(card_content);
@@ -657,36 +687,40 @@
                 var card_content = document.createElement('div');
                 card_content.classList.add('card-content');
                 //ul card content
-                var ul_card_content = document.createElement('ul');
+                var div_card_content = document.createElement('div');
+                div_card_content.classList.add('row');
+                div_card_content.classList.add('center');
                 //fil list ul
                 for (var j = 0; j < 3; j++) {
-                    var li = document.createElement('li');
-                    var icon = document.createElement('i');
+                    var div = document.createElement('div');
+                    div.classList.add('col');
+                    div.classList.add('s4');
+                    var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
                             icon.classList.add('mdi-maps-local-atm');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(g.action.priceFormatted));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(g.action.priceFormatted));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                         case 1:
                             icon.classList.add('mdi-device-access-time');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(g.elapseTime));
-                            li.appendChild(icon);
-                            li.appendChild(span);
-                            countDown(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(g.elapseTime));
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            countDown(p);
                             break;
                         case 2:
                             icon.classList.add('mdi-maps-directions-car');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(pos_distance));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(pos_distance));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                     }
-                    ul_card_content.appendChild(li);
+                    div_card_content.appendChild(div);
                 }
                 /*
                 *append elements
@@ -702,7 +736,7 @@
                 card_img.appendChild(img);
                 card_img.appendChild(card_title);
                 //card content
-                card_content.appendChild(ul_card_content);
+                card_content.appendChild(div_card_content);
                 //card small
                 card_small.appendChild(card_img);
                 card_small.appendChild(card_content);
@@ -753,21 +787,25 @@
                 var card_content = document.createElement('div');
                 card_content.classList.add('card-content');
                 //ul card content
-                var ul_card_content = document.createElement('ul');
+                var div_card_content = document.createElement('div');
+                div_card_content.classList.add('row');
+                div_card_content.classList.add('center');
                 //fil list ul
                 for (var j = 0; j < 1; j++) {
-                    var li = document.createElement('li');
-                    var icon = document.createElement('i');
+                    var div = document.createElement('div');
+                    div.classList.add('col');
+                    div.classList.add('s4');
+                    var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
                             icon.classList.add('mdi-action-wallet-giftcard');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(b.giftCount));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(b.giftCount));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                     }
-                    ul_card_content.appendChild(li);
+                    div_card_content.appendChild(div);
                 }
                 /*
                 *append elements
@@ -778,7 +816,7 @@
                 card_img.appendChild(img);
                 card_img.appendChild(card_title);
                 //card content
-                card_content.appendChild(ul_card_content);
+                card_content.appendChild(div_card_content);
                 //card small
                 card_small.appendChild(card_img);
                 card_small.appendChild(card_content);
@@ -922,8 +960,9 @@
             if (time < 10) {
                 return '0' + time;
             }
-            return time;                
+            return time;
         }
     </script>
 </body>
+
 </html>

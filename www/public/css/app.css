@@ -1,3 +1,7 @@
+p, small, strong {
+    font-size: 110%;
+}
+
 .bg {
     margin: 0;
     padding: 0;
@@ -7,9 +11,9 @@
 }
 
 .logo-full-header {
-    margin-top: 9%;
+    margin-top: 14%;
     width: 100%;
-    max-width: 35%;
+    max-width: 55%;
 }
 
 /*COVER BLOCK*/
@@ -305,7 +309,9 @@ ul.side-nav a {
 .card-subtitle {
     font-size: 50%;
 }
-
+.card.small {
+  height: 340px;
+}
 .card.small .card-image {
     height: 220px;
 }
@@ -315,7 +321,7 @@ ul.side-nav a {
 }
 
 .card-content li {
-    display: inline-flex;
+    display: inline-block;
     margin-right: 4%;
     font-size: 95%;
     color: #999;
@@ -328,6 +334,9 @@ ul.side-nav a {
 
     .card-content li del {
         margin-right: 3px;
+    }
+    .card-content span{
+        display:inline;
     }
 /*
 * palete color text inspired by
@@ -653,7 +662,7 @@ input.input-flat {
     border: 1px solid #666;
     font-size: 1.5rem;
     height: 54px;
-    line-height: 56px;
+    /*line-height: 56px;*/
     text-indent: 1rem;
 }
 
@@ -810,7 +819,7 @@ input.input-flat {
 /*OVERWRITE CARD PANEL*/
 /**********************/
 .card {
-    border: 1px solid #ddd;
+    border: 1px solid #b2b2b2;
     box-shadow: none;
 }
 
@@ -826,6 +835,7 @@ input.input-flat {
 
 .card .card-image img {
     height: 100%;
+    max-height:190px;
     display: table;
 }
 
@@ -841,4 +851,22 @@ input.input-flat {
 .center-col.col.s6,
 .center-col.col.m6 {
     margin: auto;
+}
+/*************************/
+/*OVERWRITE SELECT********/
+/**************************/
+.select-wrapper input.select-dropdown {
+  color: #FFF;/**/
+  border-color:#fff;
+}
+.select-wrapper i {
+  color: #fff;
+}
+.select-wrapper {
+      margin-top: 0; 
+}
+.dropdown-content li > a, .dropdown-content li > span {
+  color: #000;
+  display: block;
+  padding: 1rem;
 }

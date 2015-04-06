@@ -8,6 +8,13 @@
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <style>
+       .row{
+           margin-bottom:0;
+       }
+
+    </style>
+
 </head>
 
 <body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
@@ -17,7 +24,7 @@
                 <a href="#" class="brand-logo brand-logo-s truncate">
                     Información de tu regalo
                 </a>
-                <a href="gift-list.html" rel="external" data-activates="nav-mobile" class="button-collapse">
+                <a href="#" onclick="giftSearch()" rel="external" data-activates="nav-mobile" class="button-collapse">
                     <i class="mdi-hardware-keyboard-backspace"></i>
                 </a>
             </div>
@@ -238,7 +245,7 @@
                             Datos de contacto
                         </h5>
                         <p>
-                            <i class="mdi-action-shopping-cart">&nbsp;</i>
+                            <i class="mdi-action-assignment">&nbsp;</i>
                             <span id="business-name">
                                 <span class="progress">
                                     <span class="indeterminate"></span>
@@ -327,7 +334,7 @@
                         </h6>
                         <div class="row">
                             <div class="col s6">
-                                <button class="btn btn-flat btn-fluid btn-large fb-bg">
+                                <button class="btn btn-flat btn-fluid btn-large fb-bg" onclick="socialShare()">
                                     facebook
                                     <i class="mdi-social-share"></i>
                                 </button>
@@ -344,6 +351,15 @@
             </div>
         </div>
     </div>
+    <form id="gift-search-form" class="hidden">
+        <input name="latitude" type="hidden" value="0" />
+        <input name="longitude" type="hidden" value="0" />
+        <input name="id-login" type="hidden" value="0" />
+        <input name="gift-type-id" type="hidden" value="0" />
+        <input name="action-type-id" type="hidden" value="0" />
+        <input name="business-type-id" type="hidden" value="0" />
+        <input id="type-view" name="type-view" type="hidden" value="0" />
+    </form>
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
         <div class="modal-content">
@@ -371,6 +387,7 @@
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
     <script src="../../public/js/inventor/BaseForm.min.js"></script>
+
     <script>
         var idLogin = window.localStorage.getItem('id-login');
         var host = window.localStorage.getItem('host');
@@ -581,8 +598,35 @@
             }
         });
         /*
-      * Mostrar preloader
-      */
+        * Gift search
+        */
+        function giftSearch() {
+            document.getElementsByName('latitude')[0].value = userLat;
+            document.getElementsByName('longitude')[0].value = userLng;
+            document.getElementsByName('id-login')[0].value = idLogin;
+            document.getElementById('type-view').value = window.localStorage.getItem('current-view');
+            $.ajax({
+                type: 'POST',
+                url: host + '/searchGift',
+                data: $('#gift-search-form').serialize(),
+                success: function (response) {                   
+                    try {
+                        window.localStorage.setItem('POS-list', response);
+                        window.location = 'gift-list.html';
+                    } catch (ex) {
+                        toast(response, 2000, 'toast-danger');
+                    }
+                },
+                error: function (xhr) {
+                    hiddenPreloader();
+                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    $('#modal-error').openModal();
+                }
+            });
+        }
+        /*
+        * Mostrar preloader
+        */
         function showPreloader() {
             var preloader = document.getElementById('preloader');
             if (preloader.classList.contains('hidden')) {
@@ -613,8 +657,8 @@
             submitFormBtn.disabled = false;
         }
         /*
-* Count down
-*/
+        * Count down
+        */
         function countDown(element) {
             window.setInterval(function () {
                 var str = element.innerHTML;
@@ -641,6 +685,22 @@
                 return '0' + time;
             }
             return time;
+        }
+        /*
+        * Social Sharing
+        */
+        function socialShare() {
+            alert(window.plugins);
+            window.plugins.socialsharing.share('Blog post title'
+                , 'post summery'
+                , null
+                , 'http://qnimate.com'
+                , function (result) {
+                    alert('result: ' + result);
+                }
+                , function (result) {
+                    alert('error: ' + result);
+                });
         }
     </script>
 </body>

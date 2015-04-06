@@ -203,8 +203,12 @@
         /* onError Callback receives a PositionError object
         */
         function onError(error) {            
-            enabledSearch();
-            toast('code: ' + error.code + '\n' + 'message: ' + error.message + '\n', 2000, 'toast-danger');
+            enabledSearch();          
+            if (error.code == 2) {
+                alert('Debes de activar servicios de ubicación por redes inalámbricas');
+            } else {
+                alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+            }
         }
         /*
         * Submit form
