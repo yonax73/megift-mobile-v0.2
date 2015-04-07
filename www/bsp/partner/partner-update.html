@@ -9,84 +9,90 @@
     <link href="../../public/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
-<body class="i-ease-in i-1s i-fade-in flow-text">
-    <div class="navbar-fixed">
-        <nav class="megift-bg" role="navigation">
-            <div class="nav-wrapper container">
-                <a href="#" class="brand-logo brand-logo-s truncate">
-                    Mi Perfil
-                </a>
-                <a href="partner.html" rel="external" data-activates="nav-mobile" class="button-collapse">
-                    <i class="mdi-hardware-keyboard-backspace"></i>
-                </a>
-            </div>
-        </nav>
+<body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
+    <div class="TOP_TOOLBAR">
+        <div class="navbar-fixed">
+            <nav class="megift-bg" role="navigation">
+                <div class="nav-wrapper container">
+                    <a href="#" class="brand-logo brand-logo-s truncate">
+                        Mi Perfil
+                    </a>
+                    <a href="partner.html" rel="external" data-activates="nav-mobile" class="button-collapse">
+                        <i class="mdi-hardware-keyboard-backspace"></i>
+                    </a>
+                </div>
+            </nav>
+        </div>
     </div>
-    <section class="container m-top-1rem">
-        <div id="preloader" class="progress-deep-orange progress hidden">
-            <div class="progress-deep-orange indeterminate"></div>
+    <div class="SCROLLER_FRAME">
+        <div class="SCROLLER">
+            <section class="m-top-1rem">
+                <div id="preloader" class="progress-deep-orange progress hidden">
+                    <div class="progress-deep-orange indeterminate"></div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-image">
+                                <form id="photo-form">
+                                    <div class="profile-user">
+                                        <i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full"></i>
+                                        <img id="image-partner" src="../../public/images/avatar.png">
+                                        <input type="file" accept="image/*" id="picture-select" name="picture" class="hidden" />
+                                    </div>
+                                </form>
+                            </div>
+                            <form id="partner-form">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <input id="name-partner" name="name-partner" type="text" class="input-flat validate" placeholder="Nombre Completo">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <input id="email-partner" name="email-partner" type="text" class="input-flat validate" placeholder="Correo Electrónico">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <input id="city-partner" name="city-partner" type="text" class="input-flat validate" placeholder="Ciudad">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <input id="birthday-partner" name="birthday-partner" type="text" class="datepicker validate input-flat" placeholder="Fecha de Nacimiento">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <p>Sexo:</p>
+                                            <p>
+                                                <input class="with-gap" name="gender-partner" value="1" type="radio" id="female-gender-partner" checked="checked" />
+                                                <label for="female-gender-partner">Femenino</label>
+                                            </p>
+                                            <p>
+                                                <input class="with-gap" name="gender-partner" value="2" type="radio" id="male-gender-partner" />
+                                                <label for="male-gender-partner">Masculino</label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="id-partner" name="id-partner" value="0" />
+                                    <input type="hidden" id="id-location" name="id-location" value="0" />
+                                    <input type="hidden" id="id-city" name="id-city" value="0" />
+                                </div>
+                                <div class="card-action">
+                                    <button id="submit-form" type="submit" class="btn btn-flat btn-fluid btn-large btn-megift-green">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="row">
-            <div class="col s12 m7">
-                <form id="photo-form">
-                    <div class="profile-user">
-                        <i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full"></i>
-                        <img id="image-partner" src="../../public/images/avatar.png">
-                        <input type="file" accept="image/*" id="picture-select" name="picture" class="hidden" />
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m7">
-                <form id="partner-form">
-                    <div class="row">
-                        <div class="col s12">
-                            <input id="name-partner" name="name-partner" type="text" class="input-flat validate" placeholder="Nombre Completo">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <input id="email-partner" name="email-partner" type="text" class="input-flat validate" placeholder="Correo Electrónico">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <input id="city-partner" name="city-partner" type="text" class="input-flat validate" placeholder="Ciudad">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <input id="birthday-partner" name="birthday-partner" type="text" class="datepicker validate input-flat" placeholder="Fecha de Nacimiento">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <p>Sexo:</p>
-                            <p>
-                                <input name="gender-partner" value="1" type="radio" id="female-gender-partner" checked="checked" />
-                                <label for="female-gender-partner">Femenino</label>
-                            </p>
-                            <p>
-                                <input name="gender-partner" value="2" type="radio" id="male-gender-partner" />
-                                <label for="male-gender-partner">Masculino</label>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <button id="submit-form" type="submit" class="btn btn-flat btn-fluid btn-large btn-megift-green">
-                                Guardar
-                            </button>
-                        </div>
-                    </div>
-                    <input type="hidden" id="id-partner" name="id-partner" value="0" />
-                    <input type="hidden" id="id-location" name="id-location" value="0" />
-                    <input type="hidden" id="id-city" name="id-city" value="0" />
-                </form>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
@@ -138,7 +144,7 @@
         /*
         * init partner
         */
-        function initPartner() {            
+        function initPartner() {
             if ((partner !== 'undefined' || partner !== undefined) && partner !== null) {
                 fillPartner();
             } else {

@@ -7,83 +7,88 @@
     <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
-
 </head>
 
 <body class="i-ease-in i-1s i-fade-in flow-text">
-    <nav class="megift-bg" role="navigation">
-        <div class="nav-wrapper container">
-            <a href="#" class="brand-logo brand-logo-s center">
-                <img class="logo-full-header" src="../../public/images/logo.png" alt="megift" />
-            </a>
-            <ul id="nav-mobile" class="side-nav">
-                <li class="logo-nav-open megift-bg">
-                    <img src="../../public/images/logo.png" />
-                </li>
-                <li>
-                    <a href="../partner/partner.html" rel="external">
-                        <i class="mdi-social-person  left"></i>
-                        Mi Perfil
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="mdi-action-wallet-giftcard  left"></i>
-                        Buscar Regalos
-                    </a>
-                </li>
-                <li>
-                    <a href="../../social/inviteFriends.html">
-                        <i class="mdi-social-share  left"></i>
-                        Invitar amigos
-                    </a>
-                </li>
-                <li>
-                    <a href="../../sec/settings/settings.html" rel="external">
-                        <i class="mdi-action-settings  left"></i>
-                        Ajustes
-                    </a>
-                </li>
-                <li>
-                    <a href="../../sec/login/help.html" rel="external">
-                        <i class="mdi-communication-live-help  left"></i>
-                        Ayuda
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="singOut()">
-                        <i class="mdi-action-exit-to-app  left"></i>
-                        Cerrar Sesión
-                    </a>
-                </li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse">
-                <i class="mdi-navigation-menu"></i>
-            </a>
-        </div>
-    </nav>
-    <div id="preloader" class="progress-deep-orange progress hidden">
-        <div class="progress-deep-orange indeterminate"></div>
-    </div>
-    <div id="search-gift-content">
-        <form id="gift-search-form">
-            <input name="latitude" type="hidden" value="0" />
-            <input name="longitude" type="hidden" value="0" />
-            <input name="id-login" type="hidden" value="0" />
-            <input name="gift-type-id" type="hidden" value="0" />
-            <input name="action-type-id" type="hidden" value="0" />
-            <input name="business-type-id" type="hidden" value="0" />
-            <input id="type-view" name="type-view" type="hidden" value="0" />
-            <button id="gift-search-btn" type="submit" class="row i-ease-in i-2s i-bounce-in">
-                <p class="center-align">
-                    <img src="../../public/images/present.png" class="col s12  m6" style="float:none" alt="buscar regalo">
-                </p>
-            </button>
-            <p id="git-search-msg"  class="center-align">               
-                    Toca la caja para buscar los regalos que tenemos para ti.               
-            </p>
-        </form>
+    <div class="TOP_TOOLBAR">
 
+        <nav class="megift-bg" role="navigation">
+            <div class="nav-wrapper container">
+                <a href="#" class="brand-logo brand-logo-s center">
+                    <img class="logo-full-header" src="../../public/images/logo.png" alt="megift" />
+                </a>
+                <ul id="nav-mobile" class="side-nav">
+                    <li class="logo-nav-open megift-bg">
+                        <img src="../../public/images/logo.png" />
+                    </li>
+                    <li>
+                        <a href="../partner/partner.html" rel="external">
+                            <i class="mdi-social-person  left"></i>
+                            Mi Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="mdi-action-wallet-giftcard  left"></i>
+                            Buscar Regalos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../social/inviteFriends.html">
+                            <i class="mdi-social-share  left"></i>
+                            Invitar amigos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../sec/settings/settings.html" rel="external">
+                            <i class="mdi-action-settings  left"></i>
+                            Ajustes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../sec/login/help.html" rel="external">
+                            <i class="mdi-communication-live-help  left"></i>
+                            Ayuda
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="singOut()">
+                            <i class="mdi-action-exit-to-app  left"></i>
+                            Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse">
+                    <i class="mdi-navigation-menu"></i>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <div class="SCROLLER_FRAME">
+        <div class="SCROLLER">
+            <div id="preloader" class="progress-deep-orange progress hidden">
+                <div class="progress-deep-orange indeterminate"></div>
+            </div>
+            <div id="search-gift-content">
+                <form id="gift-search-form">
+                    <input name="latitude" type="hidden" value="0" />
+                    <input name="longitude" type="hidden" value="0" />
+                    <input name="id-login" type="hidden" value="0" />
+                    <input name="gift-type-id" type="hidden" value="0" />
+                    <input name="action-type-id" type="hidden" value="0" />
+                    <input name="business-type-id" type="hidden" value="0" />
+                    <input id="type-view" name="type-view" type="hidden" value="0" />
+                    <button id="gift-search-btn" type="submit" class="row i-ease-in i-2s i-bounce-in">
+                        <p class="center-align">
+                            <img src="../../public/images/present.png" class="col s12  m6" style="float:none" alt="buscar regalo">
+                        </p>
+                    </button>
+                    <p id="git-search-msg" class="center-align">
+                        Toca la caja para buscar los regalos que tenemos para ti.
+                    </p>
+                </form>
+            </div>
+        </div>
     </div>
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
@@ -109,17 +114,6 @@
             <a href="../partner/partner-update.html" rel="external" class="btn waves-effect waves-green btn-flat modal-action">Aceptar</a>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
 
@@ -202,8 +196,8 @@
         /*
         /* onError Callback receives a PositionError object
         */
-        function onError(error) {            
-            enabledSearch();          
+        function onError(error) {
+            enabledSearch();
             if (error.code == 2) {
                 alert('Debes de activar servicios de ubicación por redes inalámbricas');
             } else {
