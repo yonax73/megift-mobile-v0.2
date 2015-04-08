@@ -142,20 +142,26 @@
         * Search Gift
         */
         function giftSearch() {
-            giftSearchMsg.textContent = 'Buscando regalos...';
-            giftSearchBtn.disabled = true;
-            giftSearchBtn.classList.add('btn-gift-search-disabled');
-            giftSearchBtn.classList.remove('i-bounce-in');
-            giftSearchBtn.classList.remove('i-2s');
-            giftSearchBtn.classList.add('i-2s');
-            giftSearchBtn.classList.add('i-infinite');
-            giftSearchBtn.classList.add('i-pulse');
-            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            try {
+                giftSearchMsg.textContent = 'Buscando regalos...';
+                giftSearchBtn.disabled = true;
+                giftSearchBtn.classList.add('btn-gift-search-disabled');
+                giftSearchBtn.classList.remove('i-bounce-in');
+                giftSearchBtn.classList.remove('i-2s');
+                giftSearchBtn.classList.add('i-2s');
+                giftSearchBtn.classList.add('i-infinite');
+                giftSearchBtn.classList.add('i-pulse');
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            } catch (ex) {
+                alert(response);
+                console.error(ex);
+            }
+
         }
         /*
         /* onSuccess Geolocation
         */
-        function onSuccess(position) {
+        function onSuccess(position) {           
             var longitude = position.coords.longitude;
             var latitude = position.coords.latitude;
             document.getElementsByName('latitude')[0].value = latitude;
@@ -209,10 +215,10 @@
         * Submit form
         */
         $('#gift-search-form').submit(function (e) {
-            e.preventDefault();
+            e.preventDefault();           
             //validar si el usuario tiene el search bloqueado
-            var isBlocked = window.localStorage.getItem('block-search');
-            if ((isBlocked !== 'undefined' || isBlocked !== undefined) && isBlocked < 1) {
+            var isBlocked = window.localStorage.getItem('block-search');           
+            if ((isBlocked != null || isBlocked !== 'undefined' || isBlocked !== undefined) && isBlocked < 1) {
                 giftSearch();
             } else {
                 $('#modal-block').openModal();
@@ -221,7 +227,7 @@
         /*
          * load search settings
          */
-        function loadSearchSettings() {
+        function loadSearchSettings() {          
             if (window.localStorage.getItem('current-view') == 'undefined' || !window.localStorage.getItem('current-view')) {
                 $.ajax({
                     type: 'GET',
@@ -233,7 +239,7 @@
                     success: function (response) {
                         hiddenPreloader();
                         giftSearchBtn.disabled = false;
-                        try {
+                        try {                         
                             search_setting = JSON.parse(response);
                             window.localStorage.setItem('current-view', search_setting.settings.searchSetting.id);
                         } catch (ex) {

@@ -761,7 +761,7 @@ input.input-flat {
     background-color: transparent;
     border: medium none;
     margin: auto;
-    padding-top: 5rem;
+    margin-top: 5rem;
     width: 100%;
 }
 
@@ -826,6 +826,11 @@ input.input-flat {
     margin: 0.5rem auto;
     max-width: 360px;
 }
+
+    .card a {
+        color: inherit;
+        text-transform: none;
+    }
 
     .card .card-image .card-title {
         background-color: rgba(0, 0, 0, 0.65);
@@ -933,9 +938,12 @@ body {
 /*********************/
 /***OVERWRITE SELECT*/
 /********************/
-select.browser-default {
-    color: #000;    
-
-    overflow: hidden;
-    background: url(../images/arrow.png) no-repeat right center #fff;
+select {
+    padding: 0;
 }
+
+    select.browser-default {
+        color: #000;
+        background: url(../images/arrow.png) no-repeat right center #fff;
+        -webkit-appearance: none;
+    }

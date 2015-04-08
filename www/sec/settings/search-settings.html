@@ -10,50 +10,56 @@
 </head>
 
 <body class="i-ease-in i-1s i-fade-in flow-text">
-    <div class="navbar-fixed">
-        <nav class="megift-bg" role="navigation">
-            <div class="nav-wrapper container">
-                <a id="title" href="#" class="brand-logo brand-logo-s truncate">
-                    Configuración de búsqueda.
-                </a>
-                <a href="settings.html" rel="external" data-activates="nav-mobile" class="button-collapse">
-                    <i class="mdi-hardware-keyboard-backspace"></i>
-                </a>
-            </div>
-        </nav>
+    <div class="TOP_TOOLBAR">
+        <div class="navbar-fixed">
+            <nav class="megift-bg" role="navigation">
+                <div class="nav-wrapper container">
+                    <a id="title" href="#" class="brand-logo brand-logo-s truncate">
+                        Configuración de búsqueda.
+                    </a>
+                    <a href="settings.html" rel="external" data-activates="nav-mobile" class="button-collapse">
+                        <i class="mdi-hardware-keyboard-backspace"></i>
+                    </a>
+                </div>
+            </nav>
+        </div>
     </div>
-    <section class="container">
-        <div id="preloader" class="progress-deep-orange progress hidden">
-            <div class="progress-deep-orange indeterminate"></div>
+    <div class="SCROLLER_FRAME">
+        <div class="SCROLLER">
+            <section class="container">
+                <div id="preloader" class="progress-deep-orange progress hidden">
+                    <div class="progress-deep-orange indeterminate"></div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <p class="text-justify">
+                            Elige como se mostraran los resultados por defecto en la búsqueda de regalos.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <form id="gift-views-form">
+                            <input id="id-login" name="id-login" type="hidden" value="0" />
+                            <input id="id-setting" name="id-setting" type="hidden" value="0" />
+                            <p>
+                                <input class="with-gap" name="type-view" value="29" type="radio" id="view-gifts" onclick="saveSearchSettings()" />
+                                <label for="view-gifts">Lista de regalos.</label>
+                            </p>
+                            <p>
+                                <input class="with-gap" name="type-view" value="30" type="radio" id="view-actions" onclick="saveSearchSettings()" />
+                                <label for="view-actions">Acciones que dan regalos.</label>
+                            </p>
+                            <p>
+                                <input class="with-gap" name="type-view" value="31" type="radio" id="view-pos" onclick="saveSearchSettings()" />
+                                <label for="view-pos">Empresas que dan regalos.</label>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="row">
-            <div class="col s12">
-                <p class="text-justify">
-                    Elige como se mostraran los resultados por defecto en la búsqueda de regalos.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <form id="gift-views-form">
-                    <input id="id-login" name="id-login" type="hidden" value="0" />
-                    <input id="id-setting" name="id-setting" type="hidden" value="0" />
-                    <p>
-                        <input class="with-gap" name="type-view" value="29" type="radio" id="view-gifts" onclick="saveSearchSettings()" />
-                        <label for="view-gifts">Lista de regalos.</label>
-                    </p>
-                    <p>
-                        <input class="with-gap" name="type-view" value="30" type="radio" id="view-actions" onclick="saveSearchSettings()" />
-                        <label for="view-actions">Acciones que dan regalos.</label>
-                    </p>
-                    <p>
-                        <input class="with-gap" name="type-view" value="31" type="radio" id="view-pos" onclick="saveSearchSettings()" />
-                        <label for="view-pos">Empresas que dan regalos.</label>
-                    </p>
-                </form>
-            </div>
-        </div>
-    </section>
+    </div>
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
         <div class="modal-content">

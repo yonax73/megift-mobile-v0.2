@@ -372,14 +372,12 @@
         * device onready
         */
         function onDeviceReady() {
-            $(document).ready(function () {
-                init();
-            });
+            init();
         }
         document.addEventListener('deviceready', onDeviceReady, false);
-        $(document).ready(function () {
+    
             init();
-        });
+ 
         //function init
         function init() {
             //load gifts
@@ -428,7 +426,7 @@
                     document.getElementById('view-pos').checked = true;
                     $('#type-view-select').val('view-pos');                    
                     title.textContent = 'Lista de Empresas';
-                    //la lista de puntos de venta en esta caso es una lista de empresas
+                    //la lista de puntos de venta en esta caso es una lista de empresas                    
                     var b = posList[i];
                     createCardBusiness(element, posList);
                     break;
@@ -753,7 +751,7 @@
          * Create Card buiness
          */
         function createCardBusiness(element, businesses) {
-            //fill
+            //fill            
             var n = businesses.length;
             for (var i = 0; i < n; i++) {
                 var b = businesses[i];
@@ -785,7 +783,7 @@
                 div_card_content.classList.add('row');
                 div_card_content.classList.add('center');
                 //fil list ul
-                for (var j = 0; j < 1; j++) {
+                for (var j = 0; j < 2; j++) {
                     var div = document.createElement('div');
                     div.classList.add('col');
                     var c = -j + 5;
@@ -796,6 +794,13 @@
                             icon.classList.add('mdi-action-wallet-giftcard');
                             var p = document.createElement('p');
                             p.appendChild(document.createTextNode(b.giftCount));
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            break;
+                        case 1:
+                            icon.classList.add('mdi-maps-directions-car');
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(b.pos.distanceFormatted));
                             div.appendChild(icon);
                             div.appendChild(p);
                             break;

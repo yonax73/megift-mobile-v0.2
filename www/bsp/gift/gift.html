@@ -229,6 +229,10 @@
                                         <span id="pos-email-contact"></span>
                                     </p>
                                     <p>
+                                        <i class="mdi-social-public">&nbsp;</i>
+                                        <a id="business-web-site" href="#"></a>
+                                    </p>
+                                    <p>
                                         <i class="mdi-maps-directions-car">&nbsp;</i>
                                         <span id="pos-distance"></span>
                                     </p>
@@ -418,6 +422,12 @@
                         document.getElementById('pos-mb-phone').textContent = pos.location.phone.mobile;
                         document.getElementById('pos-phone').textContent = pos.location.phone.number;
                         document.getElementById('pos-email-contact').textContent = business.contact.login.email;
+                        var webSite = document.getElementById('business-web-site');
+                        webSite.textContent = business.webSite;
+                        webSite.href = '#';
+                        webSite.onclick = function () {
+                            openBusinessUrl(business.webSite);
+                        }
                         document.getElementById('pos-distance').textContent = pos.distanceFormatted;
                         document.getElementById('pos-address').textContent = pos.location.address.address;
                         document.getElementById('business-name-2').textContent = tradeName;
@@ -627,6 +637,17 @@
                 , function (result) {
                     alert('error: ' + result);
                 });
+        }
+        /*
+        *open business url
+        */
+        function openBusinessUrl(url) {
+            try{
+                cordova.InAppBrowser.open(url, '_system', 'location=yes');
+            } catch (ex) {
+                alert(ex.message);
+                console.error(ex);
+            }
         }
         /*
         * Navigation Back

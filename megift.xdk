@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "94cb4b8b-f8c9-485a-a11d-a59a8f89b9de",
-      "lastModifiedDate": 1428419219858,
+      "lastModifiedDate": 1428527084295,
       "creationDate": 1423754314070
     },
     "XDK-app-designer": "false",
@@ -28,18 +28,23 @@
         "dependedBy": []
       },
       {
-        "id": "nl.x-services.plugins.socialsharing",
-        "version": "",
+        "id": "org.apache.cordova.geolocation",
+        "version": "0.3.11",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "d91a6e4c35a9d6049e12bfd600484a77cc4a118b4f999b1a76c1918f1c410c80",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.inappbrowser",
+        "version": "0.5.4",
         "selectedState": "Included",
         "data": {},
         "paramvals": {},
         "dependsOn": [],
-        "dependedBy": [],
-        "custom": "true",
-        "name": "SocialSharing",
-        "origin": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
-        "originType": "repo",
-        "sourceLocation": ""
+        "dependedBy": []
       }
     ],
     "buildConfigurations": {

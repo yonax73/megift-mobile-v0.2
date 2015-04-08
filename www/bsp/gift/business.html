@@ -56,6 +56,10 @@
                                     <i class="mdi-communication-email">&nbsp;</i>
                                     <span id="business-email-contact"></span>
                                 </p>
+                                <p>
+                                    <i class="mdi-social-public">&nbsp;</i>
+                                    <a id="business-web-site" href="#"></a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -115,7 +119,7 @@
                 url: host + '/loadBusinessForMobile?id=' + businessId + '&lat=' + window.localStorage.getItem('latitude') + '&lng=' + window.localStorage.getItem('longitude'),
                 success: function (response) {
                     try {
-                        var business = JSON.parse(response);
+                        var business = JSON.parse(response); 
                         var posList = business.posList;
                         var element = document.getElementById('cover-gift');
                         element.innerHTML = '';
@@ -124,6 +128,12 @@
                         document.getElementById('business-mb-phone').textContent = business.contact.location.phone.mobile;
                         document.getElementById('business-phone').textContent = business.contact.location.phone.number;
                         document.getElementById('business-email-contact').textContent = business.contact.login.email;
+                        var webSite = document.getElementById('business-web-site');
+                        webSite.textContent = business.webSite;
+                        webSite.href = '#';
+                        webSite.onclick = function () {
+                            openBusinessUrl(business.webSite);
+                        }
                         //fill
                         var n = posList.length;
                         for (var i = 0; i < n; i++) {
@@ -326,6 +336,17 @@
                 loader.classList.remove('hidden');
                 animationShow.run(loader);
             });
+        }
+        /*
+        *open business url
+        */
+        function openBusinessUrl(url) {
+            try {
+                cordova.InAppBrowser.open(url, '_system', 'location=yes');
+            } catch (ex) {
+                alert(ex.message);
+                console.error(ex);
+            }
         }
     </script>
 </body>

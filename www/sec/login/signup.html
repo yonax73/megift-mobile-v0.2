@@ -9,72 +9,78 @@
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
 <body class="i-ease-in i-1s i-fade-in flow-text">
-    <nav class="megift-bg">
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo brand-logo-s truncate">
-                Crea tú perfil de regalo
-            </a>
-            <a href="login.html" rel="external" class="btn btn-nav">
-                <i class="mdi-hardware-keyboard-backspace"></i>
-            </a>
-        </div>
-    </nav>
-    <div id="preloader" class="progress-deep-orange progress hidden">
-        <div class="progress-deep-orange indeterminate"></div>
-    </div>
-    <section class="container m-top-1rem">
-        <div class="row">
-            <div class="col s12">
-                <h5>¡Bienvenido!</h5>
-                <p class="text-justify">Por favor completa la siguiente información para crear tu perfil.</p>
+    <div class="TOP_TOOLBAR">
+        <nav class="megift-bg">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo brand-logo-s truncate">
+                    Crea tú perfil de regalo
+                </a>
+                <a href="login.html" rel="external" class="btn btn-nav">
+                    <i class="mdi-hardware-keyboard-backspace"></i>
+                </a>
             </div>
+        </nav>
+    </div>
+    <div class="SCROLLER_FRAME">
+        <div class="SCROLLER">
+            <div id="preloader" class="progress-deep-orange progress hidden">
+                <div class="progress-deep-orange indeterminate"></div>
+            </div>
+            <section class="container m-top-1rem">
+                <div class="row">
+                    <div class="col s12">
+                        <h5>¡Bienvenido!</h5>
+                        <p class="text-justify">Por favor completa la siguiente información para crear tu perfil.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <form id="signup-form" class="col s11 m11">
+                        <div class="row">
+                            <div class="col s12">
+                                <input id="name-partner" name="name-partner" type="text" class="input-flat validate" placeholder="Nombre Completo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <input id="email-partner" name="email-partner" type="text" class="input-flat validate" placeholder="Correo Electrónico">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <input id="password-partner" name="password-partner" type="password" class="input-flat validate" placeholder="Contraseña">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <input id="password-partner-2" type="password" class="input-flat validate" placeholder="Confirmar Contraseña">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <small class="text-justify">
+                                    Al hacer clic en continuar aceptas las
+                                    <a href="termsAndConditions.html" rel="external" onclick="window.localStorage.setItem('terms-conditions-back', 'signup.html')">
+                                        condiciones
+                                    </a>
+                                    y que has le&iacute;do las
+                                    <a href="privacyPolicy.html" rel="external" onclick="window.localStorage.setItem('privacy-policy-back', 'signup.html')">
+                                        pol&iacute;ticas de privacidad
+                                    </a>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <button id="submit-form" class="btn btn-flat btn-fluid btn-large btn-megift-green" type="submit">
+                                    Continuar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
-        <div class="row">
-            <form id="signup-form" class="col s11 m11">
-                <div class="row">
-                    <div class="col s12">
-                        <input id="name-partner" name="name-partner" type="text" class="input-flat validate" placeholder="Nombre Completo">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <input id="email-partner" name="email-partner" type="text" class="input-flat validate" placeholder="Correo Electrónico">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <input id="password-partner" name="password-partner" type="password" class="input-flat validate" placeholder="Contraseña">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <input id="password-partner-2" type="password" class="input-flat validate" placeholder="Confirmar Contraseña">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <small>
-                            Al hacer clic en continuar aceptas las
-                            <a href="termsAndConditions.html" rel="external" onclick="window.localStorage.setItem('terms-conditions-back', 'signup.html')">
-                                condiciones
-                            </a>
-                            y que has le&iacute;do las
-                            <a href="privacyPolicy.html" rel="external" onclick="window.localStorage.setItem('privacy-policy-back', 'signup.html')">
-                                pol&iacute;ticas de privacidad
-                            </a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <button id="submit-form" class="btn btn-flat btn-fluid btn-large btn-megift-green" type="submit">
-                            Continuar
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+    </div>
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
         <div class="modal-content">
