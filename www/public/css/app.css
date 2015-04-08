@@ -1,3 +1,7 @@
+p, small, strong {
+    font-size: 110%;
+}
+
 .bg {
     margin: 0;
     padding: 0;
@@ -7,9 +11,9 @@
 }
 
 .logo-full-header {
-    margin-top: 9%;
+    margin-top: 2rem;
+    max-width: 6rem;
     width: 100%;
-    max-width: 35%;
 }
 
 /*COVER BLOCK*/
@@ -26,11 +30,9 @@
     width: 100%;
 }
 
-@import "app.min.css";
-
-.cover-content i {
-    padding-right: 0.5em;
-}
+    .cover-content i {
+        padding-right: 0.5em;
+    }
 
 .cover-col {
     padding: 0.3em;
@@ -306,16 +308,22 @@ ul.side-nav a {
     font-size: 50%;
 }
 
-.card.small .card-image {
-    height: 220px;
+.card.small {
+    height: auto;
+    max-height: 355px;
+    min-height: 340px;
 }
+
+    .card.small .card-image {
+        height: 220px;
+    }
 
 .card .card-content {
     padding: 10px;
 }
 
 .card-content li {
-    display: inline-flex;
+    display: inline-block;
     margin-right: 4%;
     font-size: 95%;
     color: #999;
@@ -329,6 +337,10 @@ ul.side-nav a {
     .card-content li del {
         margin-right: 3px;
     }
+
+.card-content span {
+    display: inline;
+}
 /*
 * palete color text inspired by
 * http://www.google.com/design/spec/style/color.html#color-color-palette
@@ -572,20 +584,13 @@ ul.side-nav li:hover {
 /** OVERWRITE LABEL -CHECKBOX -RADIO BUTTONS  ****************/
 /*************************************************************/
 [type="radio"] + label::before, [type="radio"] + label::after {
-    padding: 12px;
+    height: 24px;
+    width: 24px;
 }
 
-label {
-    padding: 5px;
-    width: 100%;
-}
-
-[type="checkbox"]:checked + label::before {
-    border-color: transparent #fff #fff transparent;
-}
-
-[type="checkbox"]:not(:checked) + label::before {
-    border: 2px solid #fff;
+[type="radio"]:not(:checked) + label, [type="radio"]:checked + label {
+    font-size: 1.3rem;
+    padding-bottom: 2.3rem;
 }
 /************************************/
 /** OVERWRITE SLIDE NAV**************/
@@ -653,7 +658,7 @@ input.input-flat {
     border: 1px solid #666;
     font-size: 1.5rem;
     height: 54px;
-    line-height: 56px;
+    /*line-height: 56px;*/
     text-indent: 1rem;
 }
 
@@ -745,6 +750,7 @@ input.input-flat {
     position: absolute;
     top: 0;
     width: 100%;
+    z-index: -1;
 }
 
 #gift-search-btn {
@@ -776,7 +782,7 @@ input.input-flat {
 
 .profile-user-title {
     background-color: rgba(0, 0, 0, 0.5);
-    bottom: 7px;
+    bottom: 0;
     color: #fff;
     position: absolute;
     text-align: center;
@@ -805,13 +811,16 @@ input.input-flat {
     right: 0;
     text-align: center;
     width: 100%;
+    z-index: 1;
 }
 /**********************/
 /*OVERWRITE CARD PANEL*/
 /**********************/
 .card {
-    border: 1px solid #ddd;
+    border: 1px solid #b2b2b2;
     box-shadow: none;
+    margin: 0.5rem auto;
+    max-width: 360px;
 }
 
     .card .card-image .card-title {
@@ -826,6 +835,7 @@ input.input-flat {
 
 .card .card-image img {
     height: 100%;
+    max-height: 190px;
     display: table;
 }
 
@@ -841,4 +851,78 @@ input.input-flat {
 .center-col.col.s6,
 .center-col.col.m6 {
     margin: auto;
+}
+/*************************/
+/*OVERWRITE SELECT********/
+/**************************/
+.select-wrapper input.select-dropdown {
+    color: #FFF; /**/
+    border-color: #fff;
+}
+
+.select-wrapper i {
+    color: #fff;
+}
+
+.select-wrapper {
+    margin-top: 0;
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+    color: #000;
+    display: block;
+    padding: 1rem;
+}
+/********************/
+/*** IMAGE LOADER ***/
+/********************/
+.image-loader {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30%;
+}
+/*******************/
+/** TOOLBAR FIXED */
+/******************/
+body {
+    overflow: hidden;
+}
+
+.TOP_TOOLBAR,
+.BOTTOM_TOOLBAR {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+}
+
+.TOP_TOOLBAR {
+    top: 0;
+}
+
+.BOTTOM_TOOLBAR {
+    bottom: 0;
+}
+
+.SCROLLER_FRAME {
+    bottom: 0;
+    height: auto;
+    overflow: auto;
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    z-index: -2;
+}
+
+    .SCROLLER_FRAME.BOTTOM_TOOLBAR {
+        bottom: 50px;
+    }
+/*******************/
+/* OVER WRITE ROW***/
+/*******************/
+.row {
+    margin-bottom: 0;
 }

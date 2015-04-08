@@ -8,340 +8,293 @@
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+
 </head>
 
 <body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
-    <div class="navbar-fixed">
-        <nav class="megift-bg" role="navigation">
-            <div class="nav-wrapper container">
-                <a href="#" class="brand-logo brand-logo-s truncate">
-                    Información de tu regalo
-                </a>
-                <a href="gift-list.html" rel="external" data-activates="nav-mobile" class="button-collapse">
-                    <i class="mdi-hardware-keyboard-backspace"></i>
-                </a>
-            </div>
-        </nav>
-    </div>
-    <div class="row">
-        <div class="col s12 m12">
-            <div class="card">
-                <div class="card-content">
-                    <p id="gift-name">
-                        <span class="progress">
-                            <span class="indeterminate"></span>
-                        </span>
-                    </p>
+    <div class="TOP_TOOLBAR">
+        <div class="navbar-fixed">
+            <nav class="megift-bg" role="navigation">
+                <div class="nav-wrapper container">
+                    <a href="#" class="brand-logo brand-logo-s truncate">
+                        Información de tu regalo
+                    </a>
+                    <a href="#" onclick="navBack()" rel="external" data-activates="nav-mobile" class="button-collapse">
+                        <i class="mdi-hardware-keyboard-backspace"></i>
+                    </a>
                 </div>
-            </div>
-        </div>
-        <div class="col s12 m12">
-            <div class="card">
-                <div class="card-image">
-                    <img id="gift-picture" src="../../public/images/preloader.gif" />
-                </div>
-            </div>
+            </nav>
         </div>
     </div>
-    <div class="row">
-        <div class="col s12 m12">
-            <div class="card">
-                <div class="card-content">
-                    <p>
-                        <i class="mdi-action-wallet-giftcard">&nbsp;</i>
-                        <span id="type-gift">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </span>
-                    </p>
-                    <p>
-                        <i class="mdi-maps-local-atm">&nbsp;</i>
-                        <s id="gift-price">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </s>
-                        <span class="green-text">&nbsp;$0</span>
-                    </p>
-                    <p>
-                        <i class="mdi-device-access-time">&nbsp;</i>
-                        <span id="gift-time">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m12">
-            <div class="card">
-                <div class="card-content">
-                    <h5>
-                        Descripción
-                    </h5>
-                    <p id="gift-description" class="text-justify">
-                        <span class="progress">
-                            <span class="indeterminate"></span>
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m12">
-            <div class="card">
-                <div class="card-content">
-                    <h5>
-                        ¿Que debes hacer para
-                        disfrutar tu regalo?
-                    </h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="invite-friend-content-2" class="hidden">
-        <div id="preloader" class="progress-deep-orange progress hidden">
-            <div class="progress-deep-orange indeterminate"></div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <p>
-                            ¿te gusto este regalo?<br /><br />
-                            Estas a un paso de conocer que debes hacer para recibirlo.<br /><br />
-                            Para desbloquear esta información en todos los regalos,
-                            debes ayudarnos a encontrar mas personas que podamos hacer felices.<br /><br />
-                            Apoyanos invitando dos amigos a conocer Megift.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="row">
-                            <div class="col s12 m12">
-                                <h5>
-                                    Cuentale a dos amigos
-                                </h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <form id="invite-friends-form" class="col s12">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <input id="email-friend-1" name="email-friend-1" type="text" class="input-flat validate" placeholder="Correo Electrónico">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s12">
-                                        <input id="email-friend-2" name="email-friend-2" type="text" class="input-flat validate" placeholder="Correo Electrónico">
-                                    </div>
-                                </div>
-                                <input type="hidden" name="login-id" id="login-id" value="0" />
-                                <div class="row">
-                                    <div class="col s12">
-                                        <button id="submit-form" class="btn btn-flat btn-fluid btn-large btn-megift-green" type="submit">
-                                            Enviar mensaje
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="data-gift-content">
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <p id="action-name">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-image">
-                        <img id="action-picture" src="../../public/images/preloader.gif" />
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <p>
-                            <i class="mdi-action-loyalty">&nbsp;</i>
-                            <span id="action-price">
-                                <span class="progress">
-                                    <span class="indeterminate"></span>
-                                </span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <h5>
-                            Descripción de la acción
-                        </h5>
-                        <p id="action-description" class="text-justify">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <h5>
-                            Terminos y condiciones
-                        </h5>
-                        <p id="terms-conditions-gift" class="text-justify">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <h5>
-                            Datos de contacto
-                        </h5>
-                        <p>
-                            <i class="mdi-action-shopping-cart">&nbsp;</i>
-                            <span id="business-name">
-                                <span class="progress">
-                                    <span class="indeterminate"></span>
-                                </span>
-                            </span>
-                        </p>
-                        <p>
-                            <i class="mdi-communication-phone">&nbsp;</i>
-                            <span id="pos-mb-phone">
-                                <span class="progress">
-                                    <span class="indeterminate"></span>
-                                </span>
-                            </span>
-                            <span id="pos-phone" class="hidden">
-                                <span class="progress">
-                                    <span class="indeterminate"></span>
-                                </span>
-                            </span>
-                        </p>
-                        <p>
-                            <i class="mdi-communication-email">&nbsp;</i>
-                            <span id="pos-email-contact">
-                                <span class="progress">
-                                    <span class="indeterminate"></span>
-                                </span>
-                            </span>
-                        </p>
-                        <p>
-                            <i class="mdi-maps-directions-car">&nbsp;</i>
-                            <span id="pos-distance">
-                                <span class="progress">
-                                    <span class="indeterminate"></span>
-                                </span>
-                            </span>
-                        </p>
-                        <p>
-                            <i class="mdi-maps-place">&nbsp;</i>
-                            <span id="pos-address">
-                                <span class="progress">
-                                    <span class="indeterminate"></span>
-                                </span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <div id="map" class="map">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <a href="business.html" rel="external" class="gray-800-text">
-                            <i class="mdi-action-wallet-giftcard">&nbsp;</i>
-                            <span>
-                                otros regalos de
-                                <span id="business-name-2">
+    <div class="SCROLLER_FRAME">
+        <div class="SCROLLER">
+            <section id="loader">
+                <img src="../../public/images/loaders/oval.svg" width="40" alt="cargando.." class="image-loader" />
+            </section>
+            <section id="content" class="hidden  m-top-1rem">
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-content">
+                                <p id="gift-name">
                                     <span class="progress">
                                         <span class="indeterminate"></span>
                                     </span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m12">
-                <div class="card">
-                    <div class="card-content">
-                        <h6 class="white-text">
-                            comparte este regalo con tus amigos
-                        </h6>
-                        <div class="row">
-                            <div class="col s6">
-                                <button class="btn btn-flat btn-fluid btn-large fb-bg">
-                                    facebook
-                                    <i class="mdi-social-share"></i>
-                                </button>
+                                </p>
                             </div>
-                            <div class="col s6">
-                                <button class="btn btn-flat btn-fluid btn-large tw-bg">
-                                    twitter
-                                    <i class="mdi-social-share"></i>
-                                </button>
+                        </div>
+                    </div>
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-image">
+                                <img id="gift-picture" src="../../public/images/preloader.gif" />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-content">
+                                <p>
+                                    <i class="mdi-action-wallet-giftcard">&nbsp;</i>
+                                    <span id="type-gift"></span>
+                                </p>
+                                <p>
+                                    <i class="mdi-maps-local-atm">&nbsp;</i>
+                                    <s id="gift-price"></s>
+                                    <span class="green-text">&nbsp;$0</span>
+                                </p>
+                                <p>
+                                    <i class="mdi-device-access-time">&nbsp;</i>
+                                    <span id="gift-time"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-content">
+                                <h5>
+                                    Descripción
+                                </h5>
+                                <p id="gift-description" class="text-justify"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-content">
+                                <h5>
+                                    ¿Que debes hacer para
+                                    disfrutar tu regalo?
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="invite-friend-content-2" class="hidden">
+                    <div id="preloader" class="progress-deep-orange progress hidden">
+                        <div class="progress-deep-orange indeterminate"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p>
+                                        ¿te gusto este regalo?<br /><br />
+                                        Estas a un paso de conocer que debes hacer para recibirlo.<br /><br />
+                                        Para desbloquear esta información en todos los regalos,
+                                        debes ayudarnos a encontrar mas personas que podamos hacer felices.<br /><br />
+                                        Apoyanos invitando dos amigos a conocer Megift.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="col s12 m12">
+                                            <h5>
+                                                Cuentale a dos amigos
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <form id="invite-friends-form" class="col s12">
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <input id="email-friend-1" name="email-friend-1" type="text" class="input-flat validate" placeholder="Correo Electrónico">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <input id="email-friend-2" name="email-friend-2" type="text" class="input-flat validate" placeholder="Correo Electrónico">
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="login-id" id="login-id" value="0" />
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <button id="submit-form" class="btn btn-flat btn-fluid btn-large btn-megift-green" type="submit">
+                                                        Enviar mensaje
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="data-gift-content">
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p id="action-name"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img id="action-picture" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p>
+                                        <i class="mdi-action-loyalty">&nbsp;</i>
+                                        <span id="action-price"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h5>
+                                        Descripción de la acción
+                                    </h5>
+                                    <p id="action-description" class="text-justify"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h5>
+                                        Terminos y condiciones
+                                    </h5>
+                                    <p id="terms-conditions-gift" class="text-justify"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h5>
+                                        Datos de contacto
+                                    </h5>
+                                    <p>
+                                        <i class="mdi-action-assignment">&nbsp;</i>
+                                        <span id="business-name"></span>
+                                    </p>
+                                    <p>
+                                        <i class="mdi-communication-phone">&nbsp;</i>
+                                        <span id="pos-mb-phone"></span>
+                                        <span id="pos-phone" class="hidden"></span>
+                                    </p>
+                                    <p>
+                                        <i class="mdi-communication-email">&nbsp;</i>
+                                        <span id="pos-email-contact"></span>
+                                    </p>
+                                    <p>
+                                        <i class="mdi-maps-directions-car">&nbsp;</i>
+                                        <span id="pos-distance"></span>
+                                    </p>
+                                    <p>
+                                        <i class="mdi-maps-place">&nbsp;</i>
+                                        <span id="pos-address"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div id="map" class="map">
+                                        <span class="progress">
+                                            <span class="indeterminate"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <a href="business.html" rel="external" class="gray-800-text">
+                                        <i class="mdi-action-wallet-giftcard">&nbsp;</i>
+                                        <span>
+                                            otros regalos de
+                                            <span id="business-name-2"></span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h6 class="white-text">
+                                        comparte este regalo con tus amigos
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <button class="btn btn-flat btn-fluid btn-large fb-bg" onclick="socialShare()">
+                                                facebook
+                                                <i class="mdi-social-share"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col s6">
+                                            <button class="btn btn-flat btn-fluid btn-large tw-bg">
+                                                twitter
+                                                <i class="mdi-social-share"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
     <!-- Modal error -->
@@ -371,6 +324,8 @@
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
     <script src="../../public/js/inventor/BaseForm.min.js"></script>
+    <script src="../../public/js/inventor/Animation.min.js"></script>
+
     <script>
         var idLogin = window.localStorage.getItem('id-login');
         var host = window.localStorage.getItem('host');
@@ -467,6 +422,7 @@
                         document.getElementById('pos-address').textContent = pos.location.address.address;
                         document.getElementById('business-name-2').textContent = tradeName;
                         countDown(document.getElementById('gift-time'));
+                        loaderOff();
                         initializeMap();
                     } catch (ex) {
                         toast(response, 2000, 'toast-danger');
@@ -581,8 +537,22 @@
             }
         });
         /*
-      * Mostrar preloader
-      */
+        * Loader Off
+        */
+        function loaderOff() {
+            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
+            var animationShow = new Animation('i-ease', 'i-bounce-in-down', 'i-1s', 1000);
+            var loader = document.getElementById('loader');
+            var content = document.getElementById('content');
+            animationClose.run(loader, function () {
+                loader.classList.add('hidden');
+                content.classList.remove('hidden');
+                animationShow.run(content);
+            });
+        }
+        /*
+        * Mostrar preloader
+        */
         function showPreloader() {
             var preloader = document.getElementById('preloader');
             if (preloader.classList.contains('hidden')) {
@@ -613,8 +583,8 @@
             submitFormBtn.disabled = false;
         }
         /*
-* Count down
-*/
+        * Count down
+        */
         function countDown(element) {
             window.setInterval(function () {
                 var str = element.innerHTML;
@@ -642,10 +612,29 @@
             }
             return time;
         }
+        /*
+        * Social Sharing
+        */
+        function socialShare() {
+            alert(window.plugins);
+            window.plugins.socialsharing.share('Blog post title'
+                , 'post summery'
+                , null
+                , 'http://qnimate.com'
+                , function (result) {
+                    alert('result: ' + result);
+                }
+                , function (result) {
+                    alert('error: ' + result);
+                });
+        }
+        /*
+        * Navigation Back
+        */
+        function navBack() {
+            window.localStorage.setItem('gift-search-back', 1);
+            window.location = window.localStorage.getItem('gift-back');
+        }
     </script>
 </body>
-
-
-
 </html>
-

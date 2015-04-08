@@ -10,50 +10,57 @@
 </head>
 
 <body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
-    <div class="navbar-fixed">
-        <nav class="megift-bg" style="height: 110px;" role="navigation">
-            <div class="navbar-actions">
-                <div class="row">
-                    <div class="col s12">
-                        <ul>
-                            <li>
-                                <a href="search-gift.html" rel="external">
-                                    <i class="mdi-hardware-keyboard-backspace"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a id="title" href="#" class="truncate">
-                                    Lista de regalos
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="right">
-                            <li>
-                                <a href="#" onclick="openFilter()">
-                                    <i class="mdi-content-filter-list"></i>
-                                </a>
-                            </li>
-
-                        </ul>
-                        <div class="row">
-                            <div class="col s12">
-                                <select class="select-filter" id="type-view-select" onchange="onSelectChangeTypeView(this)">
-                                    <option value="view-gifts">Lista de regalos</option>
-                                    <option value="view-actions">Acciones que dan regalos</option>
-                                    <option value="view-pos">Empresas que dan regalos</option>                                    
-                                </select>
+    <div class="TOP_TOOLBAR">
+        <div class="navbar-fixed">
+            <nav class="megift-bg" style="height: 110px;" role="navigation">
+                <div class="navbar-actions">
+                    <div class="row">
+                        <div class="col s12">
+                            <ul>
+                                <li>
+                                    <a href="search-gift.html" rel="external">
+                                        <i class="mdi-hardware-keyboard-backspace"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="title" href="#" class="truncate">
+                                        Lista de regalos
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="right">
+                                <li>
+                                    <a href="#" onclick="openFilter()">
+                                        <i class="mdi-content-filter-list"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="row">
+                                <div class="col s12">
+                                    <select id="type-view-select" onchange="onSelectChangeTypeView(this)">
+                                        <option value="view-gifts">Lista de regalos</option>
+                                        <option value="view-actions">Acciones que dan regalos</option>
+                                        <option value="view-pos">Empresas que dan regalos</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </nav>
-
+            </nav>
+        </div>
     </div>
-    <section class="m-top-4rem">
-        <div id="cover-gift" class="row"></div>
-    </section>
+    <div class="SCROLLER_FRAME">
+        <div class="SCROLLER">
+            <section id="loader">
+                <img src="../../public/images/loaders/oval.svg" width="40" alt="cargando.." class="image-loader" />
+            </section>
+            <section id="content" class="m-top-4rem hidden">
+                <div id="cover-gift" class="row"></div>
+            </section>
+        </div>
+    </div>
+
     <!-- Modal filter -->
     <div id="modal-filter" class="modal modal-fixed-footer">
         <div class="modal-content">
@@ -146,11 +153,8 @@
                 </div>
             </form>
         </div>
-        <div id="preloader" class="progress hidden">
-            <div class="indeterminate"></div>
-        </div>
         <div class="modal-footer">
-            <button id="submit-form" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-search-form')">Buscar</button>
+            <button id="submit-form" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="giftSearch('#gift-search-form')">Buscar</button>
             <button id="cancel-form" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -213,11 +217,8 @@
                 </div>
             </form>
         </div>
-        <div id="preloader-action" class="progress hidden">
-            <div class="indeterminate"></div>
-        </div>
         <div class="modal-footer">
-            <button id="submit-form-action" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-search-form-action')">Buscar</button>
+            <button id="submit-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="giftSearch('#gift-search-form-action')">Buscar</button>
             <button id="cancel-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -280,11 +281,8 @@
                 </div>
             </form>
         </div>
-        <div id="preloader-business" class="progress hidden">
-            <div class="indeterminate"></div>
-        </div>
         <div class="modal-footer">
-            <button id="submit-form-business" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-search-form-business')">Buscar</button>
+            <button id="submit-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="giftSearch('#gift-search-form-business')">Buscar</button>
             <button id="cancel-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -331,9 +329,6 @@
                 </div>
             </form>
         </div>
-        <div id="preloader-modal-view" class="progress hidden">
-            <div class="indeterminate"></div>
-        </div>
         <div class="modal-footer">
             <button id="submit-form-type-view" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-views-form')">Buscar</button>
             <button id="cancel-form-type-view" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
@@ -350,8 +345,19 @@
             <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
         </div>
     </div>
+    <form id="gift-search-form-back" class="hidden">
+        <input name="latitude" type="hidden" value="0" />
+        <input name="longitude" type="hidden" value="0" />
+        <input name="id-login" type="hidden" value="0" />
+        <input name="gift-type-id" type="hidden" value="0" />
+        <input name="action-type-id" type="hidden" value="0" />
+        <input name="business-type-id" type="hidden" value="0" />
+        <input id="type-view" name="type-view" type="hidden" value="0" />
+    </form>
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script src="../../public/js/inventor/Animation.min.js"></script>
+
     <script>
         var RESULTS_BY_GIFTS = 29;
         var RESULTS_BY_ACTIONS = 30;
@@ -366,14 +372,24 @@
         * device onready
         */
         function onDeviceReady() {
-            init();
+            $(document).ready(function () {
+                init();
+            });
         }
         document.addEventListener('deviceready', onDeviceReady, false);
-        init();
+        $(document).ready(function () {
+            init();
+        });
         //function init
         function init() {
-            //load gifts
-            loadGifts();
+            //load gifts            
+            var isGiftBack = window.localStorage.getItem('gift-search-back');
+            if (isGiftBack!== null && isGiftBack !== 'undefined' && isGiftBack >0) {
+                window.localStorage.removeItem('gift-back');
+                giftSearch('#gift-search-form-back');
+            } else {
+                loadGifts();
+            }            
         }
         /*
         *load gifts
@@ -387,8 +403,9 @@
             switch (parseInt(currentView)) {
                 case RESULTS_BY_GIFTS:
                     //load setting
-                    document.getElementById('view-gifts').checked = true;                    
+                    document.getElementById('view-gifts').checked = true;
                     $('#type-view-select').val('view-gifts');
+                    $('select').material_select('view-gifts');
                     title.textContent = 'Lista de regalos';
                     //fill
                     for (var i = 0; i < n; i++) {
@@ -399,7 +416,8 @@
                 case RESULTS_BY_ACTIONS:
                     //load settings
                     document.getElementById('view-actions').checked = true;
-                    $('#type-view-select').val('view-actions');
+                    $('#type-view-select').val('view-actions');                 
+                    $('select').material_select();                    
                     title.textContent = 'Lista de acciones';
                     //fill
                     for (var i = 0; i < n; i++) {
@@ -411,12 +429,14 @@
                     //load settings
                     document.getElementById('view-pos').checked = true;
                     $('#type-view-select').val('view-pos');
+                    $('select').material_select('view-pos');
                     title.textContent = 'Lista de Empresas';
                     //la lista de puntos de venta en esta caso es una lista de empresas
                     var b = posList[i];
                     createCardBusiness(element, posList);
                     break;
             }
+            loaderOff();
         }
         /*
         * open filter
@@ -438,9 +458,9 @@
             currentView = parseInt(element.value);
             window.localStorage.setItem('current-view', currentView);
         }
-        function onSelectChangeTypeView(select) {            
+        function onSelectChangeTypeView(select) {
             var element = document.getElementById(select.options[select.selectedIndex].value);
-            element.checked =true;
+            element.checked = true;
             onchangeTypeView(element);
             giftSearch('#gift-views-form');
         }
@@ -459,41 +479,36 @@
                 url: host + '/searchGift',
                 data: $(form).serialize(),
                 beforeSend: function () {
-                    showPreloader();
                     disabledFormControls();
+                    loaderOn();
                 },
                 success: function (response) {
-                    enabledFormControls();
-                    hiddenPreloader();
+                    enabledFormControls();                    
                     try {
                         posList = null;
                         posList = JSON.parse(response);
                         if (posList.length < 1) {
-                            toast('No hay regalos cerca a tu ubicación con este filtro', 2000, 'toast-danger');
+                            var element = document.getElementById('cover-gift');
+                            //clear element
+                            element.innerHTML = '';
+                            loaderOff();
+                            toast('No hay regalos cerca a tu ubicación con este filtro', 4000, 'toast-danger');
                         } else {
                             window.localStorage.removeItem('POS-list');
                             window.localStorage.setItem('POS-list', response);
                             loadGifts();
                         }
-                        $('#modal-filter').closeModal();
-                        $('#modal-views').closeModal();
-                        $('#modal-filter-action').closeModal();
-                        $('#modal-filter-business').closeModal();
                     } catch (ex) {
-                        $('#modal-filter').closeModal();
-                        $('#modal-views').closeModal();
-                        $('#modal-filter-action').closeModal();
-                        $('#modal-filter-business').closeModal();
-                        toast(response, 2000, 'toast-danger');
+                        var element = document.getElementById('cover-gift');
+                        //clear element
+                        element.innerHTML = '';
+                        loaderOff();
+                        toast(response, 4000, 'toast-danger');
                     }
                 },
-                error: function (xhr) {
-                    $('#modal-filter').closeModal();
-                    $('#modal-views').closeModal();
-                    $('#modal-filter-action').closeModal();
-                    $('#modal-filter-business').closeModal();
-                    hiddenPreloader();
+                error: function (xhr) {                  
                     enabledFormControls();
+                    loaderOff();
                     document.getElementById('error-msg').textContent = xhr.responseText;
                     $('#modal-error').openModal();
                 }
@@ -511,7 +526,7 @@
                 var col = document.createElement('div');
                 col.classList.add('col');
                 col.classList.add('s12');
-                col.classList.add('m6');
+                col.classList.add('m12');
                 //card small
                 var card_small = document.createElement('div');
                 card_small.classList.add('card');
@@ -543,42 +558,50 @@
                 var card_content = document.createElement('div');
                 card_content.classList.add('card-content');
                 //ul card content
-                var ul_card_content = document.createElement('ul');
+                var div_card_content = document.createElement('div');
+                div_card_content.classList.add('row');
+                div_card_content.classList.add('center');
                 //fil list ul
                 for (var j = 0; j < 3; j++) {
-                    var li = document.createElement('li');
-                    var icon = document.createElement('i');
+                    var div = document.createElement('div');
+                    div.classList.add('col');
+                    div.classList.add('s4');
+                    var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
                             icon.classList.add('mdi-maps-local-atm');
+                            var p = document.createElement('p');
                             var del = document.createElement('del');
-                            var del_text = document.createTextNode(g.priceFormatted)
+                            var del_text = document.createTextNode(g.priceFormatted);
+                            var p2 = document.createElement('p');
                             var strong = document.createElement('strong');
                             strong.classList.add('green-text');
                             var strong_text = document.createTextNode('$ 0');
                             strong.appendChild(strong_text);
                             del.appendChild(del_text);
-                            li.appendChild(icon);
-                            li.appendChild(del);
-                            li.appendChild(strong);
+                            p.appendChild(del);
+                            p2.appendChild(strong);
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            div.appendChild(p2);
                             break;
                         case 1:
                             icon.classList.add('mdi-device-access-time');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(g.elapseTime));
-                            li.appendChild(icon);
-                            li.appendChild(span);
-                            countDown(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(g.elapseTime));
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            countDown(p);
                             break;
                         case 2:
                             icon.classList.add('mdi-maps-directions-car');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(pos_distance));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(pos_distance));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                     }
-                    ul_card_content.appendChild(li);
+                    div_card_content.appendChild(div);
                 }
                 /*
                 *append elements
@@ -594,7 +617,7 @@
                 card_img.appendChild(img);
                 card_img.appendChild(card_title);
                 //card content
-                card_content.appendChild(ul_card_content);
+                card_content.appendChild(div_card_content);
                 //card small
                 card_small.appendChild(card_img);
                 card_small.appendChild(card_content);
@@ -607,6 +630,7 @@
                 card_img.onclick = function () {
                     window.localStorage.setItem('pos-id', this.dataset.posId);
                     window.localStorage.setItem('gift-id', this.dataset.giftId);
+                    window.localStorage.setItem('gift-back', 'gift-list.html');
                     window.location = 'gift.html';
                 }
                 //element
@@ -625,7 +649,7 @@
                 var col = document.createElement('div');
                 col.classList.add('col');
                 col.classList.add('s12');
-                col.classList.add('m6');
+                col.classList.add('m12');
                 //card small
                 var card_small = document.createElement('div');
                 card_small.classList.add('card');
@@ -657,36 +681,40 @@
                 var card_content = document.createElement('div');
                 card_content.classList.add('card-content');
                 //ul card content
-                var ul_card_content = document.createElement('ul');
+                var div_card_content = document.createElement('div');
+                div_card_content.classList.add('row');
+                div_card_content.classList.add('center');
                 //fil list ul
                 for (var j = 0; j < 3; j++) {
-                    var li = document.createElement('li');
-                    var icon = document.createElement('i');
+                    var div = document.createElement('div');
+                    div.classList.add('col');
+                    div.classList.add('s4');
+                    var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
                             icon.classList.add('mdi-maps-local-atm');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(g.action.priceFormatted));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(g.action.priceFormatted));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                         case 1:
                             icon.classList.add('mdi-device-access-time');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(g.elapseTime));
-                            li.appendChild(icon);
-                            li.appendChild(span);
-                            countDown(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(g.elapseTime));
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            countDown(p);
                             break;
                         case 2:
                             icon.classList.add('mdi-maps-directions-car');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(pos_distance));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(pos_distance));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                     }
-                    ul_card_content.appendChild(li);
+                    div_card_content.appendChild(div);
                 }
                 /*
                 *append elements
@@ -702,7 +730,7 @@
                 card_img.appendChild(img);
                 card_img.appendChild(card_title);
                 //card content
-                card_content.appendChild(ul_card_content);
+                card_content.appendChild(div_card_content);
                 //card small
                 card_small.appendChild(card_img);
                 card_small.appendChild(card_content);
@@ -715,6 +743,7 @@
                 card_img.onclick = function () {
                     window.localStorage.setItem('pos-id', this.dataset.posId);
                     window.localStorage.setItem('gift-id', this.dataset.giftId);
+                    window.localStorage.setItem('gift-back', 'gift-list.html');
                     window.location = 'gift.html';
                 }
                 //element
@@ -733,7 +762,7 @@
                 var col = document.createElement('div');
                 col.classList.add('col');
                 col.classList.add('s12');
-                col.classList.add('m6');
+                col.classList.add('m12');
                 //card small
                 var card_small = document.createElement('div');
                 card_small.classList.add('card');
@@ -753,21 +782,25 @@
                 var card_content = document.createElement('div');
                 card_content.classList.add('card-content');
                 //ul card content
-                var ul_card_content = document.createElement('ul');
+                var div_card_content = document.createElement('div');
+                div_card_content.classList.add('row');
+                div_card_content.classList.add('center');
                 //fil list ul
                 for (var j = 0; j < 1; j++) {
-                    var li = document.createElement('li');
-                    var icon = document.createElement('i');
+                    var div = document.createElement('div');
+                    div.classList.add('col');
+                    div.classList.add('s4');
+                    var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
                             icon.classList.add('mdi-action-wallet-giftcard');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(b.giftCount));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(b.giftCount));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                     }
-                    ul_card_content.appendChild(li);
+                    div_card_content.appendChild(div);
                 }
                 /*
                 *append elements
@@ -778,7 +811,7 @@
                 card_img.appendChild(img);
                 card_img.appendChild(card_title);
                 //card content
-                card_content.appendChild(ul_card_content);
+                card_content.appendChild(div_card_content);
                 //card small
                 card_small.appendChild(card_img);
                 card_small.appendChild(card_content);
@@ -789,7 +822,7 @@
                 */
                 //card image
                 card_img.onclick = function () {
-                    window.localStorage.setItem('business-id', this.dataset.businessId);
+                    window.localStorage.setItem('business-id', this.dataset.businessId);                    
                     window.location = 'business.html';
                 }
                 //element
@@ -797,52 +830,32 @@
             }
         }
         /*
-        * Mostrar preloader
+        * Loader Off
         */
-        function showPreloader() {
-            var preloader = document.getElementById('preloader');
-            if (preloader.classList.contains('hidden')) {
-                preloader.classList.remove('hidden');
-            }
-            //preloader modal view
-            var preloader2 = document.getElementById('preloader-modal-view');
-            if (preloader2.classList.contains('hidden')) {
-                preloader2.classList.remove('hidden');
-            }
-            //preloader modal action
-            var preloader3 = document.getElementById('preloader-action');
-            if (preloader3.classList.contains('hidden')) {
-                preloader3.classList.remove('hidden');
-            }
-            //preloader modal business
-            var preloader4 = document.getElementById('preloader-business');
-            if (preloader4.classList.contains('hidden')) {
-                preloader4.classList.remove('hidden');
-            }
+        function loaderOff() {
+            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
+            var animationShow = new Animation('i-ease', 'i-bounce-in-down', 'i-1s', 1000);
+            var loader = document.getElementById('loader');
+            var content = document.getElementById('content');
+            animationClose.run(loader, function () {
+                loader.classList.add('hidden');
+                content.classList.remove('hidden');
+                animationShow.run(content);
+            });
         }
         /*
-        * Esconder preloader
+        * Loader On
         */
-        function hiddenPreloader() {
-            var preloader = document.getElementById('preloader');
-            if (!preloader.classList.contains('hidden')) {
-                preloader.classList.add('hidden');
-            }
-            //preloader modal view
-            var preloader2 = document.getElementById('preloader-modal-view');
-            if (!preloader2.classList.contains('hidden')) {
-                preloader2.classList.add('hidden');
-            }
-            //preloader modal action
-            var preloader3 = document.getElementById('preloader-action');
-            if (!preloader3.classList.contains('hidden')) {
-                preloader3.classList.add('hidden');
-            }
-            //preloader modal business
-            var preloader4 = document.getElementById('preloader-business');
-            if (!preloader4.classList.contains('hidden')) {
-                preloader4.classList.add('hidden');
-            }
+        function loaderOn() {
+            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
+            var animationShow = new Animation('i-ease', 'i-fade-in', 'i-1s', 1000);
+            var loader = document.getElementById('loader');
+            var content = document.getElementById('content');
+            animationClose.run(content, function () {
+                content.classList.add('hidden');
+                loader.classList.remove('hidden');
+                animationShow.run(loader);
+            });
         }
         /*
         * disbled Form Controls
@@ -922,8 +935,11 @@
             if (time < 10) {
                 return '0' + time;
             }
-            return time;                
+            return time;
         }
     </script>
 </body>
+
+
+
 </html>

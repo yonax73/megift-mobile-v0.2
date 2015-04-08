@@ -10,82 +10,73 @@
 </head>
 
 <body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
-    <div class="navbar-fixed">
-        <nav class="megift-bg" role="navigation">
-            <div class="nav-wrapper container">
-                <a href="#" class="brand-logo brand-logo-s truncate">
-                    Información de empresa
-                </a>
-                <a href="gift-list.html" rel="external" data-activates="nav-mobile" class="button-collapse">
-                    <i class="mdi-hardware-keyboard-backspace"></i>
-                </a>
-            </div>
-        </nav>
-    </div>
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="card">
-                <div class="card-image">
-                    <img id="business-picture" src="../../public/images/preloader.gif" />
+    <div class="TOP_TOOLBAR">
+        <div class="navbar-fixed">
+            <nav class="megift-bg" role="navigation">
+                <div class="nav-wrapper container">
+                    <a href="#" class="brand-logo brand-logo-s truncate">
+                        Información de empresa
+                    </a>
+                    <a href="gift-list.html" rel="external" data-activates="nav-mobile" class="button-collapse">
+                        <i class="mdi-hardware-keyboard-backspace"></i>
+                    </a>
                 </div>
-            </div>
+            </nav>
         </div>
     </div>
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="card">
-                <div class="card-content">
-                    <p>
-                        <i class="mdi-action-shopping-cart">&nbsp;</i>
-                        <span id="business-name">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </span>
-                    </p>
-                    <p>
-                        <i class="mdi-communication-phone">&nbsp;</i>
-                        <span id="business-mb-phone">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </span>
-                        <span id="business-phone" class="hidden span">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </span>
-                    </p>
-                    <p>
-                        <i class="mdi-communication-email">&nbsp;</i>
-                        <span id="business-email-contact">
-                            <span class="progress">
-                                <span class="indeterminate"></span>
-                            </span>
-                        </span>
-                    </p>
+    <div class="SCROLLER_FRAME">
+        <div class="SCROLLER">
+            <section id="loader">
+                <img src="../../public/images/loaders/oval.svg" width="40" alt="cargando.." class="image-loader" />
+            </section>
+            <section id="content" class="m-top-1rem hidden">
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-image">
+                                <img id="business-picture"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="card">
-                <div class="card-content">
-                    <h5>
-                        Lista de regalos para ti
-                    </h5>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-content">
+                                <p>
+                                    <i class="mdi-action-assignment">&nbsp;</i>
+                                    <span id="business-name"></span>
+                                </p>
+                                <p>
+                                    <i class="mdi-communication-phone">&nbsp;</i>
+                                    <span id="business-mb-phone"></span>
+                                    <span id="business-phone" class="hidden span"></span>
+                                </p>
+                                <p>
+                                    <i class="mdi-communication-email">&nbsp;</i>
+                                    <span id="business-email-contact"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-content">
+                                <h5>
+                                    Lista de regalos para ti
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section>
+                    <div id="cover-gift" class="row"></div>
+                </section>
+            </section>
         </div>
     </div>
-    <section>
-        <div id="cover-gift" class="row">
-            <span class="progress">
-                <span class="indeterminate"></span>
-            </span>
-        </div>
-    </section>
     <!-- Modal error -->
     <div id="modal-error" class="modal modal-fixed-footer">
         <div class="modal-content">
@@ -99,6 +90,7 @@
     </div>
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script src="../../public/js/inventor/Animation.min.js"></script>
     <script>
         var host = window.localStorage.getItem('host');
         var businessId = window.localStorage.getItem('business-id');
@@ -118,7 +110,6 @@
         * load gift
         */
         function loadBusiness() {
-
             $.ajax({
                 type: 'GET',
                 url: host + '/loadBusinessForMobile?id=' + businessId + '&lat=' + window.localStorage.getItem('latitude') + '&lng=' + window.localStorage.getItem('longitude'),
@@ -139,12 +130,15 @@
                             var pos = posList[i];
                             createCardfGift(element, pos.giftList, pos.name, pos.distanceFormatted, pos.id);
                         }
+                        loaderOff();
                     } catch (ex) {
                         console.log(ex)
+                        loaderOff();
                         toast(response, 2000, 'toast-danger');
                     }
                 },
                 error: function (xhr) {
+                    loaderOff();
                     document.getElementById('error-msg').textContent = xhr.responseText;
                     $('#modal-error').openModal();
                 }
@@ -152,8 +146,8 @@
         }
 
         /*
-        * Create Card gift
-        */
+         * Create Card gift
+         */
         function createCardfGift(element, gift, pos_name, pos_distance, pos_id) {
             //fill
             var n = gift.length;
@@ -163,7 +157,7 @@
                 var col = document.createElement('div');
                 col.classList.add('col');
                 col.classList.add('s12');
-                col.classList.add('m6');
+                col.classList.add('m12');
                 //card small
                 var card_small = document.createElement('div');
                 card_small.classList.add('card');
@@ -195,42 +189,50 @@
                 var card_content = document.createElement('div');
                 card_content.classList.add('card-content');
                 //ul card content
-                var ul_card_content = document.createElement('ul');
+                var div_card_content = document.createElement('div');
+                div_card_content.classList.add('row');
+                div_card_content.classList.add('center');
                 //fil list ul
                 for (var j = 0; j < 3; j++) {
-                    var li = document.createElement('li');
-                    var icon = document.createElement('i');
+                    var div = document.createElement('div');
+                    div.classList.add('col');
+                    div.classList.add('s4');
+                    var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
                             icon.classList.add('mdi-maps-local-atm');
+                            var p = document.createElement('p');
                             var del = document.createElement('del');
-                            var del_text = document.createTextNode(g.priceFormatted)
+                            var del_text = document.createTextNode(g.priceFormatted);
+                            var p2 = document.createElement('p');
                             var strong = document.createElement('strong');
                             strong.classList.add('green-text');
                             var strong_text = document.createTextNode('$ 0');
                             strong.appendChild(strong_text);
                             del.appendChild(del_text);
-                            li.appendChild(icon);
-                            li.appendChild(del);
-                            li.appendChild(strong);
+                            p.appendChild(del);
+                            p2.appendChild(strong);
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            div.appendChild(p2);
                             break;
                         case 1:
                             icon.classList.add('mdi-device-access-time');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(g.elapseTime));
-                            li.appendChild(icon);
-                            li.appendChild(span);
-                            countDown(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(g.elapseTime));
+                            div.appendChild(icon);
+                            div.appendChild(p);
+                            countDown(p);
                             break;
                         case 2:
                             icon.classList.add('mdi-maps-directions-car');
-                            var span = document.createElement('span');
-                            span.appendChild(document.createTextNode(pos_distance));
-                            li.appendChild(icon);
-                            li.appendChild(span);
+                            var p = document.createElement('p');
+                            p.appendChild(document.createTextNode(pos_distance));
+                            div.appendChild(icon);
+                            div.appendChild(p);
                             break;
                     }
-                    ul_card_content.appendChild(li);
+                    div_card_content.appendChild(div);
                 }
                 /*
                 *append elements
@@ -246,7 +248,7 @@
                 card_img.appendChild(img);
                 card_img.appendChild(card_title);
                 //card content
-                card_content.appendChild(ul_card_content);
+                card_content.appendChild(div_card_content);
                 //card small
                 card_small.appendChild(card_img);
                 card_small.appendChild(card_content);
@@ -259,6 +261,7 @@
                 card_img.onclick = function () {
                     window.localStorage.setItem('pos-id', this.dataset.posId);
                     window.localStorage.setItem('gift-id', this.dataset.giftId);
+                    window.localStorage.setItem('gift-back', 'business.html');
                     window.location = 'gift.html';
                 }
                 //element
@@ -295,8 +298,38 @@
             }
             return time;
         }
+        /*
+        * Loader Off
+        */
+        function loaderOff() {
+            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
+            var animationShow = new Animation('i-ease', 'i-bounce-in-down', 'i-1s', 1000);
+            var loader = document.getElementById('loader');
+            var content = document.getElementById('content');
+            animationClose.run(loader, function () {
+                loader.classList.add('hidden');
+                content.classList.remove('hidden');
+                animationShow.run(content);
+            });
+        }
+        /*
+        * Loader On
+        */
+        function loaderOn() {
+            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
+            var animationShow = new Animation('i-ease', 'i-fade-in', 'i-1s', 1000);
+            var loader = document.getElementById('loader');
+            var content = document.getElementById('content');
+            animationClose.run(content, function () {
+                content.classList.add('hidden');
+                loader.classList.remove('hidden');
+                animationShow.run(loader);
+            });
+        }
     </script>
 </body>
+
+
 
 </html>
 
