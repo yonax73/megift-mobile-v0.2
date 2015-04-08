@@ -109,17 +109,6 @@
             <a href="../partner/partner-update.html" rel="external" class="btn waves-effect waves-green btn-flat modal-action">Aceptar</a>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
 
@@ -189,7 +178,8 @@
                             window.location = 'gift-list.html';
                         }
                     } catch (ex) {
-                        toast(response, 2000, 'toast-danger');
+                        alert(response);
+                        console.error(ex);
                     }
                 },
                 error: function (xhr) {
@@ -204,7 +194,7 @@
         */
         function onError(error) {            
             enabledSearch();
-            toast('code: ' + error.code + '\n' + 'message: ' + error.message + '\n', 2000, 'toast-danger');
+            alert('code: ' + error.code + '\n' + 'message: ' + error.message);
         }
         /*
         * Submit form

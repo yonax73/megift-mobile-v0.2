@@ -24,11 +24,11 @@
         var productionHost = 'http://megift.co';
         var sliHost = 'http://192.168.1.112:9000';
         var homeHost = 'http://192.168.0.13:9000';
-        var host = homeHost;
+        var host = productionHost;
         function onDeviceReady() {
             startApp();
         }
-        startApp();
+        //startApp();
         function startApp() {
             window.localStorage.setItem('host', host);
             var userId = window.localStorage.getItem('id-login');
