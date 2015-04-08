@@ -7,6 +7,7 @@
     <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
+    <link href="../../public/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
@@ -31,13 +32,13 @@
                             <ul class="right">
                                 <li>
                                     <a href="#" onclick="openFilter()">
-                                        <i class="mdi-content-filter-list"></i>
+                                        <i class="fa fa-filter"></i>
                                     </a>
                                 </li>
                             </ul>
                             <div class="row">
                                 <div class="col s12">
-                                    <select id="type-view-select" onchange="onSelectChangeTypeView(this)">
+                                    <select class="browser-default" id="type-view-select" onchange="onSelectChangeTypeView(this)">
                                         <option value="view-gifts">Lista de regalos</option>
                                         <option value="view-actions">Acciones que dan regalos</option>
                                         <option value="view-pos">Empresas que dan regalos</option>
@@ -60,12 +61,11 @@
             </section>
         </div>
     </div>
-
     <!-- Modal filter -->
     <div id="modal-filter" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h5>
-                <i class="mdi-content-filter-list prefix red-text">&nbsp;</i>
+                <i class="fa fa-filter prefix red-text">&nbsp;</i>
                 Filtrar por:
             </h5>
             <form id="gift-search-form">
@@ -82,37 +82,37 @@
                     <div class="col s6">
                         <p>
 
-                            <input name="gift-type-id" value="0" type="radio" id="type-gift-all" checked="checked" />
+                            <input class="with-gap" name="gift-type-id" value="0" type="radio" id="type-gift-all" checked="checked" />
                             <label for="type-gift-all">Todos</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="15" type="radio" id="type-gift-food" />
+                            <input class="with-gap" name="gift-type-id" value="15" type="radio" id="type-gift-food" />
                             <label for="type-gift-food">Comida</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="16" type="radio" id="type-gift-clothing" />
+                            <input class="with-gap" name="gift-type-id" value="16" type="radio" id="type-gift-clothing" />
                             <label for="type-gift-clothing">Ropa</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="17" type="radio" id="type-gift-beauty" />
+                            <input class="with-gap" name="gift-type-id" value="17" type="radio" id="type-gift-beauty" />
                             <label for="type-gift-beauty">Belleza</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="18" type="radio" id="type-gift-spa" />
+                            <input class="with-gap" name="gift-type-id" value="18" type="radio" id="type-gift-spa" />
                             <label for="type-gift-spa">SPA</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="19" type="radio" id="type-gift-travel" />
+                            <input class="with-gap" name="gift-type-id" value="19" type="radio" id="type-gift-travel" />
                             <label for="type-gift-travel">Viajes</label>
 
                         </p>
@@ -121,31 +121,31 @@
 
                         <p>
 
-                            <input name="gift-type-id" value="20" type="radio" id="type-gift-courses" />
+                            <input class="with-gap" name="gift-type-id" value="20" type="radio" id="type-gift-courses" />
                             <label for="type-gift-courses">Cursos</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="21" type="radio" id="type-gift-consumer-bonds" />
+                            <input class="with-gap" name="gift-type-id" value="21" type="radio" id="type-gift-consumer-bonds" />
                             <label for="type-gift-consumer-bonds">Bonos</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="22" type="radio" id="type-gift-tickets-events" />
+                            <input class="with-gap" name="gift-type-id" value="22" type="radio" id="type-gift-tickets-events" />
                             <label for="type-gift-tickets-events">Boletas</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="23" type="radio" id="type-gift-technology" />
+                            <input class="with-gap" name="gift-type-id" value="23" type="radio" id="type-gift-technology" />
                             <label for="type-gift-technology">Tecnología</label>
 
                         </p>
                         <p>
 
-                            <input name="gift-type-id" value="24" type="radio" id="type-gift-other" />
+                            <input class="with-gap" name="gift-type-id" value="24" type="radio" id="type-gift-other" />
                             <label for="type-gift-other">Otros</label>
 
                         </p>
@@ -162,7 +162,7 @@
     <div id="modal-filter-action" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h5>
-                <i class="mdi-content-filter-list prefix red-text">&nbsp;</i>
+                <i class="fa fa-filter prefix red-text">&nbsp;</i>
                 Filtrar por:
             </h5>
             <form id="gift-search-form-action">
@@ -179,37 +179,37 @@
                     <div class="col s12">
                         <p>
 
-                            <input name="action-type-id" value="0" type="radio" id="type-action-all" checked="checked" />
+                            <input class="with-gap" name="action-type-id" value="0" type="radio" id="type-action-all" checked="checked" />
                             <label for="type-action-all">Todos</label>
 
                         </p>
                         <p>
 
-                            <input name="action-type-id" value="10" type="radio" id="type-action-product" />
+                            <input class="with-gap" name="action-type-id" value="10" type="radio" id="type-action-product" />
                             <label for="type-action-product">Disfrutar de un Producto</label>
 
                         </p>
                         <p>
 
-                            <input name="action-type-id" value="11" type="radio" id="type-action-event" />
+                            <input class="with-gap" name="action-type-id" value="11" type="radio" id="type-action-event" />
                             <label for="type-action-event">Asistir a un evento</label>
 
                         </p>
                         <p>
 
-                            <input name="action-type-id" value="12" type="radio" id="type-action-focus" />
+                            <input class="with-gap" name="action-type-id" value="12" type="radio" id="type-action-focus" />
                             <label for="type-action-focus">Asistir a un focus group</label>
 
                         </p>
                         <p>
 
-                            <input name="action-type-id" value="13" type="radio" id="type-action-learn" />
+                            <input class="with-gap" name="action-type-id" value="13" type="radio" id="type-action-learn" />
                             <label for="type-action-learn">Aprender</label>
 
                         </p>
                         <p>
 
-                            <input name="action-type-id" value="14" type="radio" id="type-action-other" />
+                            <input class="with-gap" name="action-type-id" value="14" type="radio" id="type-action-other" />
                             <label for="type-action-other">Otra</label>
 
                         </p>
@@ -226,7 +226,7 @@
     <div id="modal-filter-business" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h5>
-                <i class="mdi-content-filter-list prefix red-text">&nbsp;</i>
+                <i class="fa fa-filter prefix red-text">&nbsp;</i>
                 Filtrar por:
             </h5>
             <form id="gift-search-form-business">
@@ -243,37 +243,37 @@
                     <div class="col s12">
                         <p>
 
-                            <input name="business-type-id" value="0" type="radio" id="type-business-all" checked="checked" />
+                            <input class="with-gap" name="business-type-id" value="0" type="radio" id="type-business-all" checked="checked" />
                             <label for="type-business-all">Todas</label>
 
                         </p>
                         <p>
 
-                            <input name="business-type-id" value="5" type="radio" id="type-business-clothing" />
+                            <input class="with-gap" name="business-type-id" value="5" type="radio" id="type-business-clothing" />
                             <label for="type-business-clothing">Tienda de ropa</label>
 
                         </p>
                         <p>
 
-                            <input name="business-type-id" value="6" type="radio" id="type-business-spa" />
+                            <input class="with-gap" name="business-type-id" value="6" type="radio" id="type-business-spa" />
                             <label for="type-business-spa">SPA</label>
 
                         </p>
                         <p>
 
-                            <input name="business-type-id" value="7" type="radio" id="type-business-gym" />
+                            <input class="with-gap" name="business-type-id" value="7" type="radio" id="type-business-gym" />
                             <label for="type-business-gym">Gimnasio</label>
 
                         </p>
                         <p>
 
-                            <input name="business-type-id" value="8" type="radio" id="type-business-restaurant" />
+                            <input class="with-gap" name="business-type-id" value="8" type="radio" id="type-business-restaurant" />
                             <label for="type-business-restaurant">Restaurante</label>
 
                         </p>
                         <p>
 
-                            <input name="business-type-id" value="9" type="radio" id="type-business-other" />
+                            <input class="with-gap" name="business-type-id" value="9" type="radio" id="type-business-other" />
                             <label for="type-business-other">Otro</label>
 
                         </p>
@@ -309,19 +309,19 @@
                     <div class="col s12">
                         <p>
 
-                            <input name="type-view" value="29" type="radio" id="view-gifts" onclick="onchangeTypeView(this)" />
+                            <input class="with-gap" name="type-view" value="29" type="radio" id="view-gifts" onclick="onchangeTypeView(this)" />
                             <label for="view-gifts">Lista de regalos.</label>
 
                         </p>
                         <p>
 
-                            <input name="type-view" value="30" type="radio" id="view-actions" onclick="onchangeTypeView(this)" />
+                            <input class="with-gap" name="type-view" value="30" type="radio" id="view-actions" onclick="onchangeTypeView(this)" />
                             <label for="view-actions">Acciones que dan regalos.</label>
 
                         </p>
                         <p>
 
-                            <input name="type-view" value="31" type="radio" id="view-pos" onclick="onchangeTypeView(this)" />
+                            <input class="with-gap" name="type-view" value="31" type="radio" id="view-pos" onclick="onchangeTypeView(this)" />
                             <label for="view-pos">Empresas que dan regalos.</label>
 
                         </p>
@@ -382,14 +382,14 @@
         });
         //function init
         function init() {
-            //load gifts            
+            //load gifts
             var isGiftBack = window.localStorage.getItem('gift-search-back');
-            if (isGiftBack!== null && isGiftBack !== 'undefined' && isGiftBack >0) {
+            if (isGiftBack !== null && isGiftBack !== 'undefined' && isGiftBack > 0) {
                 window.localStorage.removeItem('gift-back');
                 giftSearch('#gift-search-form-back');
             } else {
                 loadGifts();
-            }            
+            }
         }
         /*
         *load gifts
@@ -404,8 +404,7 @@
                 case RESULTS_BY_GIFTS:
                     //load setting
                     document.getElementById('view-gifts').checked = true;
-                    $('#type-view-select').val('view-gifts');
-                    $('select').material_select('view-gifts');
+                    $('#type-view-select').val('view-gifts');                    
                     title.textContent = 'Lista de regalos';
                     //fill
                     for (var i = 0; i < n; i++) {
@@ -416,8 +415,7 @@
                 case RESULTS_BY_ACTIONS:
                     //load settings
                     document.getElementById('view-actions').checked = true;
-                    $('#type-view-select').val('view-actions');                 
-                    $('select').material_select();                    
+                    $('#type-view-select').val('view-actions');                    
                     title.textContent = 'Lista de acciones';
                     //fill
                     for (var i = 0; i < n; i++) {
@@ -428,8 +426,7 @@
                 case RESULTS_BY_POS:
                     //load settings
                     document.getElementById('view-pos').checked = true;
-                    $('#type-view-select').val('view-pos');
-                    $('select').material_select('view-pos');
+                    $('#type-view-select').val('view-pos');                    
                     title.textContent = 'Lista de Empresas';
                     //la lista de puntos de venta en esta caso es una lista de empresas
                     var b = posList[i];
@@ -483,7 +480,7 @@
                     loaderOn();
                 },
                 success: function (response) {
-                    enabledFormControls();                    
+                    enabledFormControls();
                     try {
                         posList = null;
                         posList = JSON.parse(response);
@@ -506,7 +503,7 @@
                         toast(response, 4000, 'toast-danger');
                     }
                 },
-                error: function (xhr) {                  
+                error: function (xhr) {
                     enabledFormControls();
                     loaderOff();
                     document.getElementById('error-msg').textContent = xhr.responseText;
@@ -565,7 +562,8 @@
                 for (var j = 0; j < 3; j++) {
                     var div = document.createElement('div');
                     div.classList.add('col');
-                    div.classList.add('s4');
+                    var c = -j + 5;
+                    div.classList.add('s' + c);
                     var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
@@ -688,7 +686,8 @@
                 for (var j = 0; j < 3; j++) {
                     var div = document.createElement('div');
                     div.classList.add('col');
-                    div.classList.add('s4');
+                    var c = -j + 5;
+                    div.classList.add('s' + c);
                     var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
@@ -789,7 +788,8 @@
                 for (var j = 0; j < 1; j++) {
                     var div = document.createElement('div');
                     div.classList.add('col');
-                    div.classList.add('s4');
+                    var c = -j + 5;
+                    div.classList.add('s' + c);
                     var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
@@ -822,7 +822,7 @@
                 */
                 //card image
                 card_img.onclick = function () {
-                    window.localStorage.setItem('business-id', this.dataset.businessId);                    
+                    window.localStorage.setItem('business-id', this.dataset.businessId);
                     window.location = 'business.html';
                 }
                 //element

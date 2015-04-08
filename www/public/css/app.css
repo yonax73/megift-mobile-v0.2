@@ -599,6 +599,10 @@ nav ul li {
     line-height: 40px;
 }
 
+nav ul a {
+    font-size: 1.5rem;
+}
+
 #nav-mobile i {
     height: 40px;
     line-height: 40px;
@@ -925,4 +929,13 @@ body {
 /*******************/
 .row {
     margin-bottom: 0;
+}
+/*********************/
+/***OVERWRITE SELECT*/
+/********************/
+select.browser-default {
+    color: #000;    
+
+    overflow: hidden;
+    background: url(../images/arrow.png) no-repeat right center #fff;
 }
