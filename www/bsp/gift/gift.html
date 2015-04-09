@@ -150,6 +150,23 @@
                                             </div>
                                         </form>
                                     </div>
+                                    <div class="row">
+                                        <div class="col s12 m12">
+                                            <p>
+                                                Ó comparte con tus amigos
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 m12">
+                                            <button class="btn btn-flat btn-fluid btn-large btn-megift-red" onclick="socialMediaShare(true)">
+                                                Compartir
+                                                <i class="mdi-social-share">
+                                                    &nbsp;
+                                                </i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -280,16 +297,12 @@
                                         comparte este regalo con tus amigos
                                     </h6>
                                     <div class="row">
-                                        <div class="col s6">
-                                            <button class="btn btn-flat btn-fluid btn-large fb-bg" onclick="socialShare()">
-                                                facebook
-                                                <i class="mdi-social-share"></i>
-                                            </button>
-                                        </div>
-                                        <div class="col s6">
-                                            <button class="btn btn-flat btn-fluid btn-large tw-bg">
-                                                twitter
-                                                <i class="mdi-social-share"></i>
+                                        <div class="col s12 m12">
+                                            <button class="btn btn-flat btn-fluid btn-large btn-megift-red" onclick="socialMediaShare(false)">
+                                                Compartir
+                                                <i class="mdi-social-share">
+                                                    &nbsp;
+                                                </i>
                                             </button>
                                         </div>
                                     </div>
@@ -325,6 +338,9 @@
             <a href="gift.html" class="btn waves-effect waves-green btn-flat modal-action">Recibir regalo</a>
         </div>
     </div>
+    <script src="../../intelxdk.js"></script>
+    <script src="../../cordova.js"></script>
+    <script src="../../xhr.js"></script>
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
     <script src="../../public/js/inventor/BaseForm.min.js"></script>
@@ -623,27 +639,32 @@
             return time;
         }
         /*
-        * Social Sharing
+        * Social media share
         */
-        function socialShare() {
-            alert(window.plugins);
-            window.plugins.socialsharing.share('Blog post title'
-                , 'post summery'
-                , null
-                , 'http://qnimate.com'
-                , function (result) {
-                    alert('result: ' + result);
-                }
-                , function (result) {
-                    alert('error: ' + result);
-                });
+        function socialMediaShare(isUnBlock) {
+            try {
+                var message = 'He tenido la suerte de encontrar en mi celular Megift, '
+                    + 'una aplicación que me da regalos por hacer cosas divertidas como salir a comer, '
+                    + 'comprar ropa, consentirme, y muchas más. Descárgala en el siguiente link';
+                var subject = 'Tengo algo que contarte';
+                window.plugins.socialsharing.share(message, subject, null, 'http://www.megift.co', function () {
+                    if (isUnBlock) {
+                        //desbloquear regalo
+                        window.localStorage.setItem('block-gift', 0);
+                        window.location = '../../social/invite-friends-success-2.html';
+                    }
+                }, function (msg) { alert('error: ' + msg) });
+            } catch (ex) {
+                alert(ex.message);
+                console.error(ex);
+            }
         }
         /*
         *open business url
         */
         function openBusinessUrl(url) {
-            try{
-                cordova.InAppBrowser.open(url, '_system', 'location=yes');
+            try {
+                window.open(url, '_system', 'location=yes');
             } catch (ex) {
                 alert(ex.message);
                 console.error(ex);

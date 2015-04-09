@@ -5,7 +5,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
-    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />  
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
 <body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
@@ -31,12 +31,12 @@
                 </div>
                 <div class="row">
                     <div class="col s12 m12">
-                        <div class="card" >
+                        <div class="card">
                             <div class="card-image">
                                 <form id="photo-form">
                                     <div class="profile-user">
-                                        <i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full"></i>
-                                        <img id="image-partner" src="../../public/images/avatar.png">
+                                        <i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full" onclick=" $('#modal-picture').openModal();"></i>
+                                        <img id="image-partner" src="../../public/images/avatar.png" onclick=" $('#modal-picture').openModal();">
                                         <input type="file" accept="image/*" id="picture-select" name="picture" class="hidden" />
                                     </div>
                                 </form>
@@ -104,15 +104,33 @@
             <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
         </div>
     </div>
-    <!-- Modal success -->
-    <div id="modal-success" class="modal modal-fixed-footer">
+    <!-- Modal picture -->
+    <div id="modal-picture" class="modal modal-fixed-footer">
         <div class="modal-content">
-            <h4>Tu perfila ha sido actualizado con éxito!</h4>
+            <div class="row">
+                <div class="col s12 m12">
+                    <button class="btn btn-flat btn-fluid btn-large btn-megift-green align-left" onclick="takePictureFromPhotoLibrary()">
+                        <i class="mdi-image-camera-alt">&nbsp;</i>
+                        <span>Galeria</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row m-top-1rem">
+                <div class="col s12 m12">
+                    <button class="btn btn-flat btn-fluid btn-large btn-megift-green align-left" onclick="takePciture()">
+                        <i class="mdi-image-photo-album">&nbsp;</i>
+                        <span>Foto</span>
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
-            <a href="#" rel="external" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+            <a href="#" rel="external" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</a>
         </div>
     </div>
+    <script src="../../intelxdk.js"></script>
+    <script src="../../cordova.js"></script>
+    <script src="../../xhr.js"></script>
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
     <script src="../../public/js/inventor/BaseForm.min.js"></script>
@@ -138,7 +156,7 @@
             //load partner data
             initPartner();
             //init picture events
-            pictureInit();
+            // pictureInit();
         }
         /*
         * init partner
@@ -206,68 +224,77 @@
             });
         }
         /*
-        * Inicializar los eventos y funcionalidad para la imagen
+        * Take picture
         */
-        function pictureInit() {
-            //upload image
-            document.getElementById('picture-upload').onclick = function () {
-                document.getElementById('picture-select').click();
+        function takePciture() {
+            try {
+                navigator.camera.getPicture(onSuccessPic, onFailPic, {
+                    quality: 50
+                    , destinationType: Camera.DestinationType.FILE_URI
+                });
+            } catch (ex) {
+                alert(ex.message);
+                console.log(ex);
             }
-            document.getElementById('image-partner').onclick = function (e) {
-                document.getElementById('picture-select').click();
+        }
+        /*
+        * take picture from photo library
+        */
+        function takePictureFromPhotoLibrary() {
+            try {
+                navigator.camera.getPicture(onSuccessPic, onFailPic, {
+                    quality: 50
+                    , destinationType: Camera.DestinationType.FILE_URI
+                    , sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+                });
+            } catch (ex) {
+                alert(ex.message);
+                console.log(ex);
             }
-            //trigger event picture upload
-            document.getElementById('picture-select').onchange = function (e) {
-                handlePictureSelect(e);
+        }
+        /*
+        * on success picture
+        */
+        function onSuccessPic(imageURI) {
+            uploadPicture(imageURI);          
+        }
+        /*
+        * on fail picture
+        */
+        function onFailPic(message) {
+            alert('Failed because: ' + message);
+        }
+        /*
+        * upload picture
+        */
+        function uploadPicture(imageURI) {
+            var options = new FileUploadOptions();
+            options.fileKey = 'file';
+            options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+            options.mimeType = 'image/jpeg';
+            options.chunkedMode = false;
+            options.params = {
+                idPartner: partner.id
+                , idPicture: partner.picture.id
             }
-            //handle picture
-            function handlePictureSelect(e) {
-                var picture = e.target.files[0];
-                if (picture.type.match('image.*')) {
-                    if (picture.size <= 16777216) {
-                        var formData = new FormData();
-                        formData.append('picture', picture);
-                        formData.append('id-picture', partner.picture.id);
-                        formData.append('id-partner', partner.id);
-                        $.ajax({
-                            type: 'POST',
-                            url: host + '/uploadpicturePartner',
-                            data: formData,
-                            mimeType: "multipart/form-data",
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            beforeSend: function () {
-                                showPreloader();
-                            },
-                            success: function (response) {
-                                hiddenPreloader();
-                                if (response === successResponse) {
-                                    var reader = new FileReader();
-                                    reader.onload = (function (theFile) {
-                                        return function (evt) {
-                                            document.getElementById('image-partner').src = evt.target.result;
-                                        };
-                                    })(picture);
-                                    reader.readAsDataURL(picture);
-                                    toast('La foto se guardo exitosamente', 2000);
-                                } else {
-                                    toast(response, 2000, 'toast-danger');
-                                }
-                            },
-                            error: function (xhr) {
-                                hiddenPreloader();
-                                document.getElementById('error-msg').textContent = xhr.responseText;
-                                $('#modal-error').openModal();
-                            }
-                        });
-                    } else {
-                        toast('La imagen no puede ser mayor que 64KB', 2000, 'toast-danger')
-                    }
+            var ft = new FileTransfer();
+            ft.upload(imageURI, encodeURI(host + '/uploadpicturePartner'), function (r) {
+                if (r.response == successResponse) {
+                    var image = document.getElementById('image-partner');
+                    image.src = imageURI;
                 } else {
-                    toast('Seleccione una imagen válida', 2000, 'toast-danger')
+                    alert(r.response);
                 }
-            }
+                $('#modal-picture').closeModal();
+                navigator.camera.cleanup(function () {
+                    console.log("Camera cleanup success.")
+                }, function () {
+                    alert('Failed because: ' + message);
+                });
+            }, function (error) {
+                $('#modal-picture').closeModal();
+                alert('An error has occurred: Code = ' + error.code);
+            }, options);
         }
         /*
           * submit form

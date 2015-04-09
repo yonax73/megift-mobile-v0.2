@@ -9,7 +9,11 @@
     "installed_plugins": {
         "org.apache.cordova.splashscreen": {},
         "org.apache.cordova.geolocation": {},
-        "org.apache.cordova.inappbrowser": {}
+        "org.apache.cordova.inappbrowser": {},
+        "org.apache.cordova.camera": {},
+        "org.apache.cordova.file-transfer": {}
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "org.apache.cordova.file": {}
+    }
 }

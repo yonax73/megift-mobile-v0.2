@@ -947,3 +947,9 @@ select {
         background: url(../images/arrow.png) no-repeat right center #fff;
         -webkit-appearance: none;
     }
+/************************/
+/******* ALIGNS ********/
+/***********************/
+.align-left{
+    text-align:left;
+}
