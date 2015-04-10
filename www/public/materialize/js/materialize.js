@@ -3115,7 +3115,8 @@ $(document).ready(function(){
 
   // Input: Array of JSON objects {selector, offset, callback}
 
-  scrollFire = function(options) {
+    scrollFire = function (options) {
+        
     $(window).scroll(function () {
       var windowScroll = $(window).scrollTop() + $(window).height();
 
