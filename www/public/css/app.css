@@ -950,6 +950,22 @@ select {
 /************************/
 /******* ALIGNS ********/
 /***********************/
-.align-left{
-    text-align:left;
+.align-left {
+    text-align: left;
+}
+/****************************/
+/******SOCIAL MEDIA SHARE****/
+/****************************/
+.social-media{
+    background-color:#fff;
+}
+.social-media i {
+    font-size: 28px;
+}
+.social-media img{
+    width: 28px;
+    height: 28px;
+}
+.whatsapp-color{
+    color:#03D008;
 }

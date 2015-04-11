@@ -148,7 +148,7 @@
                         alert(ex.message);
                         console.log(ex)
                         loaderOff();
-                        toast(response, 2000, 'toast-danger');
+                        toast(ex.message, 4000, 'toast-danger');
                     }
                 },
                 error: function (xhr) {

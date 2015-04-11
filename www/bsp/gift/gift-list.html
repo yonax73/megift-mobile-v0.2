@@ -363,7 +363,7 @@
         var RESULTS_BY_ACTIONS = 30;
         var RESULTS_BY_POS = 31;
         var idLogin = window.localStorage.getItem('id-login');
-        var posList = JSON.parse(window.localStorage.getItem('POS-list'));
+        var posList = JSON.parse(window.localStorage.getItem('POS-list')) || [];
         var host = window.localStorage.getItem('host');
         var giftTypeId = 0;
         var actionTypeId = 0;
@@ -372,14 +372,15 @@
         * device onready
         */
         function onDeviceReady() {
-            init();
+              init();
         }
         document.addEventListener('deviceready', onDeviceReady, false);
-    
-            init();
- 
+        init();
+
         //function init
         function init() {
+            //clear local store pos list
+            window.localStorage.removeItem('POS-list');
             //load gifts
             var isGiftBack = window.localStorage.getItem('gift-search-back');
             if (isGiftBack !== null && isGiftBack !== 'undefined' && isGiftBack > 0) {
@@ -402,7 +403,7 @@
                 case RESULTS_BY_GIFTS:
                     //load setting
                     document.getElementById('view-gifts').checked = true;
-                    $('#type-view-select').val('view-gifts');                    
+                    $('#type-view-select').val('view-gifts');
                     title.textContent = 'Lista de regalos';
                     //fill
                     for (var i = 0; i < n; i++) {
@@ -413,7 +414,7 @@
                 case RESULTS_BY_ACTIONS:
                     //load settings
                     document.getElementById('view-actions').checked = true;
-                    $('#type-view-select').val('view-actions');                    
+                    $('#type-view-select').val('view-actions');
                     title.textContent = 'Lista de acciones';
                     //fill
                     for (var i = 0; i < n; i++) {
@@ -424,9 +425,9 @@
                 case RESULTS_BY_POS:
                     //load settings
                     document.getElementById('view-pos').checked = true;
-                    $('#type-view-select').val('view-pos');                    
+                    $('#type-view-select').val('view-pos');
                     title.textContent = 'Lista de Empresas';
-                    //la lista de puntos de venta en esta caso es una lista de empresas                    
+                    //la lista de puntos de venta en esta caso es una lista de empresas
                     var b = posList[i];
                     createCardBusiness(element, posList);
                     break;
@@ -489,8 +490,8 @@
                             loaderOff();
                             toast('No hay regalos cerca a tu ubicación con este filtro', 4000, 'toast-danger');
                         } else {
-                            window.localStorage.removeItem('POS-list');
-                            window.localStorage.setItem('POS-list', response);
+                            //window.localStorage.removeItem('POS-list');
+                            //window.localStorage.setItem('POS-list', response);
                             loadGifts();
                         }
                     } catch (ex) {
@@ -498,7 +499,7 @@
                         //clear element
                         element.innerHTML = '';
                         loaderOff();
-                        toast(response, 4000, 'toast-danger');
+                        toast(ex.message, 4000, 'toast-danger');
                     }
                 },
                 error: function (xhr) {
@@ -751,7 +752,7 @@
          * Create Card buiness
          */
         function createCardBusiness(element, businesses) {
-            //fill            
+            //fill
             var n = businesses.length;
             for (var i = 0; i < n; i++) {
                 var b = businesses[i];
