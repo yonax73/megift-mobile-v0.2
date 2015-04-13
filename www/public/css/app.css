@@ -885,14 +885,14 @@ input.input-flat {
 /********************/
 /*** IMAGE LOADER ***/
 /********************/
+#loader {
+    text-align: center;
+}
+
 .image-loader {
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 30%;
+  margin: 75px auto;
+  width: 56px;
+  height: 56px;
 }
 /*******************/
 /** TOOLBAR FIXED */
@@ -956,16 +956,19 @@ select {
 /****************************/
 /******SOCIAL MEDIA SHARE****/
 /****************************/
-.social-media{
-    background-color:#fff;
+.social-media {
+    background-color: #fff;
 }
-.social-media i {
-    font-size: 28px;
-}
-.social-media img{
-    width: 28px;
-    height: 28px;
-}
-.whatsapp-color{
-    color:#03D008;
+
+    .social-media i {
+        font-size: 28px;
+    }
+
+    .social-media img {
+        width: 28px;
+        height: 28px;
+    }
+
+.whatsapp-color {
+    color: #03D008;
 }

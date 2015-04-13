@@ -26,9 +26,6 @@
     </div>
     <div class="SCROLLER_FRAME">
         <div class="SCROLLER">
-            <section id="loader">
-                <img src="../../public/images/loaders/oval.svg" width="40" alt="cargando.." class="image-loader" />
-            </section>
             <section id="content" class="m-top-1rem hidden">
                 <div class="row">
                     <div class="col s12 m12">
@@ -78,6 +75,9 @@
                 <section>
                     <div id="cover-gift" class="row"></div>
                 </section>
+                <section id="loader">
+                    <img src="../../public/images/loaders/oval.svg" width="40" alt="cargando.." class="image-loader" />
+                </section>
             </section>
         </div>
     </div>
@@ -92,6 +92,26 @@
             <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
         </div>
     </div>
+    <!--search-count-form-->
+    <form id="search-count-form" class="hidden">
+        <input name="id-login" type="hidden" value="0" />
+        <input id="id-business" name="id-business" type="hidden" value="0" />
+        <input name="gift-type-id" type="hidden" value="0" />
+        <input name="action-type-id" type="hidden" value="0" />
+        <input name="business-type-id" type="hidden" value="0" />
+        <input id="type-view" name="type-view" type="hidden" value="0" />
+    </form>
+    <form id="gift-search-form" class="hidden">
+        <input name="latitude" type="hidden" value="0" />
+        <input name="longitude" type="hidden" value="0" />
+        <input name="id-login" type="hidden" value="0" />
+        <input name="gift-type-id" type="hidden" value="0" />
+        <input name="action-type-id" type="hidden" value="0" />
+        <input name="business-type-id" type="hidden" value="0" />
+        <input id="id-business-2" name="id-business" type="hidden" value="0" />
+        <input id="type-view" name="type-view" type="hidden" value="0" />
+        <input name="position" type="hidden" value="0" />
+    </form>
     <script src="../../intelxdk.js"></script>
     <script src="../../cordova.js"></script>
     <script src="../../xhr.js"></script>
@@ -101,6 +121,17 @@
     <script>
         var host = window.localStorage.getItem('host');
         var businessId = window.localStorage.getItem('business-id');
+        var idLogin = window.localStorage.getItem('id-login');
+        var business = [];
+        var posList = [];
+        var RESULTS_BY_BUSINESS = 32;
+        var position = 0;// posicion para controlar la carga de items
+        var group = 1; //contador de grupos. Cada grupo cuenta con 10 items
+        var minHeight = 340; //altura minima que tiene un componente card
+        var totalItemts = 10;//total de items que tiene cada grupo
+        var targetHeight = minHeight * (10 - 2) * group; //la altura que debe llegar el scroll para cargar mas items
+        var loaded = false;
+        var totalGroups = 0;//Cantidad total de grupos
         /*
         * device onready
         */
@@ -111,10 +142,112 @@
         init();
         //function init
         function init() {
-            loadBusiness();
+            loadCountGroups();
+            scrollLoader();
         }
         /*
-        * load gift
+        *Scroll Loader
+        */
+        function scrollLoader() {
+            $('.SCROLLER_FRAME').scroll(function () {
+                if ($('.SCROLLER_FRAME').scrollTop() >= targetHeight) {
+                    //se incrementa la posicion para cargar mas grupos
+                    position = group * 10;
+                    //recalcular targetHeight
+                    targetHeight = minHeight * (10 - 2) * group;
+                    if (!loaded && group <= totalGroups) {
+                        loaded = true;
+                        loaderAppendOn();
+                        giftSearch('#gift-search-form');
+                        group++;
+                    }
+                }
+            });
+        }
+        /*
+        * load count groups
+        */
+        function loadCountGroups() {
+            var form = '#search-count-form';
+            $(form + ' input[name=id-login]').val(idLogin);
+            $(form + ' input[name=type-view]').val(RESULTS_BY_BUSINESS);
+            $.ajax({
+                type: 'POST',
+                url: host + '/groupsCountPerSearchGift',
+                data: $(form).serialize(),
+                success: function (response) {
+                    try {
+                        totalGroups = response;
+                        loadBusiness();
+                    } catch (ex) {
+                        console.error(ex);
+                        toast(response, 2000, 'toast-danger');
+                    }
+                },
+                error: function (xhr) {
+                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    $('#modal-error').openModal();
+                }
+            });
+        }
+        /*
+        *search gift
+        */
+        function giftSearch(form) {
+            $(form + ' input[name=latitude]').val(window.localStorage.getItem('latitude'));
+            $(form + ' input[name=longitude]').val(window.localStorage.getItem('longitude'));
+            $(form + ' input[name=id-login]').val(idLogin);
+            $(form + ' input[name=position]').val(position);
+            $(form + ' input[name=type-view]').val(RESULTS_BY_BUSINESS);
+            $.ajax({
+                type: 'POST',
+                url: host + '/searchGift',
+                data: $(form).serialize(),      
+                success: function (response) {                    
+                    try {
+                        posList = null;
+                        posList = JSON.parse(response);
+                        if (posList.length < 1) {
+                            var element = document.getElementById('cover-gift');
+                            //clear element
+                            element.innerHTML = '';
+                            loaderOff();
+                            toast('No hay regalos cerca a tu ubicación con este filtro', 4000, 'toast-danger');
+                        } else {
+                            loadGifts();
+                        }
+                    } catch (ex) {
+                        var element = document.getElementById('cover-gift');
+                        //clear element
+                        element.innerHTML = '';
+                        loaderOff();
+                        console.error(ex);
+                        toast(ex.message, 4000, 'toast-danger');
+                    }
+                },
+                error: function (xhr) {                   
+                    loaderOff();
+                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    $('#modal-error').openModal();
+                }
+            });
+        }
+        /*
+        *load gift
+        */
+        function loadGifts() {
+            //fill
+            var element = document.getElementById('cover-gift');
+            var n = posList.length;
+            for (var i = 0; i < n; i++) {
+                var pos = posList[i];
+                createCardfGift(element, pos.giftList, pos.name, pos.distanceFormatted, pos.id);
+            }
+            loaded = false;
+            loaderAppendOff();
+        }
+        /*
+        * load business
         */
         function loadBusiness() {
             $.ajax({
@@ -122,8 +255,8 @@
                 url: host + '/loadBusinessForMobile?id=' + businessId + '&lat=' + window.localStorage.getItem('latitude') + '&lng=' + window.localStorage.getItem('longitude'),
                 success: function (response) {
                     try {
-                        var business = JSON.parse(response);
-                        var posList = business.posList;
+                         business = JSON.parse(response);
+                         posList = business.posList;
                         var element = document.getElementById('cover-gift');
                         element.innerHTML = '';
                         document.getElementById('business-name').textContent = business.tradeName;;
@@ -143,6 +276,10 @@
                             var pos = posList[i];
                             createCardfGift(element, pos.giftList, pos.name, pos.distanceFormatted, pos.id);
                         }
+                        //fill search-count-form
+                        document.getElementById('id-business').textContent = business.id;
+                        //fill gift-search-form
+                        document.getElementById('id-business-2').textContent = business.id;
                         loaderOff();
                     } catch (ex) {
                         alert(ex.message);
@@ -339,6 +476,26 @@
                 content.classList.add('hidden');
                 loader.classList.remove('hidden');
                 animationShow.run(loader);
+            });
+        }
+        /*
+        * Loader append Off
+        */
+        function loaderAppendOff() {
+            var animationOff = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
+            var loader = document.getElementById('loader');
+            animationOff.run(loader, function () {
+                loader.classList.add('hidden');
+            });
+        }
+        /*
+        *Loader append On
+        */
+        function loaderAppendOn() {
+            var animationOn = new Animation('i-ease', 'i-fade-in', 'i-0-5s', 500);
+            var loader = document.getElementById('loader');
+            animationOn.run(loader, function () {
+                loader.classList.remove('hidden');
             });
         }
         /*

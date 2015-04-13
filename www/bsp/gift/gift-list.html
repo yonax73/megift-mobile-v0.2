@@ -53,11 +53,11 @@
     </div>
     <div class="SCROLLER_FRAME">
         <div class="SCROLLER">
-            <section id="loader">
-                <img src="../../public/images/loaders/oval.svg" width="40" alt="cargando.." class="image-loader" />
-            </section>
             <section id="content" class="m-top-4rem hidden">
                 <div id="cover-gift" class="row"></div>
+            </section>
+            <section id="loader">
+                <img src="../../public/images/loaders/oval.svg" alt="cargando.." class="image-loader" />
             </section>
         </div>
     </div>
@@ -73,6 +73,7 @@
                 <input name="longitude" type="hidden" value="0" />
                 <input name="id-login" type="hidden" value="0" />
                 <input name="type-view" type="hidden" value="0" />
+                <input name="position" type="hidden" value="0" />
                 <div class="row separator-gray-300">
                     <div class="col s12">
                         <label>Tipo de regalo</label>
@@ -154,7 +155,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button id="submit-form" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="giftSearch('#gift-search-form')">Buscar</button>
+            <button id="submit-form" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="loadCountGroups(true,'#gift-search-form')">Buscar</button>
             <button id="cancel-form" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -170,6 +171,7 @@
                 <input name="longitude" type="hidden" value="0" />
                 <input name="id-login" type="hidden" value="0" />
                 <input name="type-view" type="hidden" value="0" />
+                <input name="position" type="hidden" value="0" />
                 <div class="row separator-gray-300">
                     <div class="col s12">
                         <label>Tipo de acción</label>
@@ -218,7 +220,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button id="submit-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="giftSearch('#gift-search-form-action')">Buscar</button>
+            <button id="submit-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="loadCountGroups(true,'#gift-search-form-action')">Buscar</button>
             <button id="cancel-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -234,6 +236,7 @@
                 <input name="longitude" type="hidden" value="0" />
                 <input name="id-login" type="hidden" value="0" />
                 <input name="type-view" type="hidden" value="0" />
+                <input name="position" type="hidden" value="0" />
                 <div class="row separator-gray-300">
                     <div class="col s12">
                         <label>Tipo de empresa</label>
@@ -282,7 +285,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button id="submit-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="giftSearch('#gift-search-form-business')">Buscar</button>
+            <button id="submit-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="loadCountGroups(true,'#gift-search-form-business')">Buscar</button>
             <button id="cancel-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -305,6 +308,7 @@
                 <input name="gift-type-id" type="hidden" value="0" />
                 <input name="action-type-id" type="hidden" value="0" />
                 <input name="business-type-id" type="hidden" value="0" />
+                <input name="position" type="hidden" value="0" />
                 <div class="row">
                     <div class="col s12">
                         <p>
@@ -330,7 +334,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button id="submit-form-type-view" class="btn waves-effect waves-green btn-flat modal-action" onclick="giftSearch('#gift-views-form')">Buscar</button>
+            <button id="submit-form-type-view" class="btn waves-effect waves-green btn-flat modal-action" onclick="loadCountGroups(true,'#gift-views-form')">Buscar</button>
             <button id="cancel-form-type-view" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -353,6 +357,14 @@
         <input name="action-type-id" type="hidden" value="0" />
         <input name="business-type-id" type="hidden" value="0" />
         <input id="type-view" name="type-view" type="hidden" value="0" />
+        <input name="position" type="hidden" value="0" />
+    </form>
+    <form id="search-count-form" class="hidden">
+        <input name="id-login" type="hidden" value="0" />
+        <input name="gift-type-id" type="hidden" value="0" />
+        <input name="action-type-id" type="hidden" value="0" />
+        <input name="business-type-id" type="hidden" value="0" />
+        <input id="type-view" name="type-view" type="hidden" value="0" />
     </form>
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
@@ -363,16 +375,24 @@
         var RESULTS_BY_ACTIONS = 30;
         var RESULTS_BY_POS = 31;
         var idLogin = window.localStorage.getItem('id-login');
-        var posList = JSON.parse(window.localStorage.getItem('POS-list')) || [];
+        var posList = JSON.parse(window.localStorage.getItem('POS-list')) || []; //se utliza para transportar los datos desde la vista search-gift
         var host = window.localStorage.getItem('host');
         var giftTypeId = 0;
         var actionTypeId = 0;
         var currentView = window.localStorage.getItem('current-view');
+        var isBack = false; //Es true cuando se carga desde la vista  gift
+        var position = 0;// posicion para controlar la carga de items
+        var group = 1; //contador de grupos. Cada grupo cuenta con 10 items
+        var minHeight = 340; //altura minima que tiene un componente card
+        var totalItemts = 10;//total de items que tiene cada grupo
+        var targetHeight = minHeight * (10 - 2) * group; //la altura que debe llegar el scroll para cargar mas items
+        var loaded = false;
+        var totalGroups = 0;//Cantidad total de grupos
         /*
         * device onready
         */
         function onDeviceReady() {
-              init();
+            init();
         }
         document.addEventListener('deviceready', onDeviceReady, false);
         init();
@@ -381,22 +401,57 @@
         function init() {
             //clear local store pos list
             window.localStorage.removeItem('POS-list');
+            //event scroller
+            scrollLoader();
             //load gifts
             var isGiftBack = window.localStorage.getItem('gift-search-back');
             if (isGiftBack !== null && isGiftBack !== 'undefined' && isGiftBack > 0) {
                 window.localStorage.removeItem('gift-back');
-                giftSearch('#gift-search-form-back');
+                isBack = true;
+                loadCountGroups(true, '#gift-search-form-back');
             } else {
-                loadGifts();
+                loadCountGroups(false, null);
             }
+        }
+        /*
+        * load count groups
+        */
+        function loadCountGroups(executeSearch, formSearch) {
+            var form = '#search-count-form';
+            $(form + ' input[name=id-login]').val(idLogin);
+            $(form + ' input[name=type-view]').val(currentView);
+            $(form + ' input[name=gift-type-id]').val($('input[name=gift-type-id]:checked', '#gift-search-form').val());
+            $(form + ' input[name=action-type-id]').val($('input[name=action-type-id]:checked', '#gift-search-form-action').val());
+            $(form + ' input[name=business-type-id]').val($('input[name=business-type-id]:checked', '#gift-search-form-business').val());
+            $.ajax({
+                type: 'POST',
+                url: host + '/groupsCountPerSearchGift',
+                data: $(form).serialize(),
+                success: function (response) {
+                    try {
+                        totalGroups = response;
+                        if (executeSearch) {
+                            giftSearch(formSearch);
+                        } else {
+                            loadGifts();
+                            loaderOff();
+                        }
+                    } catch (ex) {
+                        console.error(ex);
+                        toast(response, 2000, 'toast-danger');
+                    }
+                },
+                error: function (xhr) {
+                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    $('#modal-error').openModal();
+                }
+            });
         }
         /*
         *load gifts
         */
         function loadGifts() {
             var element = document.getElementById('cover-gift');
-            //clear element
-            element.innerHTML = '';
             var n = posList.length;
             var title = document.getElementById('title');
             switch (parseInt(currentView)) {
@@ -432,7 +487,34 @@
                     createCardBusiness(element, posList);
                     break;
             }
-            loaderOff();
+
+            loaded = false;
+            if (isBack) {
+                loaderOff();
+                isBack = false;
+            } else {
+                loaderAppendOff();
+            }
+
+        }
+        /*
+        *Scroll Loader
+        */
+        function scrollLoader() {
+            $('.SCROLLER_FRAME').scroll(function () {
+                if ($('.SCROLLER_FRAME').scrollTop() >= targetHeight) {
+                    //se incrementa la posicion para cargar mas grupos
+                    position = group * 10;
+                    //recalcular targetHeight
+                    targetHeight = minHeight * (10 - 2) * group;
+                    if (!loaded && group <= totalGroups) {
+                        loaded = true;
+                        loaderAppendOn();
+                        giftSearch('#gift-views-form');
+                        group++;
+                    }
+                }
+            });
         }
         /*
         * open filter
@@ -458,7 +540,19 @@
             var element = document.getElementById(select.options[select.selectedIndex].value);
             element.checked = true;
             onchangeTypeView(element);
-            giftSearch('#gift-views-form');
+            var coverGift = document.getElementById('cover-gift');
+            coverGift.innerHTML = '';
+            loaderOn();
+            loadCountGroups(true, '#gift-views-form');
+            loaderOff();
+            /*
+            * Reiniciar valores para la busqueda
+            */
+            position = 0;// posicion para controlar la carga de items
+            group = 1; //contador de grupos. Cada grupo cuenta con 10 items
+            totalItemts = 10;//total de items que tiene cada grupo
+            targetHeight = minHeight * (10 - 2) * group; //la altura que debe llegar el scroll para cargar mas items
+            loaded = false;
         }
         /*
         *search gift
@@ -467,8 +561,15 @@
             $(form + ' input[name=latitude]').val(window.localStorage.getItem('latitude'));
             $(form + ' input[name=longitude]').val(window.localStorage.getItem('longitude'));
             $(form + ' input[name=id-login]').val(idLogin);
+            $(form + ' input[name=position]').val(position);
+            //AGREGAR OTROS FILTROS
             if (form !== '#gift-views-form') {
                 $(form + ' input[name=type-view]').val(currentView);
+            }
+            if (form !== '#gift-search-form' && form !== '#gift-search-form-action' && form !== '#gift-search-form-business') {
+                $(form + ' input[name=gift-type-id]').val($('input[name=gift-type-id]:checked', '#gift-search-form').val());
+                $(form + ' input[name=action-type-id]').val($('input[name=action-type-id]:checked', '#gift-search-form-action').val());
+                $(form + ' input[name=business-type-id]').val($('input[name=business-type-id]:checked', '#gift-search-form-business').val());
             }
             $.ajax({
                 type: 'POST',
@@ -476,7 +577,6 @@
                 data: $(form).serialize(),
                 beforeSend: function () {
                     disabledFormControls();
-                    loaderOn();
                 },
                 success: function (response) {
                     enabledFormControls();
@@ -490,8 +590,6 @@
                             loaderOff();
                             toast('No hay regalos cerca a tu ubicación con este filtro', 4000, 'toast-danger');
                         } else {
-                            //window.localStorage.removeItem('POS-list');
-                            //window.localStorage.setItem('POS-list', response);
                             loadGifts();
                         }
                     } catch (ex) {
@@ -499,6 +597,7 @@
                         //clear element
                         element.innerHTML = '';
                         loaderOff();
+                        console.error(ex);
                         toast(ex.message, 4000, 'toast-danger');
                     }
                 },
@@ -861,6 +960,26 @@
                 content.classList.add('hidden');
                 loader.classList.remove('hidden');
                 animationShow.run(loader);
+            });
+        }
+        /*
+        * Loader append Off
+        */
+        function loaderAppendOff() {
+            var animationOff = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
+            var loader = document.getElementById('loader');
+            animationOff.run(loader, function () {
+                loader.classList.add('hidden');
+            });
+        }
+        /*
+        *Loader append On
+        */
+        function loaderAppendOn() {
+            var animationOn = new Animation('i-ease', 'i-fade-in', 'i-0-5s', 500);
+            var loader = document.getElementById('loader');
+            animationOn.run(loader, function () {
+                loader.classList.remove('hidden');
             });
         }
         /*
