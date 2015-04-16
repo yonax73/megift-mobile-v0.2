@@ -194,6 +194,7 @@
                     }
                 },
                 error: function (xhr) {
+                    enabledSearch();
                     hiddenPreloader();
                     document.getElementById('error-msg').textContent = xhr.responseText;
                     $('#modal-error').openModal();
