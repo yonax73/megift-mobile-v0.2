@@ -155,7 +155,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button id="submit-form" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="loadCountGroups(true,'#gift-search-form')">Buscar</button>
+            <button id="submit-form" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="clearCover();loadCountGroups(true, '#gift-search-form')">Buscar</button>
             <button id="cancel-form" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -220,7 +220,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button id="submit-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="loadCountGroups(true,'#gift-search-form-action')">Buscar</button>
+            <button id="submit-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="clearCover();loadCountGroups(true, '#gift-search-form-action')">Buscar</button>
             <button id="cancel-form-action" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -285,7 +285,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button id="submit-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="loadCountGroups(true,'#gift-search-form-business')">Buscar</button>
+            <button id="submit-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close" onclick="clearCover();loadCountGroups(true, '#gift-search-form-business')">Buscar</button>
             <button id="cancel-form-business" class="btn waves-effect waves-green btn-flat modal-action modal-close">Cancelar</button>
         </div>
     </div>
@@ -384,10 +384,11 @@
         var position = 0;// posicion para controlar la carga de items
         var group = 1; //contador de grupos. Cada grupo cuenta con 10 items
         var minHeight = 340; //altura minima que tiene un componente card
-        var totalItemts = 10;//total de items que tiene cada grupo
-        var targetHeight = minHeight * (10 - 2) * group; //la altura que debe llegar el scroll para cargar mas items
+        var totalItems = 5;//total de items que tiene cada grupo
+        var targetHeight = minHeight * (totalItems - 1.5) * group; //la altura que debe llegar el scroll para cargar mas items
         var loaded = false;
         var totalGroups = 0;//Cantidad total de grupos
+        var isClearCover = true;//falso cuando se cargan regalos con scroll
         /*
         * device onready
         */
@@ -447,6 +448,18 @@
                 }
             });
         }
+
+        function clearCover() {
+            /*
+            * Reiniciar valores para la busqueda
+            */
+            position = 0;// posicion para controlar la carga de items
+            group = 1; //contador de grupos. Cada grupo cuenta con 10 items
+            targetHeight = minHeight * (totalItems - 1.5) * group; //la altura que debe llegar el scroll para cargar mas items
+            loaded = false;
+            document.getElementById('cover-gift').innerHTML = '';
+            isClearCover = true;
+        }
         /*
         *load gifts
         */
@@ -504,11 +517,12 @@
             $('.SCROLLER_FRAME').scroll(function () {
                 if ($('.SCROLLER_FRAME').scrollTop() >= targetHeight) {
                     //se incrementa la posicion para cargar mas grupos
-                    position = group * 10;
+                    position = group * totalItems;
                     //recalcular targetHeight
-                    targetHeight = minHeight * (10 - 2) * group;
+                    targetHeight = minHeight * (totalItems - 1.5) * group;
                     if (!loaded && group <= totalGroups) {
                         loaded = true;
+                        isClearCover = false;
                         loaderAppendOn();
                         giftSearch('#gift-views-form');
                         group++;
@@ -550,9 +564,9 @@
             */
             position = 0;// posicion para controlar la carga de items
             group = 1; //contador de grupos. Cada grupo cuenta con 10 items
-            totalItemts = 10;//total de items que tiene cada grupo
-            targetHeight = minHeight * (10 - 2) * group; //la altura que debe llegar el scroll para cargar mas items
+            targetHeight = minHeight * (totalItems - 1.5) * group; //la altura que debe llegar el scroll para cargar mas items
             loaded = false;
+            isClearCover = true;
         }
         /*
         *search gift
@@ -584,21 +598,26 @@
                         posList = null;
                         posList = JSON.parse(response);
                         if (posList.length < 1) {
-                            var element = document.getElementById('cover-gift');
-                            //clear element
-                            element.innerHTML = '';
-                            loaderOff();
-                            toast('No hay regalos cerca a tu ubicación con este filtro', 4000, 'toast-danger');
+                            if (isClearCover) {
+                                document.getElementById('cover-gift').innerHTML = '';
+                                loaderOff();
+                                alert('No hay regalos cerca a tu ubicación con este filtro');
+                            } else {
+                                loaderAppendOff();
+                            }
                         } else {
                             loadGifts();
                         }
                     } catch (ex) {
-                        var element = document.getElementById('cover-gift');
-                        //clear element
-                        element.innerHTML = '';
-                        loaderOff();
-                        console.error(ex);
-                        toast(ex.message, 4000, 'toast-danger');
+                        if (isClearCover) {
+                            document.getElementById('cover-gift').innerHTML = '';
+                            loaderOff();
+                            toast(response, 4000, 'toast-danger');
+                        } else {
+                            loaderAppendOff();
+                        }
+
+                        console.log(ex);
                     }
                 },
                 error: function (xhr) {

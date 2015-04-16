@@ -1,5 +1,5 @@
 p, small, strong {
-    font-size: 110%;
+    font-size: 103%;
 }
 
 .bg {
@@ -309,7 +309,7 @@ ul.side-nav a {
 }
 
 .card.small {
-    height: auto;
+    height: 340px;
     max-height: 355px;
     min-height: 340px;
 }
@@ -317,9 +317,11 @@ ul.side-nav a {
     .card.small .card-image {
         height: 220px;
     }
-
+    .card.small .card-content{
+        height:120px;
+    }
 .card .card-content {
-    padding: 10px;
+    padding: 3px;
 }
 
 .card-content li {
@@ -844,7 +846,7 @@ input.input-flat {
 
 .card .card-image img {
     height: 100%;
-    max-height: 190px;
+    max-height: 220px;
     display: table;
 }
 
@@ -940,6 +942,7 @@ body {
 /********************/
 select {
     padding: 0;
+    text-align:center;
 }
 
     select.browser-default {

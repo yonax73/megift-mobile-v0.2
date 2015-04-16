@@ -128,10 +128,11 @@
         var position = 0;// posicion para controlar la carga de items
         var group = 1; //contador de grupos. Cada grupo cuenta con 10 items
         var minHeight = 340; //altura minima que tiene un componente card
-        var totalItemts = 10;//total de items que tiene cada grupo
-        var targetHeight = minHeight * (10 - 2) * group; //la altura que debe llegar el scroll para cargar mas items
+        var totalItems = 5;//total de items que tiene cada grupo
+        var targetHeight = minHeight * (totalItems -1.5) * group; //la altura que debe llegar el scroll para cargar mas items
         var loaded = false;
         var totalGroups = 0;//Cantidad total de grupos
+        var isClearCover = true;//falso cuando se cargan regalos con scroll
         /*
         * device onready
         */
@@ -152,12 +153,13 @@
             $('.SCROLLER_FRAME').scroll(function () {
                 if ($('.SCROLLER_FRAME').scrollTop() >= targetHeight) {
                     //se incrementa la posicion para cargar mas grupos
-                    position = group * 10;
+                    position = group * totalItems;
                     //recalcular targetHeight
-                    targetHeight = minHeight * (10 - 2) * group;
+                    targetHeight = minHeight * (totalItems -1.5) * group;
                     if (!loaded && group <= totalGroups) {
                         loaded = true;
                         loaderAppendOn();
+                        isClearCover = false;
                         giftSearch('#gift-search-form');
                         group++;
                     }
@@ -202,30 +204,33 @@
             $.ajax({
                 type: 'POST',
                 url: host + '/searchGift',
-                data: $(form).serialize(),      
-                success: function (response) {                    
+                data: $(form).serialize(),
+                success: function (response) {
                     try {
                         posList = null;
                         posList = JSON.parse(response);
                         if (posList.length < 1) {
-                            var element = document.getElementById('cover-gift');
-                            //clear element
-                            element.innerHTML = '';
-                            loaderOff();
-                            toast('No hay regalos cerca a tu ubicación con este filtro', 4000, 'toast-danger');
+                            if (isClearCover) {
+                                document.getElementById('cover-gift').innerHTML = '';
+                                loaderOff();
+                                alert('No hay regalos cerca a tu ubicación con este filtro');
+                            } else {
+                                loaderAppendOff();
+                            }
                         } else {
                             loadGifts();
                         }
                     } catch (ex) {
-                        var element = document.getElementById('cover-gift');
-                        //clear element
-                        element.innerHTML = '';
-                        loaderOff();
-                        console.error(ex);
-                        toast(ex.message, 4000, 'toast-danger');
+                        if (isClearCover) {
+                            document.getElementById('cover-gift').innerHTML = '';
+                            loaderOff();
+                            toast(response, 4000, 'toast-danger');
+                        } else {
+                            loaderAppendOff();
+                        }
                     }
                 },
-                error: function (xhr) {                   
+                error: function (xhr) {
                     loaderOff();
                     document.getElementById('error-msg').textContent = xhr.responseText;
                     $('#modal-error').openModal();
@@ -255,8 +260,8 @@
                 url: host + '/loadBusinessForMobile?id=' + businessId + '&lat=' + window.localStorage.getItem('latitude') + '&lng=' + window.localStorage.getItem('longitude'),
                 success: function (response) {
                     try {
-                         business = JSON.parse(response);
-                         posList = business.posList;
+                        business = JSON.parse(response);
+                        posList = business.posList;
                         var element = document.getElementById('cover-gift');
                         element.innerHTML = '';
                         document.getElementById('business-name').textContent = business.tradeName;;
