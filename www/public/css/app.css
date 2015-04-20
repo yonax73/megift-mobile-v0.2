@@ -17,6 +17,14 @@ p, small, strong {
 }
 
 /*COVER BLOCK*/
+#cover-gift h5,
+small,
+span
+p {
+    margin: 0;
+    font-size: 100%;
+}
+
 .cover-content {
     border: 1px solid rgba(210, 210, 210,0.80);
     -webkit-box-shadow: 0px 1px 2px 0px rgba(210, 210, 210, 0.75);
@@ -309,7 +317,6 @@ ul.side-nav a {
 }
 
 .card.small {
-    height: 340px;
     max-height: 340px;
     min-height: 340px;
 }
@@ -317,9 +324,11 @@ ul.side-nav a {
     .card.small .card-image {
         height: 220px;
     }
-    .card.small .card-content{
-        height:120px;
+
+    .card.small .card-content {
+        height: 120px;
     }
+
 .card .card-content {
     padding: 3px;
 }
@@ -892,9 +901,9 @@ input.input-flat {
 }
 
 .image-loader {
-  margin: 75px auto;
-  width: 56px;
-  height: 56px;
+    margin: 75px auto;
+    width: 56px;
+    height: 56px;
 }
 /*******************/
 /** TOOLBAR FIXED */
@@ -942,7 +951,7 @@ body {
 /********************/
 select {
     padding: 0;
-    text-align:center;
+    text-align: center;
 }
 
     select.browser-default {

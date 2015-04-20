@@ -127,7 +127,7 @@
         var RESULTS_BY_BUSINESS = 32;
         var position = 0;// posicion para controlar la carga de items
         var group = 1; //contador de grupos. Cada grupo cuenta con 10 items
-        var minHeight = 340; //altura minima que tiene un componente card
+        var minHeight = 310; //altura minima que tiene un componente card
         var totalItems = 5;//total de items que tiene cada grupo
         var targetHeight = minHeight * (totalItems -1.5) * group; //la altura que debe llegar el scroll para cargar mas items
         var loaded = false;
@@ -352,8 +352,7 @@
                 for (var j = 0; j < 3; j++) {
                     var div = document.createElement('div');
                     div.classList.add('col');
-                    var c = -j + 5;
-                    div.classList.add('s' + c);
+                    div.classList.add('s4');
                     var icon = document.createElement('h5');
                     switch (j) {
                         case 0:
