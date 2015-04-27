@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/cropper/cropper.min.css" rel="stylesheet" />
     <link href="../../public/css/app.min.css" rel="stylesheet" />
 </head>
 <body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
@@ -134,6 +135,7 @@
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/materialize/js/materialize.min.js"></script>
     <script src="../../public/js/inventor/BaseForm.min.js"></script>
+    <script src="../../public/js/cropper/cropper.min.js"></script>
     <script src="../../public/js/app.min.js"></script>
     <script>
         var host = window.localStorage.getItem('host');
@@ -272,7 +274,7 @@
         function uploadPicture(imageURI) {
             var options = new FileUploadOptions();
             options.fileKey = 'file';
-            options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+            options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1)+'.jpg';
             options.mimeType = 'image/jpeg';
             options.chunkedMode = false;
             options.params = {

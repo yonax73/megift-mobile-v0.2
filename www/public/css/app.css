@@ -19,8 +19,7 @@ p, small, strong {
 /*COVER BLOCK*/
 #cover-gift h5,
 small,
-span
-p {
+span p {
     margin: 0;
     font-size: 100%;
 }
@@ -317,9 +316,18 @@ ul.side-nav a {
 }
 
 .card.small {
-    max-height: 340px;
-    min-height: 340px;
+    max-height: 315px;
+    height:310px;
+    min-height: 310px;
+    max-width: 340px;
+    min-width: 335px;
 }
+
+    .card.small h5,
+    .card.small p,
+    .card.small small {
+        font-size: 15px;
+    }
 
     .card.small .card-image {
         height: 220px;

@@ -266,7 +266,7 @@
                         var element = document.getElementById('cover-gift');
                         element.innerHTML = '';
                         document.getElementById('business-name').textContent = business.tradeName;;
-                        document.getElementById('business-picture').src = '../../public/images/business280x280.png';
+                        document.getElementById('business-picture').src = business.picture ? business.picture.dataURI : '../../public/images/business280x280.png';
                         document.getElementById('business-mb-phone').textContent = business.contact.location.phone.mobile;
                         document.getElementById('business-phone').textContent = business.contact.location.phone.number;
                         document.getElementById('business-email-contact').textContent = business.contact.login.email;
