@@ -161,7 +161,7 @@
         /*
         /* onSuccess Geolocation
         */
-        function onSuccess(position) {           
+        function onSuccess(position) {
             var longitude = position.coords.longitude;
             var latitude = position.coords.latitude;
             document.getElementsByName('latitude')[0].value = latitude;
@@ -196,9 +196,10 @@
                 error: function (xhr) {
                     enabledSearch();
                     hiddenPreloader();
-                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    document.getElementById('error-msg').textContent = xhr.statusText;
                     $('#modal-error').openModal();
-                }
+                },
+                timeout: 60000
             });
         }
         /*
@@ -216,9 +217,9 @@
         * Submit form
         */
         $('#gift-search-form').submit(function (e) {
-            e.preventDefault();           
+            e.preventDefault();
             //validar si el usuario tiene el search bloqueado
-            var isBlocked = window.localStorage.getItem('block-search');           
+            var isBlocked = window.localStorage.getItem('block-search');
             if ((isBlocked != null || isBlocked !== 'undefined' || isBlocked !== undefined) && isBlocked < 1) {
                 giftSearch();
             } else {
@@ -228,7 +229,7 @@
         /*
          * load search settings
          */
-        function loadSearchSettings() {          
+        function loadSearchSettings() {
             if (window.localStorage.getItem('current-view') == 'undefined' || !window.localStorage.getItem('current-view')) {
                 $.ajax({
                     type: 'GET',
@@ -240,7 +241,7 @@
                     success: function (response) {
                         hiddenPreloader();
                         giftSearchBtn.disabled = false;
-                        try {                         
+                        try {
                             search_setting = JSON.parse(response);
                             window.localStorage.setItem('current-view', search_setting.settings.searchSetting.id);
                         } catch (ex) {
@@ -250,7 +251,7 @@
                     error: function (xhr) {
                         hiddenPreloader();
                         giftSearchBtn.disabled = false;
-                        document.getElementById('error-msg').textContent = xhr.responseText;
+                        document.getElementById('error-msg').textContent = xhr.statusText;
                         $('#modal-error').openModal();
                     }
                 });
@@ -293,6 +294,64 @@
             giftSearchBtn.classList.remove('i-infinite');
             giftSearchBtn.classList.remove('i-pulse');
         }
+
+
+
+
+
+        // LZW-compress a string
+        function lzw_encode(s) {
+            var dict = {};
+            var data = (s + "").split("");
+            var out = [];
+            var currChar;
+            var phrase = data[0];
+            var code = 256;
+            for (var i = 1; i < data.length; i++) {
+                currChar = data[i];
+                if (dict[phrase + currChar] != null) {
+                    phrase += currChar;
+                }
+                else {
+                    out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
+                    dict[phrase + currChar] = code;
+                    code++;
+                    phrase = currChar;
+                }
+            }
+            out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
+            for (var i = 0; i < out.length; i++) {
+                out[i] = String.fromCharCode(out[i]);
+            }
+            return out.join("");
+        }
+
+        // Decompress an LZW-encoded string
+        function lzw_decode(s) {
+            var dict = {};
+            var data = (s + "").split("");
+            var currChar = data[0];
+            var oldPhrase = currChar;
+            var out = [currChar];
+            var code = 256;
+            var phrase;
+            for (var i = 1; i < data.length; i++) {
+                var currCode = data[i].charCodeAt(0);
+                if (currCode < 256) {
+                    phrase = data[i];
+                }
+                else {
+                    phrase = dict[currCode] ? dict[currCode] : (oldPhrase + currChar);
+                }
+                out.push(phrase);
+                currChar = phrase.charAt(0);
+                dict[code] = oldPhrase + currChar;
+                code++;
+                oldPhrase = phrase;
+            }
+            return out.join("");
+        }
+
     </script>
 </body>
 
