@@ -384,8 +384,8 @@
         var position = 0;// posicion para controlar la carga de items
         var group = 1; //contador de grupos. Cada grupo cuenta con 10 items
         var minHeight = 310; //altura minima que tiene un componente card
-        var totalItems = 5;//total de items que tiene cada grupo
-        var targetHeight = minHeight * (totalItems - 1.5) * group; //la altura que debe llegar el scroll para cargar mas items
+        var totalItems = 3;//total de items que tiene cada grupo
+        var targetHeight = minHeight * (totalItems - 2) * group; //la altura que debe llegar el scroll para cargar mas items
         var loaded = false;
         var totalGroups = 0;//Cantidad total de grupos
         var isClearCover = true;//falso cuando se cargan regalos con scroll
@@ -455,7 +455,7 @@
             */
             position = 0;// posicion para controlar la carga de items
             group = 1; //contador de grupos. Cada grupo cuenta con 10 items
-            targetHeight = minHeight * (totalItems - 1.5) * group; //la altura que debe llegar el scroll para cargar mas items
+            targetHeight = minHeight * (totalItems - 2) * group; //la altura que debe llegar el scroll para cargar mas items
             loaded = false;
             document.getElementById('cover-gift').innerHTML = '';
             isClearCover = true;
@@ -519,7 +519,7 @@
                     //se incrementa la posicion para cargar mas grupos
                     position = group * totalItems;
                     //recalcular targetHeight
-                    targetHeight = minHeight * (totalItems - 1.5) * group;
+                    targetHeight = minHeight * (totalItems - 2) * group;
                     if (!loaded && group <= totalGroups) {
                         loaded = true;
                         isClearCover = false;
@@ -564,7 +564,7 @@
             */
             position = 0;// posicion para controlar la carga de items
             group = 1; //contador de grupos. Cada grupo cuenta con 10 items
-            targetHeight = minHeight * (totalItems - 1.5) * group; //la altura que debe llegar el scroll para cargar mas items
+            targetHeight = minHeight * (totalItems - 2) * group; //la altura que debe llegar el scroll para cargar mas items
             loaded = false;
             isClearCover = true;
         }
