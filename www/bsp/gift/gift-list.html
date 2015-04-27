@@ -623,9 +623,10 @@
                 error: function (xhr) {
                     enabledFormControls();
                     loaderOff();
-                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    document.getElementById('error-msg').textContent = xhr.statusText;
                     $('#modal-error').openModal();
-                }
+                },
+                timeout: 60000
             });
         }
         /*
@@ -954,14 +955,12 @@
         * Loader Off
         */
         function loaderOff() {
-            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
-            var animationShow = new Animation('i-ease', 'i-bounce-in-down', 'i-1s', 1000);
+            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);          
             var loader = document.getElementById('loader');
             var content = document.getElementById('content');
             animationClose.run(loader, function () {
                 loader.classList.add('hidden');
-                content.classList.remove('hidden');
-                animationShow.run(content);
+                content.classList.remove('hidden');                
             });
         }
         /*

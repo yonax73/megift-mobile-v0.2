@@ -219,9 +219,10 @@
                     }
                 },
                 error: function (xhr) {
-                    document.getElementById('error-msg').textContent = xhr.responseText;
+                    document.getElementById('error-msg').textContent = xhr.statusText;
                     $('#modal-error').openModal();
-                }
+                },
+                timeout: 60000
             });
         }
         /*
@@ -408,9 +409,10 @@
                     error: function (xhr) {
                         hiddenPreloader();
                         enabledFormControls();
-                        document.getElementById('error-msg').textContent = xhr.responseText;
+                        document.getElementById('error-msg').textContent = xhr.statusText;
                         $('#modal-error').openModal();
-                    }
+                    },
+                    timeout: 60000
                 });
             }
         });
