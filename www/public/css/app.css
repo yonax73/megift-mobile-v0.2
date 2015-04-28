@@ -1,5 +1,5 @@
 p, small, strong {
-    font-size: 103%;
+    font-size: 115%;
 }
 
 .bg {
@@ -317,7 +317,7 @@ ul.side-nav a {
 
 .card.small {
     max-height: 315px;
-    height:310px;
+    height: 310px;
     min-height: 310px;
     max-width: 340px;
     min-width: 335px;
@@ -992,3 +992,18 @@ select {
 .whatsapp-color {
     color: #03D008;
 }
+/**************************/
+/***** LINKS *************/
+/*************************/
+.link-highlight {
+    color: highlight;
+    padding: 20px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+    .link-highlight,
+    .link-highlight i,
+    .card a.link-highlight {
+        color: highlight;
+    }
