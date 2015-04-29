@@ -234,7 +234,7 @@
                                     </h5>
                                     <p>
                                         <i class="mdi-action-assignment">&nbsp;</i>
-                                        <span id="business-name"></span>
+                                        <span id="pos-name"></span>
                                     </p>
                                     <p>
                                         <i class="mdi-communication-phone">&nbsp;</i>
@@ -247,7 +247,7 @@
                                     </p>
                                     <p>
                                         <i class="mdi-social-public">&nbsp;</i>
-                                        <a id="business-web-site" href="#"></a>
+                                        <a id="pos-web-site" href="#"></a>
                                     </p>
                                     <p>
                                         <i class="mdi-maps-directions-car">&nbsp;</i>
@@ -435,15 +435,17 @@
                         document.getElementById('action-price').textContent = action.priceFormatted;
                         document.getElementById('action-description').textContent = action.description;
                         document.getElementById('terms-conditions-gift').textContent = gift.termsConditions;
-                        document.getElementById('business-name').textContent = tradeName;
+                        document.getElementById('pos-name').textContent = pos.name;
                         document.getElementById('pos-mb-phone').textContent = pos.location.phone.mobile;
                         document.getElementById('pos-phone').textContent = pos.location.phone.number;
                         document.getElementById('pos-email-contact').textContent = pos.email;
-                        var webSite = document.getElementById('business-web-site');
-                        webSite.textContent = business.webSite;
+                        var webSite = document.getElementById('pos-web-site');
+                        webSite.textContent = pos.webSite == null ? 'No Disponible' : pos.webSite;
                         webSite.href = '#';
-                        webSite.onclick = function () {
-                            openBusinessUrl(business.webSite);
+                        if (pos.webSite != null) {
+                            webSite.onclick = function () {
+                                openBusinessUrl(pos.webSite);
+                            }
                         }
                         document.getElementById('pos-distance').textContent = pos.distanceFormatted;
                         document.getElementById('pos-address').textContent = pos.location.address.address;
@@ -574,7 +576,7 @@
             var content = document.getElementById('content');
             animationClose.run(loader, function () {
                 loader.classList.add('hidden');
-                content.classList.remove('hidden');                
+                content.classList.remove('hidden');
             });
         }
         /*
