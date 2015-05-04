@@ -25,8 +25,7 @@ var PartnerCrop = (function () {
             minContainerWidth: 235,
             minContainerHeight: 125,
             minCropBoxWidth: 235,
-            minCropBoxHeight: 125,
-            preview: ".img-preview"
+            minCropBoxHeight: 125
         });
         // Methods
         $(document.body).on('click', '[data-method]', function () {
@@ -37,8 +36,7 @@ var PartnerCrop = (function () {
                     $target = $(data.target);
                     if (typeof data.option === 'undefined') {
                         try {
-                            data.option = JSON.parse($target.val());
-                        }
+                            data.option = JSON.parse($target.val());                        }
                         catch (e) {
                             console.log(e.message);
                         }
