@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Megift App Edit Partner Picture</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
+    <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../public/css/material-design/css/material-design-icons.min.css" rel="stylesheet" />
+    <link href="../../public/css/cropper/cropper.min.css" rel="stylesheet" />
+    <link href="../../public/css/app.min.css" rel="stylesheet" />
+</head>
+<body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
+    <div class="TOP_TOOLBAR">
+        <div class="navbar-fixed">
+            <nav class="megift-bg" role="navigation">
+                <div class="nav-wrapper container">
+                    <a href="#" class="brand-logo brand-logo-s truncate">
+                        Editar Foto
+                    </a>
+                    <a href="partner-update.html" rel="external" data-activates="nav-mobile" class="button-collapse">
+                        <i class="mdi-hardware-keyboard-backspace"></i>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="SCROLLER_FRAME">
+        <div id="page" class="SCROLLER">
+            <section id="loader">
+                <img src="../../public/images/loaders/oval.svg" width="40" alt="cargando.." class="image-loader" />
+            </section>
+            <section id="content" class="m-top-1rem hidden">
+                <div class="row">
+                    <div class="col s12 m12">
+                        <form id="picture-crop-frm" class="img-container">
+                            <img id="picture-crop-img" src="../../public/images/avatar.png" alt="cover" />
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s3">
+                        <button id="zoom-plus-pc-btn" class="button button-big button-simple" data-method="zoom" data-option="0.1">
+                            <i class="mdi mdi-plus"></i>
+                        </button>
+                    </div>
+                    <div class="col s3">
+                        <button id="zoom-minus-pc-btn" class="button button-big button-simple" data-method="zoom" data-option="-0.1">
+                            <i class="mdi mdi-minus"></i>
+                        </button>
+                    </div>
+                    <div class="col s3">
+                        <button id="rotate-pc-btn" class="button button-big button-simple" data-method="rotate" data-option="90">
+                            <i class="mdi mdi-rotate-right"></i>
+                        </button>
+                    </div>
+                    <div class="col s3">
+                        <button id="save-changes-pc-btn" class="button button-big button-simple" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 235, &quot;height&quot;: 125 }">
+                            <i class="mdi mdi-check"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <button id="import-picture-pc-btn" class="button button-big button-simple">
+                            <i class="mdi mdi-image-album">&nbsp;</i>
+                            Galeria
+                        </button>
+                    </div>
+                    <div class="col s6">
+                        <button id="take-picture-pc-btn" class="button button-big button-simple">
+                            <i class="mdi mdi-camera">&nbsp;</i>
+                            Foto
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Modal error -->
+    <div id="modal-error" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Error!</h4>
+            <p><strong id="error-msg"></strong>. intentalo nuevamente!</p>
+            <p>Si el error persiste puedes contactarnos a <span class="red-500-text"><strong>soporte@megift.co</strong></span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn waves-effect waves-green btn-flat modal-action modal-close">Aceptar</a>
+        </div>
+    </div>
+    <!-- Modal loader -->
+    <div id="modal-loader" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <section id="loader">
+                <img src="../../public/images/loaders/oval.svg" width="40" alt="cargando.." class="image-loader" />
+            </section>
+            <p class="center-align">Cargando...</p>
+        </div>
+    </div>
+
+    <script src="../../intelxdk.js"></script>
+    <script src="../../cordova.js"></script>
+    <script src="../../xhr.js"></script>
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/materialize/js/materialize.min.js"></script>
+    <script src="../../public/js/inventor/Animation.min.js"></script>
+    <script src="../../public/js/cropper/cropper.min.js"></script>
+    <script src="../../public/js/partner-crop/partner-crop.min.js"></script>
+
+    <script>
+        var host = window.localStorage.getItem('host');
+        var idLogin = window.localStorage.getItem('id-login');
+        var partner = JSON.parse(window.localStorage.getItem('partner'));
+        var crop = null;
+        var successResponse = 'OK';
+        function onDeviceReady() {
+            init();
+        }
+        document.addEventListener('deviceready', onDeviceReady, false);
+        init();
+        //function init
+        function init() {
+
+            if (partner.picture.id > 0) {
+                document.getElementById('picture-crop-img').src = completePath(partner.picture.path);
+            }
+            convertImgToBase64URL(completePath(partner.picture.path), function (base64Img) {
+                try {                   
+                    crop = new PartnerCrop(base64Img);
+                    crop.init();
+                    loaderOff();
+                    crop.saveChangesAction(function (result) {
+                        $('#modal-loader').openModal();
+                        uploadPicture(result.toDataURL());
+                    });
+                    crop.takePictureAction({ quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+                    crop.importPictureAction({ quality: 50, destinationType: Camera.DestinationType.FILE_URI, sourceType: Camera.PictureSourceType.PHOTOLIBRARY });
+                } catch (ex) {
+                    $('#modal-loader').closeModal();
+                    alert(ex.message);
+                    console.log(ex);
+                }
+            });
+
+        }
+        /*
+        * create complete Path
+        */
+        function completePath(path) {
+            if (path == null) {
+                return '../../public/images/avatar.png';
+            } else {
+                return host + (path.replace('public', '/assets'));
+            }
+        }
+
+        /**
+         * Convert an image
+         * to a base64 url
+         * @param  {String}   url
+         * @param  {Function} callback
+         * @param  {String}   [outputFormat=image/png]
+         */
+        function convertImgToBase64URL(url, callback, outputFormat) {            
+            var img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = function () {
+                var canvas = document.createElement('CANVAS'),
+                ctx = canvas.getContext('2d');
+                canvas.height = img.height;
+                canvas.width = img.width;
+                ctx.drawImage(img, 0, 0);
+                var dataURL = canvas.toDataURL(outputFormat);
+                callback(dataURL);
+                canvas = null;
+            };
+            img.src = url;
+        }
+
+        /*
+        * upload picture
+        */
+        function uploadPicture(imageURI) {
+            var options = new FileUploadOptions();
+            options.fileKey = 'file';
+            options.fileName = new Date().getTime() + '.jpg';
+            options.mimeType = 'image/jpeg';
+            options.chunkedMode = false;
+            options.params = {
+                idPartner: partner.id
+                , idPicture: partner.picture.id
+            }
+            var ft = new FileTransfer();
+            ft.upload(imageURI, encodeURI(host + '/uploadpicturePartner'), function (r) {
+                if (r.response.search('upload') > 0) {
+                    $('#modal-loader').closeModal();
+                    partner.picture.path = r.response;
+                    window.localStorage.setItem('partner', JSON.stringify(partner));
+                    window.location = 'partner-update.html';
+                } else {
+                    $('#modal-loader').closeModal();
+                    alert(r.response);
+                }
+            }, function (error) {
+                $('#modal-loader').closeModal();
+                alert('An error has occurred: Code = ' + error.code);
+            }, options);
+        }
+        /*
+        * Loader Off
+        */
+        function loaderOff() {
+            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
+            var loader = document.getElementById('loader');
+            var content = document.getElementById('content');
+            animationClose.run(loader, function () {
+                loader.classList.add('hidden');
+                content.classList.remove('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -13,7 +13,7 @@
         <nav class="megift-bg">
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo brand-logo-s truncate">
-                    Crea tú perfil de regalo
+                    Crea tú perfil
                 </a>
                 <a href="login.html" rel="external" class="btn btn-nav">
                     <i class="mdi-hardware-keyboard-backspace"></i>
@@ -121,7 +121,7 @@
             var result = false;
             //valid name
             var name = document.getElementById('name-partner');
-            if (BaseForm.isFullName(name.value)) {
+            if (!BaseForm.isEmpty(name.value)) {
                 if (name.classList.contains('invalid')) {
                     name.classList.remove('invalid');
                     name.classList.add('valid');

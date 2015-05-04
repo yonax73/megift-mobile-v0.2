@@ -169,13 +169,16 @@
                     friend1.classList.remove('valid');
                     friend1.classList.add('invalid');
                 }
-                toast('Ingrese un correo válido!', 2000, 'toast-danger');
                 result1 = false;
+                if (!BaseForm.isEmpty(friend1.value)) {
+                    toast('Ingrese un correo válido!', 2000, 'toast-danger');                    
+                }
+
             }
             //valid email friend 2
             var result2 = false;
             var friend2 = document.getElementById('email-friend-2');
-            if (BaseForm.isEmail(friend1.value)) {
+            if (BaseForm.isEmail(friend2.value)) {
                 if (friend2.classList.contains('invalid')) {
                     friend2.classList.remove('invalid');
                     friend2.classList.add('valid');
@@ -186,7 +189,9 @@
                     friend2.classList.remove('valid');
                     friend2.classList.add('invalid');
                 }
-                toast('Ingrese un correo válido!', 2000, 'toast-danger');
+                if (!BaseForm.isEmpty(friend2.value)) {
+                    toast('Ingrese un correo válido!', 2000, 'toast-danger');
+                }
                 result2 = false;
             }
             if (result1 || result2) {

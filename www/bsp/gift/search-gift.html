@@ -116,7 +116,7 @@
         </div>
     </div>
     <script src="../../public/js/jquery.min.js"></script>
-    <script src="../../public/materialize/js/materialize.min.js"></script>  
+    <script src="../../public/materialize/js/materialize.min.js"></script>
 
     <script>
         var host = window.localStorage.getItem('host');
@@ -162,45 +162,50 @@
         /* onSuccess Geolocation
         */
         function onSuccess(position) {
-            var longitude = position.coords.longitude;
-            var latitude = position.coords.latitude;
-            document.getElementsByName('latitude')[0].value = latitude;
-            document.getElementsByName('longitude')[0].value = longitude;
-            document.getElementsByName('id-login')[0].value = idLogin;
-            document.getElementById('type-view').value = window.localStorage.getItem('current-view');
-            //clean local storage
-            window.localStorage.removeItem('POS-list');
-            window.localStorage.removeItem('latitude');
-            window.localStorage.removeItem('longitude');
-            $.ajax({
-                type: 'POST',
-                url: host + '/searchGift',
-                data: $('#gift-search-form').serialize(),
-                success: function (response) {
-                    enabledSearch();
-                    try {                  
-                        var posList = JSON.parse((response));
-                        if (posList.length < 1) {
-                            toast('No hay regalos cerca a tu ubicación', 2000, 'toast-danger');
-                        } else {
-                            window.localStorage.setItem('POS-list', response);
-                            window.localStorage.setItem('latitude', latitude);
-                            window.localStorage.setItem('longitude', longitude);
-                            window.location = 'gift-list.html';
+            try {
+                var longitude = position.coords.longitude;
+                var latitude = position.coords.latitude;
+                document.getElementsByName('latitude')[0].value = latitude;
+                document.getElementsByName('longitude')[0].value = longitude;
+                document.getElementsByName('id-login')[0].value = idLogin;
+                document.getElementById('type-view').value = window.localStorage.getItem('current-view');
+                //clean local storage
+                window.localStorage.removeItem('POS-list');
+                window.localStorage.removeItem('latitude');
+                window.localStorage.removeItem('longitude');
+                $.ajax({
+                    type: 'POST',
+                    url: host + '/searchGift',
+                    data: $('#gift-search-form').serialize(),
+                    success: function (response) {
+                        enabledSearch();
+                        try {
+                            var posList = JSON.parse((response));
+                            if (posList.length < 1) {
+                                toast('No hay regalos cerca a tu ubicación', 2000, 'toast-danger');
+                            } else {
+                                window.localStorage.setItem('POS-list', response);
+                                window.localStorage.setItem('latitude', latitude);
+                                window.localStorage.setItem('longitude', longitude);
+                                window.location = 'gift-list.html';
+                            }
+                        } catch (ex) {
+                            alert(response);
+                            console.error(ex);
                         }
-                    } catch (ex) {
-                        alert(response);
-                        console.error(ex);
-                    }
-                },
-                error: function (xhr) {
-                    enabledSearch();
-                    hiddenPreloader();
-                    document.getElementById('error-msg').textContent = xhr.statusText;
-                    $('#modal-error').openModal();
-                },
-                timeout: 60000
-            });
+                    },
+                    error: function (xhr) {
+                        enabledSearch();
+                        hiddenPreloader();
+                        document.getElementById('error-msg').textContent = xhr.statusText;
+                        $('#modal-error').openModal();
+                    },
+                    timeout: 60000
+                });
+            } catch (ex) {
+                alert('Debes de activar servicios de ubicación por redes inalámbricas ' + ex.message);
+                console.error(ex);
+            }
         }
         /*
         /* onError Callback receives a PositionError object
@@ -208,7 +213,7 @@
         function onError(error) {
             enabledSearch();
             if (error.code == 2) {
-                alert('Debes de activar servicios de ubicación por redes inalámbricas');
+                locationSettings();
             } else {
                 alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
             }
@@ -295,8 +300,20 @@
             giftSearchBtn.classList.remove('i-pulse');
         }
 
+  
+        function locationSettings() {
+            try {
+                window.plugins.webintent.startActivity({
+                    action: 'android.settings.LOCATION_SOURCE_SETTINGS'
+                }, function () { }, function () {
+                    alert('Fallo al intentar abrir austes de localizacion por Android Intent');
+                });
+            } catch (ex) {
+                alert('Activa localización GPS para que megift pueda establecer regalos cercanos a tu ubicación');
+            }
+        }
 
- 
+
 
     </script>
 </body>

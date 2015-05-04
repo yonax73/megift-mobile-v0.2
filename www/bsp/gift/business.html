@@ -129,7 +129,7 @@
         var group = 1; //contador de grupos. Cada grupo cuenta con 10 items
         var minHeight = 310; //altura minima que tiene un componente card
         var totalItems = 3;//total de items que tiene cada grupo
-        var targetHeight = minHeight * (totalItems -2) * group; //la altura que debe llegar el scroll para cargar mas items
+        var targetHeight = minHeight * (totalItems - 2) * group; //la altura que debe llegar el scroll para cargar mas items
         var loaded = false;
         var totalGroups = 0;//Cantidad total de grupos
         var isClearCover = true;//falso cuando se cargan regalos con scroll
@@ -155,7 +155,7 @@
                     //se incrementa la posicion para cargar mas grupos
                     position = group * totalItems;
                     //recalcular targetHeight
-                    targetHeight = minHeight * (totalItems -2) * group;
+                    targetHeight = minHeight * (totalItems - 2) * group;
                     if (!loaded && group <= totalGroups) {
                         loaded = true;
                         loaderAppendOn();
@@ -265,8 +265,9 @@
                         posList = business.posList;
                         var element = document.getElementById('cover-gift');
                         element.innerHTML = '';
-                        document.getElementById('business-name').textContent = business.tradeName;;
-                        document.getElementById('business-picture').src = business.picture ? business.picture.dataURI : '../../public/images/business280x280.png';
+                        document.getElementById('business-name').textContent = business.tradeName;
+                        var picture = business.picture;
+                        document.getElementById('business-picture').src = picture ? completePath(picture.path) : '../../public/images/business280x280.png';
                         document.getElementById('business-mb-phone').textContent = business.contact.location.phone.mobile;
                         document.getElementById('business-phone').textContent = business.contact.location.phone.number;
                         document.getElementById('business-email-contact').textContent = business.contact.login.email;
@@ -327,7 +328,9 @@
                 card_img.dataset.giftId = g.id;
                 //img gift
                 var img = document.createElement('img');
-                img.src = g.mainPicture ? g.mainPicture.dataURI : '../../public/images/gift132x150.png';
+                img.alt = g.name
+                var mainPicture = g.mainPicture;
+                img.src = mainPicture ? completePath(mainPicture.path) : '../../public/images/gift132x150.png';
                 //card title
                 var card_title = document.createElement('span');
                 card_title.classList.add('card-title');
@@ -460,12 +463,12 @@
         * Loader Off
         */
         function loaderOff() {
-            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);         
+            var animationClose = new Animation('i-ease', 'i-fade-out', 'i-0-5s', 500);
             var loader = document.getElementById('loader');
             var content = document.getElementById('content');
             animationClose.run(loader, function () {
                 loader.classList.add('hidden');
-                content.classList.remove('hidden');                
+                content.classList.remove('hidden');
             });
         }
         /*
@@ -512,6 +515,18 @@
                 alert(ex.message);
                 console.error(ex);
             }
+        }
+        /*
+        * create data URI Image
+        */
+        function dataURI(mime, coding, src) {
+            return 'data:' + mime + ';' + coding + ',' + src;
+        }
+        /*
+        * create complete Path
+        */
+        function completePath(path) {
+            return host + (path.replace('public', '/assets'));
         }
     </script>
 </body>

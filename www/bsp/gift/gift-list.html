@@ -653,7 +653,9 @@
                 card_img.dataset.giftId = g.id;
                 //img gift
                 var img = document.createElement('img');
-                img.src = g.mainPicture ? g.mainPicture.dataURI : '../../public/images/gift132x150.png';
+                img.alt = g.name;
+                var mainPicture = g.mainPicture;
+                img.src = mainPicture ? completePath(mainPicture.path) : '../../public/images/gift132x150.png';
                 //card title
                 var card_title = document.createElement('span');
                 card_title.classList.add('card-title');
@@ -776,7 +778,9 @@
                 card_img.dataset.giftId = g.id;
                 //img gift
                 var img = document.createElement('img');
-                img.src = g.action.mainPicture ? g.action.mainPicture.dataURI : '../../public/images/action149x150.png';
+                img.alt = g.action.name;
+                var mainPicture = g.action.mainPicture;
+                img.src = mainPicture ? completePath(mainPicture.path) : '../../public/images/action149x150.png';
                 //card title
                 var card_title = document.createElement('span');
                 card_title.classList.add('card-title');
@@ -888,7 +892,9 @@
                 card_img.dataset.businessId = b.id;
                 //img gift
                 var img = document.createElement('img');
-                img.src = b.picture ? b.picture.dataURI : '../../public/images/business280x280.png';
+                img.alt = b.tradeName;
+                var picture = b.picture;
+                img.src = picture ? completePath(picture.path) : '../../public/images/business280x280.png';
                 //card title
                 var card_title = document.createElement('span');
                 card_title.classList.add('card-title');
@@ -1077,6 +1083,19 @@
             }
             return time;
         }
+        /*
+        * create data URI Image
+        */
+        function dataURI(mime,coding,src) {
+            return 'data:' + mime + ';' + coding + ',' + src;
+        }
+        /*
+        * create complete Path
+        */
+        function completePath(path) {
+            return host + (path.replace('public', '/assets'));
+        }
+
     </script>
 </body>
 

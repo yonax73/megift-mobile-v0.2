@@ -1007,3 +1007,50 @@ select {
     .card a.link-highlight {
         color: highlight;
     }
+/*************************/
+/***CALENDAR *************/
+/*************************/
+.picker__weekday-display {
+    background-color: #f44336;
+}
+
+/******************************************************/
+/*************IMAGE CONTAINER - IMAGE PREVIEW *********/
+/******************************************************/
+.img-container {
+    margin-bottom: 2px;
+    max-height: 265px;
+    min-height: 265px;
+    min-width:340px;
+    max-width:360px;
+        background-color: #f7f7f7;
+    overflow: hidden;
+    text-align: center;
+}
+
+
+
+
+/*********************************/
+/*****BUTTON SIMPLE***************/
+/*********************************/
+.button-simple {
+    background-color: transparent;
+    border: medium none;
+    box-shadow: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+/*********************************/
+/*****BUTTON BIG***************/
+/*********************************/
+.button.button-big {
+    font-size: 20px;
+    height: 55px;
+    line-height: 54px;
+    width: 100%;
+}
+
+    .button.button-big i {
+        font-size: 26px;
+    }

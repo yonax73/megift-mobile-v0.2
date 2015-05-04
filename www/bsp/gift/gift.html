@@ -48,7 +48,7 @@
                     <div class="col s12 m12">
                         <div class="card">
                             <div class="card-image">
-                                <img id="gift-picture" src="../../public/images/preloader.gif" />
+                                <img id="gift-picture" src="../../public/images/preloader.gif" alt="cargando imagen..." />
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                         <div class="col s12 m12">
                             <div class="card">
                                 <div class="card-image">
-                                    <img id="action-picture" />
+                                    <img id="action-picture" alt="cargando imagen..." />
                                 </div>
                             </div>
                         </div>
@@ -400,7 +400,7 @@
                                 var pic = gift.pictures[i];
                                 found = pic.main;
                                 if (found) {
-                                    src = pic.dataURI;
+                                    src = completePath(pic.path);
                                 }
                                 i++;
                             } while (!found && i < n);
@@ -426,7 +426,7 @@
                                 var pic = action.pictures[i];
                                 found = pic.main;
                                 if (found) {
-                                    src = pic.dataURI;
+                                    src = completePath(pic.path);
                                 }
                                 i++;
                             } while (!found && i < n);
@@ -679,6 +679,18 @@
         function navBack() {
             window.localStorage.setItem('gift-search-back', 1);
             window.location = window.localStorage.getItem('gift-back');
+        }
+        /*
+        * create data URI Image
+        */
+        function dataURI(mime, coding, src) {
+            return 'data:' + mime + ';' + coding + ',' + src;
+        }
+        /*
+        * create complete Path
+        */
+        function completePath(path) {
+            return host + (path.replace('public', '/assets'));
         }
     </script>
 </body>
