@@ -11,7 +11,7 @@ var PartnerCrop = (function () {
         this.takePictureBtn = document.getElementById('take-picture-pc-btn');
         this.importPictureBtn = document.getElementById('import-picture-pc-btn');
         PartnerCrop.PartnerCropImg = document.getElementById('picture-crop-img');
-        PartnerCrop.PartnerCropImg.src = dataURI;       
+        PartnerCrop.PartnerCropImg.src = dataURI;
     }
     PartnerCrop.prototype.init = function () {
         //init croppper
@@ -36,7 +36,8 @@ var PartnerCrop = (function () {
                     $target = $(data.target);
                     if (typeof data.option === 'undefined') {
                         try {
-                            data.option = JSON.parse($target.val());                        }
+                            data.option = JSON.parse($target.val());
+                        }
                         catch (e) {
                             console.log(e.message);
                         }
@@ -122,7 +123,7 @@ var PartnerCrop = (function () {
                 PartnerCrop.disabled(false);
             }).cropper('reset', true).cropper('replace', dataURI);
         }
-        catch (ex) {         
+        catch (ex) {
             PartnerCrop.disabled(false);
             alert(ex.message);
             console.log(ex);

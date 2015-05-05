@@ -120,62 +120,24 @@
         init();
         //function init
         function init() {
-
-            if (partner.picture.id > 0) {
-                document.getElementById('picture-crop-img').src = completePath(partner.picture.path);
-            }
-            convertImgToBase64URL(completePath(partner.picture.path), function (base64Img) {
-                try {                   
-                    crop = new PartnerCrop(base64Img);
-                    crop.init();
-                    loaderOff();
-                    crop.saveChangesAction(function (result) {
-                        $('#modal-loader').openModal();
-                        uploadPicture(result.toDataURL());
-                    });
-                    crop.takePictureAction({ quality: 50, destinationType: Camera.DestinationType.FILE_URI });
-                    crop.importPictureAction({ quality: 50, destinationType: Camera.DestinationType.FILE_URI, sourceType: Camera.PictureSourceType.PHOTOLIBRARY });
-                } catch (ex) {
-                    $('#modal-loader').closeModal();                   
-                    console.log(ex);
+            try {
+                if (partner.picture.id > 0) {
+                    document.getElementById('picture-crop-img').src = partner.picture.src;
                 }
-            });
-
-        }
-        /*
-        * create complete Path
-        */
-        function completePath(path) {
-            if (path == null) {
-                return '../../public/images/avatar.png';
-            } else {
-                return host + (path.replace('public', '/assets'));
+                crop = new PartnerCrop(document.getElementById('picture-crop-img').src);
+                crop.init();
+                loaderOff();
+                crop.saveChangesAction(function (result) {
+                    $('#modal-loader').openModal();
+                    uploadPicture(result.toDataURL());
+                });
+                crop.takePictureAction({ quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+                crop.importPictureAction({ quality: 50, destinationType: Camera.DestinationType.FILE_URI, sourceType: Camera.PictureSourceType.PHOTOLIBRARY });
+            } catch (ex) {
+                $('#modal-loader').closeModal();
+                console.log(ex);
             }
         }
-
-        /**
-         * Convert an image
-         * to a base64 url
-         * @param  {String}   url
-         * @param  {Function} callback
-         * @param  {String}   [outputFormat=image/png]
-         */
-        function convertImgToBase64URL(url, callback, outputFormat) {            
-            var img = new Image();
-            img.crossOrigin = 'Anonymous';
-            img.onload = function () {
-                var canvas = document.createElement('CANVAS'),
-                ctx = canvas.getContext('2d');
-                canvas.height = img.height;
-                canvas.width = img.width;
-                ctx.drawImage(img, 0, 0);
-                var dataURL = canvas.toDataURL(outputFormat);
-                callback(dataURL);
-                canvas = null;
-            };
-            img.src = url;
-        }
-
         /*
         * upload picture
         */

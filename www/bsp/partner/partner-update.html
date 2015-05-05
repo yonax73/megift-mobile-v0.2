@@ -36,8 +36,7 @@
                                 <form id="photo-form">
                                     <div class="profile-user">
                                         <i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full" onclick="editPicture();"></i>
-                                        <img id="image-partner" src="../../public/images/avatar.png" onclick="editPicture();">
-                                        <input type="file" accept="image/*" id="picture-select" name="picture" class="hidden" />
+                                        <img id="image-partner" src="../../public/images/avatar.png" onclick="editPicture();">                                       
                                     </div>
                                 </form>
                             </div>
@@ -142,7 +141,7 @@
         var partner = JSON.parse(window.localStorage.getItem('partner'));
         var successResponse = 'OK';
         var FEMALE = 1;
-        var MALE = 2;
+        var MALE = 2;        
         function onDeviceReady() {
             init();
         }
@@ -161,7 +160,7 @@
         /*
         * init partner
         */
-        function initPartner() {
+        function initPartner() {           
             if ((partner !== 'undefined' || partner !== undefined) && partner !== null) {
                 fillPartner();
             } else {
@@ -199,7 +198,7 @@
             cityPartner.value = partner.location.address === null ? '' : partner.location.address.city.city;
             if (partner.picture.id > 0) {
                 var picture = partner.picture;
-                imagePartner.src = completePath(picture.path);
+                imagePartner.src = picture.src;
             }
         }
         //load partner
@@ -227,7 +226,7 @@
         /*
         * Take picture
         */
-        function takePciture() {
+      /*  function takePciture() {
             try {
                 navigator.camera.getPicture(onSuccessPic, onFailPic, {
                     quality: 50
@@ -237,11 +236,11 @@
                 alert(ex.message);
                 console.log(ex);
             }
-        }
+        }*/
         /*
         * take picture from photo library
         */
-        function takePictureFromPhotoLibrary() {
+        /*function takePictureFromPhotoLibrary() {
             try {
                 navigator.camera.getPicture(onSuccessPic, onFailPic, {
                     quality: 50
@@ -252,23 +251,23 @@
                 alert(ex.message);
                 console.log(ex);
             }
-        }
+        }*/
         /*
         * on success picture
         */
-        function onSuccessPic(imageURI) {
+       /* function onSuccessPic(imageURI) {
             uploadPicture(imageURI);          
-        }
+        }*/
         /*
         * on fail picture
         */
-        function onFailPic(message) {
+      /*  function onFailPic(message) {
             alert('Failed because: ' + message);
-        }
+        }*/
         /*
         * upload picture
         */
-        function uploadPicture(imageURI) {
+        /*function uploadPicture(imageURI) {
             var options = new FileUploadOptions();
             options.fileKey = 'file';
             options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1)+'.jpg';
@@ -296,7 +295,7 @@
                 $('#modal-picture').closeModal();
                 alert('An error has occurred: Code = ' + error.code);
             }, options);
-        }
+        }*/
         /*
           * submit form
           */

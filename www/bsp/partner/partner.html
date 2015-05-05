@@ -74,7 +74,7 @@
                             <div class="card">
                                 <div class="card-image">
                                     <div class="profile-user">
-                                        <img id="image-partner">
+                                        <img id="image-partner" src="../../public/images/avatar.png">
                                         <div class="profile-user-title">
                                             <p id="name-partner"></p>
                                             <p id="gender-partner"></p>
@@ -126,6 +126,7 @@
     <script src="../../public/materialize/js/materialize.min.js"></script>
     <script src="../../public/js/inventor/Animation.min.js"></script>
     <script>
+
         var host = window.localStorage.getItem('host');
         var idLogin = window.localStorage.getItem('id-login');
         var FEMALE = 1;
@@ -157,21 +158,26 @@
                         var genderPartner = document.getElementById('gender-partner');
                         var birthdayPartner = document.getElementById('birthday-partner');
                         var cityPartner = document.getElementById('city-partner');
-                        var emailPartner = document.getElementById('email-partner');
-                        //set
-                        window.localStorage.setItem('partner', JSON.stringify(partner));
+                        var emailPartner = document.getElementById('email-partner');                        
+                        //set      
                         namePartner.textContent = partner.fullName;
                         genderPartner.textContent = partner.gender.id === FEMALE ? 'Mujer' : partner.gender.id === MALE ? 'Hombre' : '';
                         birthdayPartner.textContent = partner.birthday === null ? '' : partner.formatBirthday;
                         cityPartner.textContent = partner.location.address === null ? '' : partner.location.address.city.city;
                         emailPartner.textContent = partner.login.email;
-                        if (partner.picture.id > 0) {
-                            var picture = partner.picture;
-                            imagePartner.src = completePath(picture.path);
+                        if (partner.picture.id > 0) {                            
+                            convertImgToBase64URL(completePath(partner.picture.path), function (dataURL) {                                
+                                partner.picture.src = dataURL;
+                                window.localStorage.setItem('partner', JSON.stringify(partner));
+                                imagePartner.src = partner.picture.src;
+                                loaderOff();
+                            });
                         } else {
+                            window.localStorage.setItem('partner', JSON.stringify(partner));
                             imagePartner.src = '../../public/images/avatar.png';
+                            loaderOff();
                         }
-                        loaderOff();
+                        
                     } catch (ex) {
                         console.error(ex);
                         loaderOff();
@@ -220,26 +226,26 @@
             return host + (path.replace('public', '/assets'));
         }
         /**
-  * Convert an image
-  * to a base64 url
-  * @param  {String}   url
-  * @param  {Function} callback
-  * @param  {String}   [outputFormat=image/png]
-  */
-        function convertImgToBase64URL(url, callback, outputFormat) {
+          * Convert an image
+          * to a base64 url
+          * @param  {String}   url
+          * @param  {Function} callback          
+          */
+        function convertImgToBase64URL(url, callback) {
             var img = new Image();
-            img.crossOrigin = 'Anonymous';
+            img.crossOrigin = "anonymous";
+
+            var canvas = document.createElement("canvas");
+
             img.onload = function () {
-                var canvas = document.createElement('CANVAS'),
-                ctx = canvas.getContext('2d');
-                canvas.height = img.height;
                 canvas.width = img.width;
-                ctx.drawImage(img, 0, 0);
-                var dataURL = canvas.toDataURL(outputFormat);
-                callback(dataURL);
-                canvas = null;
-            };
-            img.src = url;
+                canvas.height = img.width;
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0);                
+                var dataURI = canvas.toDataURL("image/png");
+                callback(dataURI)
+            }
+            img.src = 'http://192.168.1.112:9000/assets/upload/images/partners/14307761751821430776267307.jpg';
         }
     </script>
 
