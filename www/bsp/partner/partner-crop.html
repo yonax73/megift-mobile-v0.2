@@ -136,8 +136,7 @@
                     crop.takePictureAction({ quality: 50, destinationType: Camera.DestinationType.FILE_URI });
                     crop.importPictureAction({ quality: 50, destinationType: Camera.DestinationType.FILE_URI, sourceType: Camera.PictureSourceType.PHOTOLIBRARY });
                 } catch (ex) {
-                    $('#modal-loader').closeModal();
-                    alert(ex.message);
+                    $('#modal-loader').closeModal();                   
                     console.log(ex);
                 }
             });

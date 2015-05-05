@@ -1018,12 +1018,13 @@ select {
 /*************IMAGE CONTAINER - IMAGE PREVIEW *********/
 /******************************************************/
 .img-container {
+  background-color: #f7f7f7;
+    display: table;
     margin-bottom: 2px;
     max-height: 265px;
+    max-width: 360px;
     min-height: 265px;
-    min-width:340px;
-    max-width:360px;
-        background-color: #f7f7f7;
+    min-width: 340px;
     overflow: hidden;
     text-align: center;
 }
