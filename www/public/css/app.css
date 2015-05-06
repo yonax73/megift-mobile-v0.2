@@ -319,8 +319,11 @@ ul.side-nav a {
     max-height: 315px;
     height: 310px;
     min-height: 310px;
-    max-width: 340px;
-    min-width: 335px;
+    /*  max-width: 340px;
+    min-width: 335px;*/
+    max-width: 95%;
+    min-width: 95%;
+    width: 95%;
 }
 
     .card.small h5,
@@ -843,7 +846,9 @@ input.input-flat {
     border: 1px solid #b2b2b2;
     box-shadow: none;
     margin: 0.5rem auto;
-    max-width: 360px;
+    max-width: 95%;
+    min-width: 95%;
+    width: 95%;
 }
 
     .card a {
@@ -1028,10 +1033,10 @@ select {
     text-align: center;
 }
 
-#picture-crop-img{
-    min-width:100%;
-    max-width:100%;
-    width:100%;
+#picture-crop-img {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
 }
 
 

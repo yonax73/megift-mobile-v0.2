@@ -74,7 +74,7 @@
                             <div class="card">
                                 <div class="card-image">
                                     <div class="profile-user">
-                                        <img id="image-partner" >
+                                        <img id="image-partner" src="../../public/images/avatar.png">
                                         <div class="profile-user-title">
                                             <p id="name-partner"></p>
                                             <p id="gender-partner"></p>
@@ -165,17 +165,19 @@
                         birthdayPartner.textContent = partner.birthday === null ? '' : partner.formatBirthday;
                         cityPartner.textContent = partner.location.address === null ? '' : partner.location.address.city.city;
                         emailPartner.textContent = partner.login.email;
-                        imagePartner.onload = function () {
+                        window.localStorage.setItem('partner', JSON.stringify(partner));
+                        loaderOff();
+                      /*  imagePartner.onload = function () {
                             partner.picture.src = getDataURI(imagePartner);                            
                             window.localStorage.setItem('partner', JSON.stringify(partner));
                             loaderOff();
-                        }
-                        if (partner.picture.id > 0) {
+                        }*/
+                      /*  if (partner.picture.id > 0) {
                             partner.picture.path = completePath(partner.picture.path);                            
                         } else {
                             partner.picture.path = '../../public/images/avatar.png';                            
                         }
-                        imagePartner.src = partner.picture.path;
+                        imagePartner.src = partner.picture.path;*/
                     } catch (ex) {
                         console.error(ex);
                         loaderOff();

@@ -526,7 +526,10 @@
         * create complete Path
         */
         function completePath(path) {
-            return host + (path.replace('public', '/assets'));
+            if (path != null) {
+                return host + (path.replace('public', '/assets'));
+            }
+            return null;
         }
     </script>
 </body>

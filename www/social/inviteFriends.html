@@ -108,7 +108,7 @@
                 </div>
                 <div class="row">
                     <div class="col s12 m12">
-                        <button class="btn btn-flat btn-fluid btn-large btn-megift-red" onclick="socialMediaShare()">
+                        <button class="btn btn-flat btn-fluid btn-large btn-megift-red" onclick="unblockGift()">
                             Compartir
                             <i class="mdi-social-share">
                                 &nbsp;
@@ -212,8 +212,7 @@
                         enabledFormControls();
                         if (response === successResponse) {
                             //desbloquear regalo
-                            window.localStorage.setItem('block-gift', 0);
-                            window.location = 'invite-friends-success.html';
+                            unblockGift();
                         } else {
                             toast(response, 2000, 'toast-danger');
                         }
@@ -227,7 +226,13 @@
                 });
             }
         });
-
+        /*
+        *desbloquear regalo
+        */
+        function unblockGift() {
+            window.localStorage.setItem('block-gift', 0);
+            window.location = 'invite-friends-success.html';
+        }
         /*
         * Mostrar preloader
         */

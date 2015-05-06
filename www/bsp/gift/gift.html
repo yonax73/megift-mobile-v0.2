@@ -298,7 +298,7 @@
                                     </h6>
                                     <div class="row">
                                         <div class="col s12 m12">
-                                            <button class="btn btn-flat btn-fluid btn-large btn-megift-red" onclick="socialMediaShare(false)">
+                                            <button class="btn btn-flat btn-fluid btn-large btn-megift-red" onclick="unblockGift()">
                                                 Compartir
                                                 <i class="mdi-social-share">
                                                     &nbsp;
@@ -663,6 +663,13 @@
             }
         }
         /*
+        *desbloquear regalo
+        */
+        function unblockGift() {
+            window.localStorage.setItem('block-gift', 0);
+            window.location = '../../social/invite-friends-success-2.html';
+        }
+        /*
         *open business url
         */
         function openBusinessUrl(url) {
@@ -690,7 +697,10 @@
         * create complete Path
         */
         function completePath(path) {
-            return host + (path.replace('public', '/assets'));
+            if (path != null) {
+                return host + (path.replace('public', '/assets'));
+            }
+            return null;
         }
     </script>
 </body>

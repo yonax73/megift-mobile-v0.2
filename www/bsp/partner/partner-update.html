@@ -35,8 +35,8 @@
                             <div class="card-image">
                                 <form id="photo-form">
                                     <div class="profile-user">
-                                        <i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full" onclick="editPicture();"></i>
-                                        <img id="image-partner" onclick="editPicture();">                                       
+                                        <!--<i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full"></i>-->
+                                        <img id="image-partner" src="../../public/images/avatar.png">                                       
                                     </div>
                                 </form>
                             </div>
@@ -192,7 +192,7 @@
             }
             birthdayPartner.value = partner.birthday === null ? '' : partner.formatBirthday;
             cityPartner.value = partner.location.address === null ? '' : partner.location.address.city.city;            
-            imagePartner.src = partner.picture.src;
+           /*imagePartner.src = partner.picture.src;*/
         }
         /*
           * submit form
