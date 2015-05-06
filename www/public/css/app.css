@@ -1018,18 +1018,21 @@ select {
 /*************IMAGE CONTAINER - IMAGE PREVIEW *********/
 /******************************************************/
 .img-container {
-  background-color: #f7f7f7;
-    display: table;
+    background-color: #f7f7f7;
     margin-bottom: 2px;
     max-height: 265px;
-    max-width: 360px;
+    max-width: 100%;
     min-height: 265px;
-    min-width: 340px;
+    min-width: 100%;
     overflow: hidden;
     text-align: center;
 }
 
-
+#picture-crop-img{
+    min-width:100%;
+    max-width:100%;
+    width:100%;
+}
 
 
 /*********************************/

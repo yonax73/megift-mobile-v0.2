@@ -36,7 +36,7 @@
                                 <form id="photo-form">
                                     <div class="profile-user">
                                         <i id="picture-upload" class="mdi-image-camera-alt ico-camerea-full" onclick="editPicture();"></i>
-                                        <img id="image-partner" src="../../public/images/avatar.png" onclick="editPicture();">                                       
+                                        <img id="image-partner" onclick="editPicture();">                                       
                                     </div>
                                 </form>
                             </div>
@@ -143,7 +143,7 @@
         var FEMALE = 1;
         var MALE = 2;        
         function onDeviceReady() {
-            init();
+        //   init();
         }
         document.addEventListener('deviceready', onDeviceReady, false);
         init();
@@ -160,12 +160,8 @@
         /*
         * init partner
         */
-        function initPartner() {           
-            if ((partner !== 'undefined' || partner !== undefined) && partner !== null) {
-                fillPartner();
-            } else {
-                loadPartner();
-            }
+        function initPartner() {                     
+                fillPartner();           
         }
         /*
         * fill parner
@@ -195,107 +191,9 @@
                 femaleGenderPartner.checked = true;
             }
             birthdayPartner.value = partner.birthday === null ? '' : partner.formatBirthday;
-            cityPartner.value = partner.location.address === null ? '' : partner.location.address.city.city;
-            if (partner.picture.id > 0) {
-                var picture = partner.picture;
-                imagePartner.src = picture.src;
-            }
+            cityPartner.value = partner.location.address === null ? '' : partner.location.address.city.city;            
+            imagePartner.src = partner.picture.src;
         }
-        //load partner
-        function loadPartner() {
-            $.ajax({
-                type: 'POST',
-                url: host + '/loadPartner',
-                data: 'id-login=' + idLogin,
-                success: function (response) {
-                    try {
-                        //atributes
-                        partner = JSON.parse(response);
-                        fillPartner();
-                    } catch (ex) {
-                        toast(response, 2000, 'toast-danger');
-                    }
-                },
-                error: function (xhr) {
-                    document.getElementById('error-msg').textContent = xhr.statusText;
-                    $('#modal-error').openModal();
-                },
-                timeout: 60000
-            });
-        }
-        /*
-        * Take picture
-        */
-      /*  function takePciture() {
-            try {
-                navigator.camera.getPicture(onSuccessPic, onFailPic, {
-                    quality: 50
-                    , destinationType: Camera.DestinationType.FILE_URI
-                });
-            } catch (ex) {
-                alert(ex.message);
-                console.log(ex);
-            }
-        }*/
-        /*
-        * take picture from photo library
-        */
-        /*function takePictureFromPhotoLibrary() {
-            try {
-                navigator.camera.getPicture(onSuccessPic, onFailPic, {
-                    quality: 50
-                    , destinationType: Camera.DestinationType.FILE_URI
-                    , sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-                });
-            } catch (ex) {
-                alert(ex.message);
-                console.log(ex);
-            }
-        }*/
-        /*
-        * on success picture
-        */
-       /* function onSuccessPic(imageURI) {
-            uploadPicture(imageURI);          
-        }*/
-        /*
-        * on fail picture
-        */
-      /*  function onFailPic(message) {
-            alert('Failed because: ' + message);
-        }*/
-        /*
-        * upload picture
-        */
-        /*function uploadPicture(imageURI) {
-            var options = new FileUploadOptions();
-            options.fileKey = 'file';
-            options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1)+'.jpg';
-            options.mimeType = 'image/jpeg';
-            options.chunkedMode = false;
-            options.params = {
-                idPartner: partner.id
-                , idPicture: partner.picture.id
-            }
-            var ft = new FileTransfer();
-            ft.upload(imageURI, encodeURI(host + '/uploadpicturePartner'), function (r) {
-                if (r.response.search('assets/upload') > 0) {
-                    var image = document.getElementById('image-partner');
-                    image.src = imageURI;
-                } else {
-                    alert(r.response);
-                }
-                $('#modal-picture').closeModal();
-                navigator.camera.cleanup(function () {
-                    console.log("Camera cleanup success.")
-                }, function () {
-                    alert('Failed because: ' + message);
-                });
-            }, function (error) {
-                $('#modal-picture').closeModal();
-                alert('An error has occurred: Code = ' + error.code);
-            }, options);
-        }*/
         /*
           * submit form
           */

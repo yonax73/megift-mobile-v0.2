@@ -74,7 +74,7 @@
                             <div class="card">
                                 <div class="card-image">
                                     <div class="profile-user">
-                                        <img id="image-partner" >
+                                        <img id="image-partner" src="../../public/images/avatar.png">
                                         <div class="profile-user-title">
                                             <p id="name-partner"></p>
                                             <p id="gender-partner"></p>
@@ -132,7 +132,7 @@
         var FEMALE = 1;
         var MALE = 2;
         function onDeviceReady() {
-        //    init();
+            init();
         }
         document.addEventListener("deviceready", onDeviceReady, false);
         init();
@@ -158,24 +158,25 @@
                         var genderPartner = document.getElementById('gender-partner');
                         var birthdayPartner = document.getElementById('birthday-partner');
                         var cityPartner = document.getElementById('city-partner');
-                        var emailPartner = document.getElementById('email-partner');
-                        //set
+                        var emailPartner = document.getElementById('email-partner');                        
+                        //set      
                         namePartner.textContent = partner.fullName;
                         genderPartner.textContent = partner.gender.id === FEMALE ? 'Mujer' : partner.gender.id === MALE ? 'Hombre' : '';
                         birthdayPartner.textContent = partner.birthday === null ? '' : partner.formatBirthday;
                         cityPartner.textContent = partner.location.address === null ? '' : partner.location.address.city.city;
                         emailPartner.textContent = partner.login.email;
-                        imagePartner.onload = function () {
-                            partner.picture.src = getDataURI(imagePartner);                            
+                        if (partner.picture.id > 0) {
+                            imagePartner.src = completePath(partner.picture.path);                                                        
+                            partner.picture.src = getDataURI(imagePartner);
                             window.localStorage.setItem('partner', JSON.stringify(partner));
+                            console.log(partner)
+                            loaderOff();                            
+                        } else {
+                            window.localStorage.setItem('partner', JSON.stringify(partner));
+                            imagePartner.src = '../../public/images/avatar.png';
                             loaderOff();
                         }
-                        if (partner.picture.id > 0) {
-                            partner.picture.path = completePath(partner.picture.path);                            
-                        } else {
-                            partner.picture.path = '../../public/images/avatar.png';                            
-                        }
-                        imagePartner.src = partner.picture.path;
+                        
                     } catch (ex) {
                         console.error(ex);
                         loaderOff();
@@ -212,22 +213,23 @@
             window.location = '../../index.html';
         }
         /*
+        * create data URI Image
+        */
+        function dataURI(mime, coding, src) {
+            return 'data:' + mime + ';' + coding + ',' + src;
+        }
+        /*
         * create complete Path
         */
         function completePath(path) {
             return host + (path.replace('public', '/assets'));
         }
 
-        function getDataURI(img) {
-            try {
-                var c = document.createElement("canvas");
-                var ctx = c.getContext("2d");
-                img.setAttribute('crossOrigin', 'anonymous');
-                ctx.drawImage(img, img.width, img.height);               
-                return c.toDataURL();
-            } catch (ex) {
-                alert(ex.message);
-            }
+        function getDataURI(img) {       
+            var c = document.createElement("canvas");
+            var ctx = c.getContext("2d");
+            ctx.drawImage(img, img.width, img.height);
+            return c.toDataURL();
         }
     </script>
 

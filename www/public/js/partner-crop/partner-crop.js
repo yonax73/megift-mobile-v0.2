@@ -22,10 +22,10 @@ var PartnerCrop = (function () {
             dragCrop: false,
             movable: false,
             resizable: false,
-            minContainerWidth: 235,
-            minContainerHeight: 125,
-            minCropBoxWidth: 235,
-            minCropBoxHeight: 125
+            minContainerWidth: 350,
+            minContainerHeight: 250,
+            minCropBoxWidth: 300,
+            minCropBoxHeight: 200
         });
         // Methods
         $(document.body).on('click', '[data-method]', function () {

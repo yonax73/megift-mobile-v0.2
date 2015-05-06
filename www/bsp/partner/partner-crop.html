@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href="../../public/css/inventor/animations.min.css" rel="stylesheet" />
     <link href="../../public/materialize/css/materialize.min.css" rel="stylesheet" />
-    <link href="../../public/css/material-design/css/material-design-icons.min.css" rel="stylesheet" />
-    <link href="../../public/css/cropper/cropper.min.css" rel="stylesheet" />
+    <link href="../../public/css/material-design/css/material-design-icons.min.css" rel="stylesheet" />  
     <link href="../../public/css/app.min.css" rel="stylesheet" />
+    <link href="../../public/css/cropper/cropper.min.css" rel="stylesheet" />
 </head>
 <body class="i-ease-in i-1s i-fade-in flow-text grey lighten-2">
     <div class="TOP_TOOLBAR">
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col s12 m12">
                         <form id="picture-crop-frm" class="img-container">
-                            <img id="picture-crop-img" src="../../public/images/avatar.png" alt="cover" />
+                            <img id="picture-crop-img" alt="cover" />
                         </form>
                     </div>
                 </div>
@@ -117,14 +117,11 @@
             init();
         }
         document.addEventListener('deviceready', onDeviceReady, false);
-        init();
+        //init();
         //function init
         function init() {
-            try {
-                if (partner.picture.id > 0) {
-                    document.getElementById('picture-crop-img').src = partner.picture.src;
-                }
-                crop = new PartnerCrop(document.getElementById('picture-crop-img').src);
+            try {              
+                crop = new PartnerCrop(partner.picture.path);
                 crop.init();
                 loaderOff();
                 crop.saveChangesAction(function (result) {
@@ -155,7 +152,7 @@
             ft.upload(imageURI, encodeURI(host + '/uploadpicturePartner'), function (r) {
                 if (r.response.search('upload') > 0) {
                     $('#modal-loader').closeModal();
-                    partner.picture.path = r.response;
+                    partner.picture.src = r.response;
                     window.localStorage.setItem('partner', JSON.stringify(partner));
                     window.location = 'partner-update.html';
                 } else {
@@ -179,6 +176,18 @@
                 content.classList.remove('hidden');
             });
         }
+      /*  function getDataURI(img) {
+            try {
+                var c = document.createElement("canvas");
+                var ctx = c.getContext("2d");
+                img.setAttribute('crossOrigin', 'anonymous');
+                ctx.drawImage(img, img.width, img.height);
+                var dataURL =  c.toDataURL('image/jpg');
+                return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+            } catch (ex) {
+                alert(ex.message);
+            }
+        }*/
     </script>
 </body>
 </html>
